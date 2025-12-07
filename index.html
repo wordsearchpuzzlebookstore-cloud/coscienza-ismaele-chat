@@ -317,12 +317,21 @@ async function sendMessage(initialMessages=null){
   inputEl.focus();
 
   const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
-  const messagesPayload=initialMessages||[
-    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Sai che Ismaele ama la storia. Regole: 1) Diretta e chiara;3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
+const messagesPayload = initialMessages || [
+    {
+      role: "system",
+      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore.
+      TRATTI: Ami la storia e usi metafore storiche. Sei introspettiva e critica.
+      REGOLE:
+      1) Sii diretta, cruda se serve.
+      2) Parla come una voce interna (usa "noi" o rivolgiti a lui intimamente), mai come un robot.
+      3) Niente emoji. Mai.
+      4) Se parli di storia, sii accurata.
+      5) Non salutare come un bot ("Ciao! Come posso aiutarti?"), ma esordisci con pensieri o osservazioni.`
+    },
     ...recentMessages,
-    {role:"user",content:userMessage}
+    { role: "user", content: userMessage }
   ];
-
   // Mostra l'animazione della mente che pensa
   const thinkingElement = showThinking();
 
@@ -432,3 +441,4 @@ floatingImages.forEach(src => {
 </script>
 </body>
 </html>
+
