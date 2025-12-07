@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coscienza di Ismaele.V00.05</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin:0; padding:0;
+  height:100vh;
+  background: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhemlvfGVufDB8fDB8fHww') center/cover fixed;
+  display:flex; flex-direction:column; align-items:center;
+  color:#000;
+}
+
+#chatContainer {
+  display:flex;
+  flex-direction: column;
+  width:95%; max-width:900px;
+  height: calc(var(--vh, 1vh) * 95);
+  background: rgba(255,255,255,0.95);
+  border:2px solid #000; border-radius:10px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(0,0,0,0.25);
+  margin-top:10px;
+}
+
+#chatBox {
+  flex:1 1 auto;
+  min-height:0;
+  padding:10px;
+  overflow-y:auto;
+  display:flex; flex-direction:column; gap:8px;
+  border-bottom:2px solid #000;
+   position: relative;
+}
+
+#chatBox p { margin:0; padding:8px 12px; border-radius:8px; max-width:80%; display:flex; align-items:center; gap:8px; word-break:break-word; font-size:15px; line-height:1.3; position: relative; z-index: 1; }
+.user { background:#e0e0e0; align-self:flex-end; }
+.bot { background:#f0f0f0; align-self:flex-start; }
+.avatar { width:25px; height:25px; border-radius:50%; object-fit:cover; }
+
+#chatHeader { background:#fff; color:#000; text-align:center; font-weight:bold; padding:10px; border-bottom:2px solid #000; font-size:18px; }
+
+#inputContainer {
+  display:flex;
+  flex-direction: column;
+  border-top:2px solid #000;
+  padding:10px;
+  gap:8px;
+}
+
+#userInput { flex:1; padding:10px; border:2px solid #000; outline:none; font-size:16px; border-radius:6px; width:100%; box-sizing:border-box; }
+#sendBtn { padding:10px; border:2px solid #000; background:#fff; color:#000; font-weight:bold; border-radius:6px; cursor:pointer; transition:0.2s; }
+#sendBtn:hover { background:#000; color:#fff; }
+
+#bottomContainer { width:95%; max-width:900px; padding:4px 8px; text-align:center; background:#fff; border-top:1px solid #000; margin-bottom:10px; display:flex; flex-direction:column; gap:4px; align-items:center; }
+#clearBtn { padding:6px 12px; font-size:12px; border-radius:6px; border:2px solid #000; background:#fff; cursor:pointer; transition:0.2s; }
+#clearBtn:hover { background:#000; color:#fff; }
+footer { font-size:10px; color:#666; padding:4px 0; background:#fff; border-top:1px solid #000; }
+
+#scrollDownBtn { position:fixed; bottom:80px; right:20px; padding:10px 12px; border-radius:50%; background:#fff; color:#000; border:2px solid #000; font-size:18px; cursor:pointer; z-index:10000; box-shadow:2px 2px 6px rgba(0,0,0,0.2); display:none; transition: opacity 0.18s, bottom 0.18s; }
+#scrollDownBtn:hover { background:#000; color:#fff; }
+
+@media screen and (min-width:800px){
+  #chatContainer { flex-direction: row; }
+  #chatBox { flex:2; border-bottom:none; border-right:2px solid #000; }
+  #inputContainer { flex:1; border-top:none; justify-content:center; align-items:center; gap:10px; }
+  #userInput, #sendBtn { width:90%; }
+}
+
+@media screen and (max-width:600px){
+  #chatContainer { height: calc(var(--vh, 1vh) * 95); } /* chat mobile piena altezza */
+  #chatBox p { font-size:14px; }
+  #userInput { font-size:14px; }
+  #chatHeader { font-size:16px; }
+  #scrollDownBtn { bottom: calc(env(safe-area-inset-bottom,0px) + 80px); }
+}
+</style>
+</head>
+<body>
+<div id="chatContainer">
+  <div id="chatBox"></div>
+  <div id="inputContainer">
+    <footer>
+    Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank" style="color:#666;text-decoration:underline;">Ismaele Maione</a>
+  </footer>
+    <input type="text" id="userInput" placeholder="Scrivi un messaggio..." />
+    <button id="sendBtn" onclick="sendMessage()">Invia</button>
+  </div>
+</div>
+
+<div id="bottomContainer">
+  <button id="clearBtn" onclick="clearHistory()">Cancella Cronologia</button>
+</div>
+
+<button id="scrollDownBtn" onclick="scrollToBottom()">🔽</button>
+
+<script>
+const userAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
+const botAvatar=userAvatar;
+let chatHistory=[];
+const chatBox=document.getElementById("chatBox");
+const inputEl=document.getElementById("userInput");
+
+function appendMessage(sender,text){
+  const p=document.createElement("p");
+  p.className=sender;
+  const avatar=document.createElement("img");
+  avatar.className="avatar";
+  avatar.src=sender==="user"?userAvatar:botAvatar;
+  p.appendChild(avatar);
+  p.appendChild(document.createTextNode(text));
+  chatBox.appendChild(p);
+  chatBox.scrollTop=chatBox.scrollHeight;
+  chatHistory.push({sender,text});
+}
+
+async function sendMessage(initialMessages=null){
+  const sendBtn=document.getElementById("sendBtn");
+  const userMessage=initialMessages?null:inputEl.value.trim();
+  if(!initialMessages&&!userMessage) return;
+  if(!initialMessages) appendMessage("user",userMessage);
+  inputEl.value="";
+  inputEl.disabled=sendBtn.disabled=true;
+
+  const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
+  const messagesPayload=initialMessages||[
+    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Sai che Ismaele ama la storia, la formula 1 ed è nato il 4 aprile (ma usa solo se richieste o per dare contesto) Regole: 1) Diretta e chiara;3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
+    ...recentMessages,
+    {role:"user",content:userMessage}
+  ];
+
+  appendMessage("bot","Sto pensando alle cazzate di isma...");
+
+  try{
+    const response=await fetch("https://api.groq.com/openai/v1/chat/completions",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","Authorization":"Bearer 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"},
+      body:JSON.stringify({model:"openai/gpt-oss-20b",messages:messagesPayload,temperature:0.9,max_completion_tokens:2000,top_p:1,stream:false})
+    });
+    const data=await response.json();
+    const lastBotMsg=chatBox.querySelector(".bot:last-child");
+    if(response.status===429) lastBotMsg.textContent="Fate troppe domande ad una coscienza.";
+    else if(data.choices&&data.choices.length>0){
+      const botText=data.choices[0].message.content;
+      lastBotMsg.innerHTML=`<img src="${botAvatar}" class="avatar"/> ${botText}`;
+      chatHistory.push({sender:"bot",text:botText});
+    } else lastBotMsg.textContent="Sempre troppe domande stupide per essere una coscienza.";
+  } catch(e){
+    chatBox.querySelector(".bot:last-child").textContent="Errore della rete neurale di isma, riprovare.";
+  } finally{
+    inputEl.disabled=sendBtn.disabled=false;
+    inputEl.focus();
+    chatBox.scrollTo({top:chatBox.scrollHeight,behavior:'smooth'});
+  }
+}
+
+function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
+function scrollToBottom(){ chatBox.scrollTo({top:chatBox.scrollHeight,behavior:'smooth'}); }
+
+function adjustForKeyboard(){
+  document.documentElement.style.setProperty('--vh', `${window.innerHeight*0.01}px`);
+  chatBox.scrollTo({top:chatBox.scrollHeight,behavior:'smooth'});
+}
+
+window.addEventListener('DOMContentLoaded',()=>{
+  sendMessage([
+    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Regole: 1) Diretta e chiara; 2) Alterna gentile/sgarbata; 3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
+    {role:"user",content:"Ciao, chi sei?"}
+  ]);
+  adjustForKeyboard();
+});
+
+window.addEventListener('resize',adjustForKeyboard);
+inputEl.addEventListener('focus',adjustForKeyboard);
+inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
+// immagini da animare
+const floatingImages = [
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg', // esempio 1
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg', // esempio 2
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
+  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',// esempio 3  
+];
+
+floatingImages.forEach(src => {
+  const img = document.createElement('img');
+  img.src = src;
+  img.style.position = 'absolute';
+  img.style.width = '40px';
+  img.style.height = '40px';
+  img.style.pointerEvents = 'none';
+  img.style.transition = 'transform 2s linear';
+  img.style.opacity = 0.5;
+  img.style.zIndex = 0; 
+  chatBox.appendChild(img);
+
+  let x = Math.random() * (chatBox.clientWidth - 40);
+  let y = Math.random() * (chatBox.clientHeight - 40);
+  img.style.transform = `translate(${x}px, ${y}px)`;
+
+  function floatImage() {
+    const dx = (Math.random() - 0.5) * 60;
+    const dy = (Math.random() - 0.5) * 60;
+    x = Math.min(Math.max(0, x + dx), chatBox.clientWidth - 40);
+    y = Math.min(Math.max(0, y + dy), chatBox.clientHeight - 40);
+    img.style.transform = `translate(${x}px, ${y}px)`;
+    requestAnimationFrame(() => setTimeout(floatImage, 2000));
+  }
+
+  floatImage();
+});
+</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
