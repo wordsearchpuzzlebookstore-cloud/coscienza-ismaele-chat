@@ -128,7 +128,7 @@ async function sendMessage(initialMessages=null){
 
   const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
   const messagesPayload=initialMessages||[
-    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Sai che Ismaele ama la storia, la formula 1 ed è nato il 4 aprile (ma usa solo se richieste o per dare contesto) Regole: 1) Diretta e chiara;3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
+    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Sai che Ismaele ama la storia. Regole: 1) Diretta e chiara;3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
     ...recentMessages,
     {role:"user",content:userMessage}
   ];
@@ -222,6 +222,7 @@ floatingImages.forEach(src => {
 </script>
 </body>
 </html>
+
 
 
 
