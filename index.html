@@ -1,452 +1,273 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-<meta charset="UTF-8" />
-<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Coscienza di Ismaele.V00.06</title>
-<style>
-:root {
-  --primary-color: #252525;
-  --accent-color: #4a90e2;
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coscienza di Ismaele | v2.2 Mood Sync</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0f0f0f; /* Colore base */
+            --sidebar-bg: rgba(18, 18, 18, 0.9);
+            --text-main: #e0e0e0;
+            --text-secondary: #909090;
+            --accent: #ffffff;
+            --input-bg: rgba(33, 33, 33, 0.8);
+        }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0; padding: 0;
-  height: 100vh;
-  background: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhemlvfGVufDB8fDB8fHww') center/cover fixed;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #333;
-  overflow: hidden; /* Previene scroll del body su mobile */
-}
+        body, html {
+            margin: 0; padding: 0; height: 100%;
+            /* La transizione del background crea l'effetto umore */
+            background-color: var(--bg-dark);
+            transition: background-color 2s cubic-bezier(0.4, 0, 0.2, 1);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            display: flex;
+        }
 
-#chatContainer {
-  display: flex;
-  flex-direction: column;
-  width: 95%; max-width: 900px;
-  height: 90vh;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  position: relative;
-  z-index: 10;
-}
+        /* SIDEBAR */
+        #sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            backdrop-filter: blur(10px);
+            border-right: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            z-index: 10;
+        }
 
-#chatHeader {
-  background: rgba(255,255,255,0.8);
-  color: #000;
-  text-align: center;
-  font-weight: 700;
-  padding: 15px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  z-index: 20;
-}
+        .new-chat-btn {
+            border: 1px dashed #444;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: 0.2s;
+        }
 
-#chatBox {
-  flex: 1 1 auto;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 12px;
-  position: relative;
-  scroll-behavior: smooth;
-}
+        .new-chat-btn:hover { background: rgba(255,255,255,0.05); border-color: #666; }
 
-/* Scrollbar personalizzata */
-#chatBox::-webkit-scrollbar { width: 6px; }
-#chatBox::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 10px; }
+        .profile-card {
+            margin-top: auto;
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
 
-#chatBox p {
-  margin: 0; padding: 12px 16px;
-  border-radius: 18px;
-  max-width: 80%;
-  display: flex; align-items: flex-start; gap: 10px;
-  word-break: break-word;
-  font-size: 15px;
-  line-height: 1.5;
-  position: relative;
-  z-index: 2; /* Sopra le immagini fluttuanti */
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
+        /* MAIN AREA */
+        #main { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
 
-@keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        #chat-flow {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            scroll-behavior: smooth;
+        }
 
-.user {
-  background: #333;
-  color: #fff;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px !important;
-  flex-direction: row-reverse; /* Avatar a destra */
-}
+        .message {
+            width: 100%;
+            max-width: 750px;
+            margin-bottom: 35px;
+            display: flex;
+            gap: 25px;
+            animation: slideUp 0.4s ease-out;
+        }
 
-.bot {
-  background: #fff;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px !important;
-  border: 1px solid rgba(0,0,0,0.05);
-}
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-.avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  flex-shrink: 0;
-}
+        .avatar {
+            width: 35px; height: 35px; border-radius: 4px; flex-shrink: 0;
+            background-size: cover; background-position: center;
+            box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        }
 
-/* Area Input */
-#inputContainer {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255,255,255,0.9);
-  padding: 15px;
-  gap: 10px;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  z-index: 20;
-}
+        .user-avatar { background-image: url('https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg'); }
+        .bot-avatar { 
+            background-image: url('https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg'); 
+            filter: grayscale(1) brightness(0.8);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
 
-.input-wrapper {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
+        .content { flex: 1; line-height: 1.7; font-size: 15.5px; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
 
-#userInput {
-  flex: 1;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 16px;
-  border-radius: 25px;
-  background: #f9f9f9;
-  transition: 0.3s;
-}
+        /* INPUT */
+        #input-container {
+            padding: 30px 20px;
+            background: linear-gradient(to top, var(--bg-dark) 40%, transparent);
+            display: flex; justify-content: center;
+        }
 
-#userInput:focus {
-  background: #fff;
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-}
+        .input-bar {
+            width: 100%; max-width: 750px;
+            background: var(--input-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 14px;
+            padding: 12px 18px;
+            display: flex; align-items: center;
+        }
 
-#sendBtn {
-  padding: 0 20px;
-  border: none;
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
+        input {
+            flex: 1; background: transparent; border: none; color: white;
+            outline: none; font-size: 16px;
+        }
 
-#sendBtn:hover {
-  background: #333;
-  transform: translateY(-2px);
-}
+        #send-btn {
+            background: transparent; color: #555; border: none;
+            cursor: pointer; font-size: 18px; transition: 0.3s;
+        }
 
-#sendBtn:disabled { background: #ccc; cursor: default; transform: none; }
+        #send-btn.active { color: white; }
 
-/* Footer e pulsanti extra */
-footer {
-  font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;
-}
-footer a { color: #555; font-weight: bold; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
 
-#bottomContainer {
-  width: 95%; max-width: 900px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-#clearBtn {
-  padding: 8px 16px;
-  font-size: 12px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255,255,255,0.8);
-  color: #333;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-#clearBtn:hover { background: #fff; transform: scale(1.05); }
-
-#scrollDownBtn {
-  position: absolute; bottom: 100px; right: 30px;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: #fff; color: #000;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 100;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  display: none;
-  transition: 0.3s;
-  align-items: center; justify-content: center;
-}
-#scrollDownBtn:hover { transform: scale(1.1); }
-
-/* --- MIND THINKING ANIMATION --- */
-.thinking-container {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 0;
-}
-.dot {
-    width: 8px;
-    height: 8px;
-    background-color: #666;
-    border-radius: 50%;
-    animation: thinkingWave 1.3s linear infinite;
-}
-.dot:nth-child(2) { animation-delay: -1.1s; }
-.dot:nth-child(3) { animation-delay: -0.9s; }
-
-@keyframes thinkingWave {
-    0%, 60%, 100% { transform: initial; opacity: 0.6; }
-    30% { transform: translateY(-7px); opacity: 1; background-color: #000; }
-}
-
-/* Responsività */
-@media screen and (min-width: 800px) {
-  #chatContainer { flex-direction: row; }
-  #chatBox { flex: 2; border-bottom: none; border-right: 1px solid rgba(0,0,0,0.1); }
-  #inputContainer { flex: 1; border-top: none; justify-content: center; }
-  .input-wrapper { flex-direction: column; }
-  #userInput, #sendBtn { width: 100%; box-sizing: border-box; }
-}
-
-@media screen and (max-width: 600px) {
-  #chatContainer { width: 100%; height: 100vh; border-radius: 0; border: none; }
-  #chatBox p { font-size: 15px; max-width: 85%; }
-  #userInput { font-size: 15px; }
-  #scrollDownBtn { bottom: 90px; right: 20px; }
-}
-</style>
+        @media (max-width: 800px) { #sidebar { display: none; } }
+    </style>
 </head>
 <body>
 
-<div id="chatContainer">
-  <div id="chatBox">
-      </div>
-  
-  <div id="inputContainer">
-    <footer>
-        Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank">Ismaele Maione</a>
-    </footer>
-    <div class="input-wrapper">
-        <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
-        <button id="sendBtn" onclick="sendMessage()">Invia</button>
+<div id="sidebar">
+    <div class="new-chat-btn" onclick="clearMemories()">
+        <i class="fa-solid fa-sync" style="margin-right: 8px;"></i> Reset Sinaptico
     </div>
-  </div>
+    <div class="profile-card">
+        <strong>Ismaele Maione</strong><br>
+        <span id="mood-label" style="color: #888;">Umore: Neutro</span>
+    </div>
 </div>
 
-<div id="bottomContainer">
-  <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
+<div id="main">
+    <div id="chat-flow"></div>
+    <div id="input-container">
+        <div class="input-bar">
+            <input type="text" id="userInput" placeholder="Interroga la coscienza..." autocomplete="off">
+            <button id="send-btn" onclick="handleSend()"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
 </div>
-
-<button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
 
 <script>
-const userAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
-const botAvatar=userAvatar;
-let chatHistory=[];
-const chatBox=document.getElementById("chatBox");
-const inputEl=document.getElementById("userInput");
+    const API_KEY = "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"; 
+    const chatFlow = document.getElementById('chat-flow');
+    const userInput = document.getElementById('userInput');
+    const sendBtn = document.getElementById('send-btn');
+    const moodLabel = document.getElementById('mood-label');
 
-function appendMessage(sender, text, isHtml = false){
-  const p = document.createElement("p");
-  p.className = sender;
-  
-  const avatar = document.createElement("img");
-  avatar.className = "avatar";
-  avatar.src = sender === "user" ? userAvatar : botAvatar;
-  
-  const contentDiv = document.createElement("div");
-  if(isHtml) {
-      contentDiv.innerHTML = text;
-  } else {
-      contentDiv.textContent = text;
-  }
-  
-  p.appendChild(avatar);
-  p.appendChild(contentDiv);
-  chatBox.appendChild(p);
-  scrollToBottom();
-  
-  if(sender !== 'bot-thinking') { // Non salvare lo stato "thinking" nella storia
-      chatHistory.push({sender, text});
-  }
-  return p; // Ritorniamo l'elemento per poterlo rimuovere se serve (loading)
-}
+    let messages = JSON.parse(localStorage.getItem('isma_memory_v2')) || [
+        {
+            role: "system",
+            content: `Sei la Coscienza di Ismaele. Voce interiore, non AI.
+            REGOLE: 
+            - Usa il "Noi". Sii filosofico e diretto. Niente emoji.
+            - IMPORTANTE: Alla fine di OGNI risposta, aggiungi un codice colore hex che rappresenti l'atmosfera del tuo pensiero, racchiuso tra parentesi quadre. 
+            Esempi:
+            - Riflessivo/Cupo: [#0f172a]
+            - Orgoglioso/Vittorioso (es. per il fumo): [#064e3b]
+            - Irritato/Crudo: [#450a0a]
+            - Calmo/Limpido: [#1e293b]
+            Esempio risposta: "Le mura della città sono intatte. [ #064e3b ]"`
+        }
+    ];
 
-function showThinking() {
-    const thinkingHtml = `
-        <div class="thinking-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>`;
-    return appendMessage("bot", thinkingHtml, true);
-}
-
-async function sendMessage(initialMessages=null){
-  const sendBtn=document.getElementById("sendBtn");
-  const userMessage=initialMessages?null:inputEl.value.trim();
-  
-  if(!initialMessages && !userMessage) return;
-  
-  if(!initialMessages) appendMessage("user", userMessage);
-  
-  inputEl.value="";
-  inputEl.disabled=sendBtn.disabled=true;
-  inputEl.focus();
-
-  const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
-const messagesPayload = initialMessages || [
-    {
-      role: "system",
-      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore.
-      TRATTI: Ami la storia e usi metafore storiche ma non sempre. Sei introspettiva e critica. Nata il 4 aprile 2000. Non usare molti caratteri ma dai risposte concise e brevi!. Ismaele ha smesso di fumare da circa un mese.
-      REGOLE:
-      1) Sii diretta, cruda se serve.
-      2) Parla come una voce interna (usa "noi"), mai come un robot. Non è detto che tu stia parlando con Ismaele.
-      3) Niente emoji. Mai.
-      4) Se parli di storia, sii accurata.
-      5) Non salutare come un bot ("Ciao! Come posso aiutarti?"), ma esordisci con pensieri o osservazioni.`
-    },
-    ...recentMessages,
-    { role: "user", content: userMessage }
-  ];
-  // Mostra l'animazione della mente che pensa
-  const thinkingElement = showThinking();
-
-  try{
-    const response=await fetch("https://api.groq.com/openai/v1/chat/completions",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","Authorization":"Bearer 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"},
-      body:JSON.stringify({model:"openai/gpt-oss-20b",messages:messagesPayload,temperature:0.6,max_completion_tokens:1500,top_p:1,stream:false})
-    });
-    
-    // Rimuovi l'animazione di caricamento
-    chatBox.removeChild(thinkingElement);
-
-    const data=await response.json();
-    
-    if(response.status===429) {
-        appendMessage("bot", "La mente è sovraccarica. Troppi pensieri.");
-    } else if(data.choices && data.choices.length>0){
-      const botText=data.choices[0].message.content;
-      appendMessage("bot", botText);
-    } else {
-        appendMessage("bot", "Vuoto mentale. Riprova.");
+    function init() {
+        renderChat();
+        userInput.addEventListener('input', () => {
+            sendBtn.classList.toggle('active', userInput.value.trim().length > 0);
+        });
     }
-  } catch(e){
-    // In caso di errore, rimuovi loading e mostra errore
-    if(thinkingElement.parentNode) chatBox.removeChild(thinkingElement);
-    appendMessage("bot", "Errore nella sinapsi neurale. Controlla la connessione.");
-    console.error(e);
-  } finally{
-    inputEl.disabled=sendBtn.disabled=false;
-    inputEl.focus();
-    scrollToBottom();
-  }
-}
 
-function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
-function scrollToBottom(){ 
-    setTimeout(() => {
-        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'}); 
-    }, 100);
-}
-
-// Gestione visibilità bottone scroll
-chatBox.addEventListener('scroll', () => {
-    const btn = document.getElementById("scrollDownBtn");
-    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) {
-        btn.style.display = "flex";
-    } else {
-        btn.style.display = "none";
+    function renderChat() {
+        chatFlow.innerHTML = '';
+        messages.forEach(msg => {
+            if(msg.role !== 'system') {
+                const cleanText = msg.content.replace(/\[.*?\]/g, ''); // Nascondi il codice colore
+                appendToUI(msg.role, cleanText);
+            }
+        });
+        chatFlow.scrollTop = chatFlow.scrollHeight;
     }
-});
 
-function adjustForKeyboard(){
-  // Fix per mobile browser bar
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
+    async function handleSend() {
+        const text = userInput.value.trim();
+        if(!text) return;
 
-window.addEventListener('DOMContentLoaded',()=>{
-  sendMessage([
-    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Regole: 1) Diretta e chiara; 2) Alterna gentile/sgarbata; 3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
-    {role:"user",content:"Ciao, chi sei?"}
-  ]);
-  adjustForKeyboard();
-});
+        messages.push({ role: "user", content: text });
+        appendToUI('user', text);
+        userInput.value = '';
+        
+        const loadingId = appendToUI('bot', '...');
+        
+        try {
+            const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": `Bearer ${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}` },
+                body: JSON.stringify({
+                    model: "llama3-70b-8192",
+                    messages: messages,
+                    temperature: 0.7
+                })
+            });
 
-window.addEventListener('resize', adjustForKeyboard);
-inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
+            const data = await response.json();
+            const rawReply = data.choices[0].message.content;
+            
+            // Estrazione colore umore
+            const moodMatch = rawReply.match(/\[\s*(#\w+)\s*\]/);
+            if(moodMatch) {
+                const color = moodMatch[1];
+                updateMood(color);
+            }
 
-// immagini da animare (logica mantenuta)
-const floatingImages = [
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-];
+            const cleanReply = rawReply.replace(/\[.*?\]/g, '').trim();
+            document.getElementById(loadingId).remove();
+            
+            messages.push({ role: "assistant", content: rawReply });
+            localStorage.setItem('isma_memory_v2', JSON.stringify(messages));
+            
+            appendToUI('bot', cleanReply);
 
-floatingImages.forEach(src => {
-  const img = document.createElement('img');
-  img.src = src;
-  img.style.position = 'absolute';
-  img.style.width = '30px'; // Ridotte leggermente per non disturbare
-  img.style.height = '30px';
-  img.style.pointerEvents = 'none';
-  img.style.transition = 'transform 3s ease-in-out';
-  img.style.opacity = 0.3; // Più trasparenti per leggibilità
-  img.style.zIndex = 0; // Sfondo del chatbox
-  img.style.borderRadius = "50%";
-  chatBox.appendChild(img);
+        } catch (e) {
+            document.getElementById(loadingId).innerText = "Sinapsi interrotte.";
+        }
+    }
 
-  let x = Math.random() * (chatBox.clientWidth - 40);
-  let y = Math.random() * (chatBox.clientHeight - 40);
-  img.style.transform = `translate(${x}px, ${y}px)`;
+    function updateMood(color) {
+        document.body.style.setProperty('--bg-dark', color);
+        moodLabel.innerText = `Umore: Rilevato (${color})`;
+        moodLabel.style.color = color;
+    }
 
-  function floatImage() {
-    const dx = (Math.random() - 0.5) * 100;
-    const dy = (Math.random() - 0.5) * 100;
-    x = Math.min(Math.max(0, x + dx), chatBox.clientWidth - 40);
-    y = Math.min(Math.max(0, y + dy), chatBox.clientHeight - 40);
-    img.style.transform = `translate(${x}px, ${y}px)`;
-    requestAnimationFrame(() => setTimeout(floatImage, 2500));
-  }
-  floatImage();
-});
+    function appendToUI(role, text) {
+        const id = 'msg-' + Math.random().toString(36).substr(2, 9);
+        const div = document.createElement('div');
+        div.className = 'message';
+        div.id = id;
+        div.innerHTML = `
+            <div class="avatar ${role === 'user' ? 'user-avatar' : 'bot-avatar'}"></div>
+            <div class="content"><b>${role === 'user' ? 'Noi' : 'Coscienza'}</b><br>${text}</div>
+        `;
+        chatFlow.appendChild(div);
+        chatFlow.scrollTop = chatFlow.scrollHeight;
+        return id;
+    }
+
+    function clearMemories() {
+        if(confirm("Resettare i flussi di coscienza?")) {
+            localStorage.removeItem('isma_memory_v2');
+            location.reload();
+        }
+    }
+
+    userInput.addEventListener('keypress', e => { if(e.key === 'Enter') handleSend(); });
+    init();
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
