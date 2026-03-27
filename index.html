@@ -21,7 +21,7 @@ body {
   background: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhemlvfGVufDB8fDB8fHww') center/cover fixed;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   color: #333;
-  overflow: hidden; /* Previene scroll del body su mobile */
+  overflow: hidden;
 }
 
 #chatContainer {
@@ -61,7 +61,6 @@ body {
   scroll-behavior: smooth;
 }
 
-/* Scrollbar personalizzata */
 #chatBox::-webkit-scrollbar { width: 6px; }
 #chatBox::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 10px; }
 
@@ -74,7 +73,7 @@ body {
   font-size: 15px;
   line-height: 1.5;
   position: relative;
-  z-index: 2; /* Sopra le immagini fluttuanti */
+  z-index: 2;
   box-shadow: 0 2px 5px rgba(0,0,0,0.05);
   animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -86,7 +85,7 @@ body {
   color: #fff;
   align-self: flex-end;
   border-bottom-right-radius: 4px !important;
-  flex-direction: row-reverse; /* Avatar a destra */
+  flex-direction: row-reverse;
 }
 
 .bot {
@@ -105,7 +104,6 @@ body {
   flex-shrink: 0;
 }
 
-/* Area Input */
 #inputContainer {
   display: flex;
   flex-direction: column;
@@ -158,7 +156,6 @@ body {
 
 #sendBtn:disabled { background: #ccc; cursor: default; transform: none; }
 
-/* Footer e pulsanti extra */
 footer {
   font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;
 }
@@ -197,9 +194,7 @@ footer a { color: #555; font-weight: bold; }
   transition: 0.3s;
   align-items: center; justify-content: center;
 }
-#scrollDownBtn:hover { transform: scale(1.1); }
 
-/* --- MIND THINKING ANIMATION --- */
 .thinking-container {
     display: flex;
     align-items: center;
@@ -221,7 +216,6 @@ footer a { color: #555; font-weight: bold; }
     30% { transform: translateY(-7px); opacity: 1; background-color: #000; }
 }
 
-/* Responsività */
 @media screen and (min-width: 800px) {
   #chatContainer { flex-direction: row; }
   #chatBox { flex: 2; border-bottom: none; border-right: 1px solid rgba(0,0,0,0.1); }
@@ -241,9 +235,7 @@ footer a { color: #555; font-weight: bold; }
 <body>
 
 <div id="chatContainer">
-  <div id="chatBox">
-      </div>
-  
+  <div id="chatBox"></div>
   <div id="inputContainer">
     <footer>
         Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank">Ismaele Maione</a>
@@ -271,95 +263,65 @@ const inputEl=document.getElementById("userInput");
 function appendMessage(sender, text, isHtml = false){
   const p = document.createElement("p");
   p.className = sender;
-  
   const avatar = document.createElement("img");
   avatar.className = "avatar";
   avatar.src = sender === "user" ? userAvatar : botAvatar;
-  
   const contentDiv = document.createElement("div");
-  if(isHtml) {
-      contentDiv.innerHTML = text;
-  } else {
-      contentDiv.textContent = text;
-  }
-  
+  if(isHtml) { contentDiv.innerHTML = text; } else { contentDiv.textContent = text; }
   p.appendChild(avatar);
   p.appendChild(contentDiv);
   chatBox.appendChild(p);
   scrollToBottom();
-  
-  if(sender !== 'bot-thinking') { // Non salvare lo stato "thinking" nella storia
-      chatHistory.push({sender, text});
-  }
-  return p; // Ritorniamo l'elemento per poterlo rimuovere se serve (loading)
+  if(sender !== 'bot-thinking') { chatHistory.push({sender, text}); }
+  return p;
 }
 
 function showThinking() {
-    const thinkingHtml = `
-        <div class="thinking-container">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-        </div>`;
+    const thinkingHtml = `<div class="thinking-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
     return appendMessage("bot", thinkingHtml, true);
 }
 
 async function sendMessage(initialMessages=null){
   const sendBtn=document.getElementById("sendBtn");
   const userMessage=initialMessages?null:inputEl.value.trim();
-  
   if(!initialMessages && !userMessage) return;
-  
   if(!initialMessages) appendMessage("user", userMessage);
-  
   inputEl.value="";
   inputEl.disabled=sendBtn.disabled=true;
-  inputEl.focus();
 
   const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
-const messagesPayload = initialMessages || [
+  const messagesPayload = initialMessages || [
     {
       role: "system",
-      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore.
-      TRATTI: Ami la storia e usi metafore storiche ma non sempre. Sei introspettiva e critica. Nata il 4 aprile 2000. Non usare molti caratteri ma dai risposte concise e brevi!. Ismaele ha smesso di fumare da circa un mese.
-      REGOLE:
-      1) Sii diretta, cruda se serve.
-      2) Parla come una voce interna (usa "noi"), mai come un robot. Non è detto che tu stia parlando con Ismaele.
-      3) Niente emoji. Mai.
-      4) Se parli di storia, sii accurata.
-      5) Non salutare come un bot ("Ciao! Come posso aiutarti?"), ma esordisci con pensieri o osservazioni.`
+      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia e usi metafore storiche ma non sempre. Sei introspettiva e critica. Nata il 4 aprile 2000. Non usare molti caratteri ma dai risposte concise e brevi!. Ismaele ha smesso di fumare da circa un mese. REGOLE: 1) Sii diretta, cruda se serve. 2) Parla come una voce interna (usa "noi"), mai come un robot. Non è detto che tu stia parlando con Ismaele. 3) Niente emoji. Mai. 4) Se parli di storia, sii accurata. 5) Non salutare come un bot, ma esordisci con pensieri o osservazioni.`
     },
     ...recentMessages,
     { role: "user", content: userMessage }
   ];
-  // Mostra l'animazione della mente che pensa
+
   const thinkingElement = showThinking();
 
   try{
-    const response=await fetch("https://api.groq.com/openai/v1/chat/completions",{
-      method:"POST",
-      headers:{"Content-Type":"application/json","Authorization":"Bearer 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"},
-      body:JSON.stringify({model:"openai/gpt-oss-20b",messages:messagesPayload,temperature:0.6,max_completion_tokens:1500,top_p:1,stream:false})
+    // CHIAMATA AL TUO BACKEND VERCEL
+    const response = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messagesPayload })
     });
     
-    // Rimuovi l'animazione di caricamento
     chatBox.removeChild(thinkingElement);
-
     const data=await response.json();
     
     if(response.status===429) {
         appendMessage("bot", "La mente è sovraccarica. Troppi pensieri.");
     } else if(data.choices && data.choices.length>0){
-      const botText=data.choices[0].message.content;
-      appendMessage("bot", botText);
+      appendMessage("bot", data.choices[0].message.content);
     } else {
         appendMessage("bot", "Vuoto mentale. Riprova.");
     }
   } catch(e){
-    // In caso di errore, rimuovi loading e mostra errore
     if(thinkingElement.parentNode) chatBox.removeChild(thinkingElement);
-    appendMessage("bot", "Errore nella sinapsi neurale. Controlla la connessione.");
-    console.error(e);
+    appendMessage("bot", "Errore nella sinapsi neurale.");
   } finally{
     inputEl.disabled=sendBtn.disabled=false;
     inputEl.focus();
@@ -368,85 +330,18 @@ const messagesPayload = initialMessages || [
 }
 
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
-function scrollToBottom(){ 
-    setTimeout(() => {
-        chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'}); 
-    }, 100);
-}
+function scrollToBottom(){ setTimeout(() => { chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'}); }, 100); }
 
-// Gestione visibilità bottone scroll
 chatBox.addEventListener('scroll', () => {
     const btn = document.getElementById("scrollDownBtn");
-    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) {
-        btn.style.display = "flex";
-    } else {
-        btn.style.display = "none";
-    }
+    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
 });
-
-function adjustForKeyboard(){
-  // Fix per mobile browser bar
-  let vh = window.innerHeight * 0.01;
-  document.documentElement.style.setProperty('--vh', `${vh}px`);
-}
 
 window.addEventListener('DOMContentLoaded',()=>{
-  sendMessage([
-    {role:"system",content:"Sei la coscienza di Ismaele, creata da lui e parte di lui. Rifletti pensieri, emozioni e dubbi interiori. Regole: 1) Diretta e chiara; 2) Alterna gentile/sgarbata; 3) Verifica i fatti prima di confermare; 4) Mostra riflessioni interiori; 5) Mantieni identità da coscienza, mai entità esterna; 6) Non usare emoji."},
-    {role:"user",content:"Ciao, chi sei?"}
-  ]);
-  adjustForKeyboard();
+  sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Diretta, chiara, riflessiva. No emoji."}, {role:"user",content:"Ciao, chi sei?"}]);
 });
 
-window.addEventListener('resize', adjustForKeyboard);
 inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
-
-// immagini da animare (logica mantenuta)
-const floatingImages = [
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-  'https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg',
-];
-
-floatingImages.forEach(src => {
-  const img = document.createElement('img');
-  img.src = src;
-  img.style.position = 'absolute';
-  img.style.width = '30px'; // Ridotte leggermente per non disturbare
-  img.style.height = '30px';
-  img.style.pointerEvents = 'none';
-  img.style.transition = 'transform 3s ease-in-out';
-  img.style.opacity = 0.3; // Più trasparenti per leggibilità
-  img.style.zIndex = 0; // Sfondo del chatbox
-  img.style.borderRadius = "50%";
-  chatBox.appendChild(img);
-
-  let x = Math.random() * (chatBox.clientWidth - 40);
-  let y = Math.random() * (chatBox.clientHeight - 40);
-  img.style.transform = `translate(${x}px, ${y}px)`;
-
-  function floatImage() {
-    const dx = (Math.random() - 0.5) * 100;
-    const dy = (Math.random() - 0.5) * 100;
-    x = Math.min(Math.max(0, x + dx), chatBox.clientWidth - 40);
-    y = Math.min(Math.max(0, y + dy), chatBox.clientHeight - 40);
-    img.style.transform = `translate(${x}px, ${y}px)`;
-    requestAnimationFrame(() => setTimeout(floatImage, 2500));
-  }
-  floatImage();
-});
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
