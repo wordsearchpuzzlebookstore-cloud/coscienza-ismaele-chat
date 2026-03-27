@@ -338,7 +338,7 @@ const messagesPayload = initialMessages || [
   try{
     const response=await fetch("https://api.groq.com/openai/v1/chat/completions",{
       method:"POST",
-      headers:{"Content-Type":"application/json","Authorization":"Bearer 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"},
+      headers:{"Content-Type":"application/json","Authorization":"Bearer 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"},
       body:JSON.stringify({model:"openai/gpt-oss-20b",messages:messagesPayload,temperature:0.6,max_completion_tokens:1500,top_p:1,stream:false})
     });
     
