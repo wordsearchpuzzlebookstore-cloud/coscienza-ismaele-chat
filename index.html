@@ -254,8 +254,9 @@ footer a { color: #555; font-weight: bold; }
 <button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
 
 <script>
-const userAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
-const botAvatar=userAvatar;
+// QUI HO CAMBIATO L'AVATAR DELL'UTENTE CON UN'ICONA GENERICA
+const userAvatar='https://cdn-icons-png.flaticon.com/512/149/149071.png';
+const botAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
 let chatHistory=[];
 const chatBox=document.getElementById("chatBox");
 const inputEl=document.getElementById("userInput");
@@ -302,7 +303,6 @@ async function sendMessage(initialMessages=null){
   const thinkingElement = showThinking();
 
   try{
-    // CHIAMATA AL TUO BACKEND VERCEL
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
