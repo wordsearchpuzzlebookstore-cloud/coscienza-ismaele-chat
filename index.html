@@ -19,10 +19,11 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0; padding: 0;
   height: 100vh;
+  /* Mantenuto il tuo sfondo originale */
   background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   color: #333;
-  overflow: hidden;
+  overflow: hidden; /* Impedisce lo scroll della pagina intera */
 }
 
 /* --- LOGICA SEZIONI --- */
@@ -113,10 +114,10 @@ body {
   color: #555;
 }
 
-/* --- FIX LAYOUT CHAT (PC & MOBILE) --- */
+/* --- CHAT CONTAINER FIX --- */
 #chatContainer {
   display: flex;
-  flex-direction: column; /* Default mobile */
+  flex-direction: column;
   width: 95%; max-width: 900px;
   height: 85vh;
   background: var(--glass-bg);
@@ -127,22 +128,23 @@ body {
   overflow: hidden;
   box-shadow: var(--shadow);
   position: relative;
-  z-index: 10;
 }
 
-/* Header sistemato per PC: il pulsante indietro non sposta il titolo */
+/* Header bloccato in alto */
 #chatHeader {
-  position: relative;
+  flex-shrink: 0; /* Impedisce all'header di rimpicciolirsi */
+  position: sticky;
+  top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.9);
   color: #000;
   font-weight: 700;
   padding: 15px;
   border-bottom: 1px solid rgba(0,0,0,0.1);
   font-size: 18px;
-  z-index: 25;
+  z-index: 100;
 }
 
 .header-back-btn {
@@ -151,25 +153,34 @@ body {
   background: #000;
   color: #fff;
   border: none;
-  padding: 6px 12px;
+  padding: 8px 14px;
   border-radius: 15px;
   cursor: pointer;
   font-size: 11px;
   font-weight: bold;
-  transition: 0.3s;
+  z-index: 101;
 }
 
-.header-back-btn:hover { background: #333; }
+/* Box messaggi con scroll indipendente */
+#chatBox { 
+  flex-grow: 1;
+  overflow-y: auto; 
+  padding: 20px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* Scroll fluido su iOS */
+}
 
-#chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
 #chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }
 
-/* Wrapper per la parte sinistra su PC */
 .chat-main-wrapper {
   display: flex;
   flex-direction: column;
   flex: 2;
   height: 100%;
+  overflow: hidden; /* Importante per tenere l'header fisso */
 }
 
 @media screen and (min-width: 800px) {
@@ -182,16 +193,27 @@ body {
   }
 }
 
-/* Stili chat originali mantenuti */
 .user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
 .bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
 .avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
-#inputContainer { display: flex; flex-direction: column; background: rgba(255,255,255,0.9); padding: 15px; gap: 10px; z-index: 20; }
+
+#inputContainer { 
+  flex-shrink: 0;
+  display: flex; 
+  flex-direction: column; 
+  background: rgba(255,255,255,0.9); 
+  padding: 15px; 
+  gap: 10px; 
+  z-index: 20; 
+}
+
 .input-wrapper { display: flex; gap: 10px; width: 100%; }
 #userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }
 #sendBtn { padding: 0 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }
 #clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin-top: 10px; }
 #scrollDownBtn { position: absolute; bottom: 100px; right: 30px; width: 40px; height: 40px; border-radius: 50%; background: #fff; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 100; }
+
+@keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
 </style>
 </head>
 <body>
@@ -262,13 +284,12 @@ body {
 </div>
 
 <script>
-// NAVIGAZIONE
 function navigateTo(sectionId) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
     document.getElementById(sectionId).classList.add('view-active');
+    if(sectionId === 'section-chat') scrollToBottom();
 }
 
-// LOGICA CHAT (INALTERATA)
 const userAvatar='https://cdn-icons-png.flaticon.com/512/149/149071.png';
 const botAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
 let chatHistory=[];
@@ -293,10 +314,13 @@ function appendMessage(sender, text, isHtml = false){
 
 function showThinking() {
     const thinkingHtml = `<div style="display:flex; gap:4px; padding:5px 0;"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-    // Aggiunto stile dot inline per brevità
-    const style = document.createElement('style');
-    style.innerHTML = `.dot { width:8px; height:8px; background:#666; border-radius:50%; animation: thinkingWave 1.3s infinite; } @keyframes thinkingWave { 0%,60%,100% {transform:translateY(0)} 30% {transform:translateY(-7px)} }`;
-    document.head.appendChild(style);
+    const styleExists = document.getElementById('thinking-style');
+    if(!styleExists){
+      const style = document.createElement('style');
+      style.id = 'thinking-style';
+      style.innerHTML = `.dot { width:8px; height:8px; background:#666; border-radius:50%; animation: thinkingWave 1.3s infinite; } @keyframes thinkingWave { 0%,60%,100% {transform:translateY(0)} 30% {transform:translateY(-7px)} }`;
+      document.head.appendChild(style);
+    }
     return appendMessage("bot", thinkingHtml, true);
 }
 
@@ -335,17 +359,31 @@ async function sendMessage(initialMessages=null){
   } finally{
     inputEl.disabled=sendBtn.disabled=false;
     inputEl.focus();
+    scrollToBottom();
   }
 }
 
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
-function scrollToBottom(){ setTimeout(() => { chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'}); }, 100); }
+function scrollToBottom(){ 
+  setTimeout(() => { 
+    chatBox.scrollTop = chatBox.scrollHeight;
+  }, 50); 
+}
 
 window.addEventListener('DOMContentLoaded',()=>{
   sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Diretta, no emoji."}, {role:"user",content:"Ciao."}]);
 });
 
 inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
+
+chatBox.addEventListener('scroll', () => {
+    const btn = document.getElementById("scrollDownBtn");
+    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) { 
+      btn.style.display = "flex"; 
+    } else { 
+      btn.style.display = "none"; 
+    }
+});
 </script>
 </body>
 </html>
