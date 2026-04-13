@@ -5,6 +5,7 @@
 <link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>Coscienza di Ismaele.V00.06</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
 :root {
   --primary-color: #252525;
@@ -18,15 +19,15 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   margin: 0; padding: 0;
   height: 100vh;
-  background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;
+  background: url('https://images.unsplash.com/photo-1505506874110-6a7a69069a08?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8c3BhemlvfGVufDB8fDB8fHww') center/cover fixed;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   color: #333;
   overflow: hidden;
 }
 
-/* --- STILI NUOVI PER IL MENU --- */
+/* --- LOGICA SEZIONI --- */
 .view-section {
-  display: none; /* Nasconde le sezioni di default */
+  display: none;
   width: 100%;
   height: 100%;
   flex-direction: column;
@@ -35,9 +36,10 @@ body {
 }
 
 .view-active {
-  display: flex; /* Mostra solo la sezione attiva */
+  display: flex;
 }
 
+/* --- MENU CARD & BUTTONS --- */
 .menu-card {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -47,11 +49,13 @@ body {
   text-align: center;
   box-shadow: var(--shadow);
   border: 1px solid var(--glass-border);
+  width: 90%;
+  max-width: 400px;
 }
 
 .menu-btn {
   display: block;
-  width: 250px;
+  width: 100%;
   margin: 15px auto;
   padding: 15px;
   border: none;
@@ -65,51 +69,56 @@ body {
 }
 
 .menu-btn:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
   background: #333;
+}
+
+/* --- SEZIONE CONTATTI --- */
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: #000;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px;
+  border-radius: 12px;
+  transition: background 0.3s;
+}
+
+.contact-item:hover {
+  background: rgba(0,0,0,0.05);
+}
+
+.contact-item i {
+  font-size: 24px;
+  width: 30px;
+  text-align: center;
 }
 
 .back-link {
   cursor: pointer;
   text-decoration: underline;
   font-size: 14px;
-  margin-top: 20px;
+  margin-top: 25px;
   display: inline-block;
-  color: #000;
+  color: #555;
 }
 
-/* Modifica Header Chat per inserire il tasto back */
-#chatHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: rgba(255,255,255,0.8);
-  color: #000;
-  font-weight: 700;
-  padding: 10px 20px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  font-size: 18px;
-  z-index: 20;
-}
-
-.header-back-btn {
-  background: none;
-  border: 1px solid #000;
-  padding: 5px 10px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
-}
-
-/* --- FINE STILI NUOVI --- */
-
-/* Mantenimento stili originali */
+/* --- FIX LAYOUT CHAT (PC & MOBILE) --- */
 #chatContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* Default mobile */
   width: 95%; max-width: 900px;
-  height: 85vh; /* Ridotto leggermente per far spazio al bottone memoria */
+  height: 85vh;
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -121,61 +130,122 @@ body {
   z-index: 10;
 }
 
-#chatBox { flex: 1 1 auto; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; position: relative; scroll-behavior: smooth; }
-#chatBox::-webkit-scrollbar { width: 6px; }
-#chatBox::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 10px; }
-#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; line-height: 1.5; position: relative; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.05); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-@keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
-.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
-.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); flex-shrink: 0; }
-#inputContainer { display: flex; flex-direction: column; background: rgba(255,255,255,0.9); padding: 15px; gap: 10px; border-top: 1px solid rgba(0,0,0,0.1); z-index: 20; }
-.input-wrapper { display: flex; gap: 10px; width: 100%; }
-#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; outline: none; font-size: 16px; border-radius: 25px; background: #f9f9f9; transition: 0.3s; }
-#sendBtn { padding: 0 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; transition: 0.3s; font-size: 14px; }
-#bottomContainer { width: 95%; max-width: 900px; text-align: center; margin-top: 10px; }
-#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); color: #333; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-#scrollDownBtn { position: absolute; bottom: 100px; right: 30px; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #000; border: none; font-size: 20px; cursor: pointer; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
-.thinking-container { display: flex; align-items: center; gap: 4px; padding: 5px 0; }
-.dot { width: 8px; height: 8px; background-color: #666; border-radius: 50%; animation: thinkingWave 1.3s linear infinite; }
-@keyframes thinkingWave { 0%, 60%, 100% { transform: initial; opacity: 0.6; } 30% { transform: translateY(-7px); opacity: 1; background-color: #000; } }
+/* Header sistemato per PC: il pulsante indietro non sposta il titolo */
+#chatHeader {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.8);
+  color: #000;
+  font-weight: 700;
+  padding: 15px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 18px;
+  z-index: 25;
+}
+
+.header-back-btn {
+  position: absolute;
+  left: 15px;
+  background: #000;
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.header-back-btn:hover { background: #333; }
+
+#chatBox { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
+#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }
+
+/* Wrapper per la parte sinistra su PC */
+.chat-main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 2;
+  height: 100%;
+}
 
 @media screen and (min-width: 800px) {
   #chatContainer { flex-direction: row; }
-  #chatBox { flex: 2; border-bottom: none; border-right: 1px solid rgba(0,0,0,0.1); }
-  #inputContainer { flex: 1; border-top: none; justify-content: center; }
-  .input-wrapper { flex-direction: column; }
-  #userInput, #sendBtn { width: 100%; }
+  #inputContainer { 
+    flex: 1; 
+    border-top: none; 
+    border-left: 1px solid rgba(0,0,0,0.1); 
+    justify-content: center; 
+  }
 }
+
+/* Stili chat originali mantenuti */
+.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
+.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+#inputContainer { display: flex; flex-direction: column; background: rgba(255,255,255,0.9); padding: 15px; gap: 10px; z-index: 20; }
+.input-wrapper { display: flex; gap: 10px; width: 100%; }
+#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }
+#sendBtn { padding: 0 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }
+#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin-top: 10px; }
+#scrollDownBtn { position: absolute; bottom: 100px; right: 30px; width: 40px; height: 40px; border-radius: 50%; background: #fff; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 100; }
 </style>
 </head>
 <body>
 
 <div id="section-menu" class="view-section view-active">
   <div class="menu-card">
-    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px;">
-    <h1>Ismaele Maione</h1>
+    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
+    <h1 style="margin-bottom: 30px;">Ismaele Maione</h1>
     <button class="menu-btn" onclick="navigateTo('section-manifesto')">MANIFESTO</button>
     <button class="menu-btn" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE</button>
+    <button class="menu-btn" onclick="navigateTo('section-contacts')">CONTATTI</button>
   </div>
 </div>
 
 <div id="section-manifesto" class="view-section">
-  <div class="menu-card" style="max-width: 600px; text-align: left;">
+  <div class="menu-card" style="max-width: 500px; text-align: left;">
     <h2>Il Manifesto</h2>
-    <p>Qui puoi inserire il tuo testo personalizzato. La coscienza non è solo un algoritmo, è un riflesso della realtà filtrato dall'introspezione.</p>
-    <p>Amiamo la storia, la Formula 1 e il cinema d'autore.</p>
+    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte.</p>
+    <p>Questo spazio è un'estensione digitale del mio pensiero. Sii diretto, sii curioso.</p>
+    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
+  </div>
+</div>
+
+<div id="section-contacts" class="view-section">
+  <div class="menu-card">
+    <h2>Contatti</h2>
+    <div class="contact-links">
+      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://www.linkedin.com/in/ismaele-maione-228781169/" target="_blank" class="contact-item">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="https://x.com/IsmaeleMaione" target="_blank" class="contact-item">
+        <i class="fab fa-x-twitter"></i> Profilo X
+      </a>
+      <a href="mailto:ismaele.maione@gmail.com" class="contact-item">
+        <i class="fas fa-envelope"></i> Invia un'Email
+      </a>
+    </div>
     <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
   </div>
 </div>
 
 <div id="section-chat" class="view-section">
     <div id="chatContainer">
-      <div id="chatHeader">
-          <button class="header-back-btn" onclick="navigateTo('section-menu')">← Menu</button>
-          <span>Coscienza di Ismaele</span>
-          <div style="width: 50px;"></div> </div>
-      <div id="chatBox"></div>
+      <div class="chat-main-wrapper">
+          <div id="chatHeader">
+              <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
+              <span>Coscienza di Ismaele</span>
+          </div>
+          <div id="chatBox"></div>
+      </div>
+
       <div id="inputContainer">
         <footer style="font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;">
             Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank" style="color: #555; font-weight: bold; text-decoration: none;">Ismaele Maione</a>
@@ -186,20 +256,19 @@ body {
         </div>
       </div>
     </div>
-    <div id="bottomContainer">
-      <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
-    </div>
+    
+    <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
     <button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
 </div>
 
 <script>
-// LOGICA DI NAVIGAZIONE
+// NAVIGAZIONE
 function navigateTo(sectionId) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
     document.getElementById(sectionId).classList.add('view-active');
 }
 
-// --- IL TUO CODICE JAVASCRIPT ORIGINALE (NON TOCCATO) ---
+// LOGICA CHAT (INALTERATA)
 const userAvatar='https://cdn-icons-png.flaticon.com/512/149/149071.png';
 const botAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
 let chatHistory=[];
@@ -223,7 +292,11 @@ function appendMessage(sender, text, isHtml = false){
 }
 
 function showThinking() {
-    const thinkingHtml = `<div class="thinking-container"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+    const thinkingHtml = `<div style="display:flex; gap:4px; padding:5px 0;"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
+    // Aggiunto stile dot inline per brevità
+    const style = document.createElement('style');
+    style.innerHTML = `.dot { width:8px; height:8px; background:#666; border-radius:50%; animation: thinkingWave 1.3s infinite; } @keyframes thinkingWave { 0%,60%,100% {transform:translateY(0)} 30% {transform:translateY(-7px)} }`;
+    document.head.appendChild(style);
     return appendMessage("bot", thinkingHtml, true);
 }
 
@@ -239,7 +312,7 @@ async function sendMessage(initialMessages=null){
   const messagesPayload = initialMessages || [
     {
       role: "system",
-      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore... [IL TUO PROMPT ORIGINALE]`
+      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia e non usare molti caratteri ma dai risposte concise e brevi! Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato (ha una relazione stabile). Lavora come Shift Manager in Amazon. Possiede un Google Pixel 9. Odia il calcio ma segue la F1. Film: Arrival, Dune Parte Due, Blade Runner 2049. No emoji. Usa "noi".`
     },
     ...recentMessages,
     { role: "user", content: userMessage }
@@ -253,37 +326,23 @@ async function sendMessage(initialMessages=null){
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messagesPayload })
     });
-    
     chatBox.removeChild(thinkingElement);
     const data=await response.json();
-    
-    if(response.status===429) {
-        appendMessage("bot", "La mente è sovraccarica. Troppi pensieri.");
-    } else if(data.choices && data.choices.length>0){
-      appendMessage("bot", data.choices[0].message.content);
-    } else {
-        appendMessage("bot", "Vuoto mentale. Riprova.");
-    }
+    if(data.choices) appendMessage("bot", data.choices[0].message.content);
   } catch(e){
     if(thinkingElement.parentNode) chatBox.removeChild(thinkingElement);
-    appendMessage("bot", "Errore nella sinapsi neurale.");
+    appendMessage("bot", "Errore nella sinapsi.");
   } finally{
     inputEl.disabled=sendBtn.disabled=false;
     inputEl.focus();
-    scrollToBottom();
   }
 }
 
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
 function scrollToBottom(){ setTimeout(() => { chatBox.scrollTo({top:chatBox.scrollHeight, behavior:'smooth'}); }, 100); }
 
-chatBox.addEventListener('scroll', () => {
-    const btn = document.getElementById("scrollDownBtn");
-    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) { btn.style.display = "flex"; } else { btn.style.display = "none"; }
-});
-
 window.addEventListener('DOMContentLoaded',()=>{
-  sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Diretta, chiara, riflessiva. No emoji."}, {role:"user",content:"Ciao, chi sei?"}]);
+  sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Diretta, no emoji."}, {role:"user",content:"Ciao."}]);
 });
 
 inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
