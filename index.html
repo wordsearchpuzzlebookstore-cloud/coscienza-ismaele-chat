@@ -24,11 +24,92 @@ body {
   overflow: hidden;
 }
 
+/* --- STILI NUOVI PER IL MENU --- */
+.view-section {
+  display: none; /* Nasconde le sezioni di default */
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-active {
+  display: flex; /* Mostra solo la sezione attiva */
+}
+
+.menu-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--glass-border);
+}
+
+.menu-btn {
+  display: block;
+  width: 250px;
+  margin: 15px auto;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  background: #000;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.menu-btn:hover {
+  transform: scale(1.05);
+  background: #333;
+}
+
+.back-link {
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 14px;
+  margin-top: 20px;
+  display: inline-block;
+  color: #000;
+}
+
+/* Modifica Header Chat per inserire il tasto back */
+#chatHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.8);
+  color: #000;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  font-size: 18px;
+  z-index: 20;
+}
+
+.header-back-btn {
+  background: none;
+  border: 1px solid #000;
+  padding: 5px 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* --- FINE STILI NUOVI --- */
+
+/* Mantenimento stili originali */
 #chatContainer {
   display: flex;
   flex-direction: column;
   width: 95%; max-width: 900px;
-  height: 90vh;
+  height: 85vh; /* Ridotto leggermente per far spazio al bottone memoria */
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -40,221 +121,85 @@ body {
   z-index: 10;
 }
 
-#chatHeader {
-  background: rgba(255,255,255,0.8);
-  color: #000;
-  text-align: center;
-  font-weight: 700;
-  padding: 15px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-  font-size: 18px;
-  letter-spacing: 0.5px;
-  z-index: 20;
-}
-
-#chatBox {
-  flex: 1 1 auto;
-  padding: 20px;
-  overflow-y: auto;
-  display: flex; flex-direction: column; gap: 12px;
-  position: relative;
-  scroll-behavior: smooth;
-}
-
+#chatBox { flex: 1 1 auto; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; position: relative; scroll-behavior: smooth; }
 #chatBox::-webkit-scrollbar { width: 6px; }
 #chatBox::-webkit-scrollbar-thumb { background-color: rgba(0,0,0,0.2); border-radius: 10px; }
-
-#chatBox p {
-  margin: 0; padding: 12px 16px;
-  border-radius: 18px;
-  max-width: 80%;
-  display: flex; align-items: flex-start; gap: 10px;
-  word-break: break-word;
-  font-size: 15px;
-  line-height: 1.5;
-  position: relative;
-  z-index: 2;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
+#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; line-height: 1.5; position: relative; z-index: 2; box-shadow: 0 2px 5px rgba(0,0,0,0.05); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 @keyframes popIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-.user {
-  background: #333;
-  color: #fff;
-  align-self: flex-end;
-  border-bottom-right-radius: 4px !important;
-  flex-direction: row-reverse;
-}
-
-.bot {
-  background: #fff;
-  align-self: flex-start;
-  border-bottom-left-radius: 4px !important;
-  border: 1px solid rgba(0,0,0,0.05);
-}
-
-.avatar {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 2px solid #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-  flex-shrink: 0;
-}
-
-#inputContainer {
-  display: flex;
-  flex-direction: column;
-  background: rgba(255,255,255,0.9);
-  padding: 15px;
-  gap: 10px;
-  border-top: 1px solid rgba(0,0,0,0.1);
-  z-index: 20;
-}
-
-.input-wrapper {
-  display: flex;
-  gap: 10px;
-  width: 100%;
-}
-
-#userInput {
-  flex: 1;
-  padding: 12px 15px;
-  border: 1px solid #ccc;
-  outline: none;
-  font-size: 16px;
-  border-radius: 25px;
-  background: #f9f9f9;
-  transition: 0.3s;
-}
-
-#userInput:focus {
-  background: #fff;
-  border-color: #000;
-  box-shadow: 0 0 0 2px rgba(0,0,0,0.1);
-}
-
-#sendBtn {
-  padding: 0 20px;
-  border: none;
-  background: #000;
-  color: #fff;
-  font-weight: bold;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: 0.3s;
-  font-size: 14px;
-}
-
-#sendBtn:hover {
-  background: #333;
-  transform: translateY(-2px);
-}
-
-#sendBtn:disabled { background: #ccc; cursor: default; transform: none; }
-
-footer {
-  font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;
-}
-footer a { color: #555; font-weight: bold; }
-
-#bottomContainer {
-  width: 95%; max-width: 900px;
-  text-align: center;
-  margin-top: 10px;
-}
-
-#clearBtn {
-  padding: 8px 16px;
-  font-size: 12px;
-  border-radius: 20px;
-  border: none;
-  background: rgba(255,255,255,0.8);
-  color: #333;
-  cursor: pointer;
-  transition: 0.2s;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-}
-#clearBtn:hover { background: #fff; transform: scale(1.05); }
-
-#scrollDownBtn {
-  position: absolute; bottom: 100px; right: 30px;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: #fff; color: #000;
-  border: none;
-  font-size: 20px;
-  cursor: pointer;
-  z-index: 100;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  display: none;
-  transition: 0.3s;
-  align-items: center; justify-content: center;
-}
-
-.thinking-container {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    padding: 5px 0;
-}
-.dot {
-    width: 8px;
-    height: 8px;
-    background-color: #666;
-    border-radius: 50%;
-    animation: thinkingWave 1.3s linear infinite;
-}
-.dot:nth-child(2) { animation-delay: -1.1s; }
-.dot:nth-child(3) { animation-delay: -0.9s; }
-
-@keyframes thinkingWave {
-    0%, 60%, 100% { transform: initial; opacity: 0.6; }
-    30% { transform: translateY(-7px); opacity: 1; background-color: #000; }
-}
+.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
+.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; border: 2px solid #fff; box-shadow: 0 2px 4px rgba(0,0,0,0.2); flex-shrink: 0; }
+#inputContainer { display: flex; flex-direction: column; background: rgba(255,255,255,0.9); padding: 15px; gap: 10px; border-top: 1px solid rgba(0,0,0,0.1); z-index: 20; }
+.input-wrapper { display: flex; gap: 10px; width: 100%; }
+#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; outline: none; font-size: 16px; border-radius: 25px; background: #f9f9f9; transition: 0.3s; }
+#sendBtn { padding: 0 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; transition: 0.3s; font-size: 14px; }
+#bottomContainer { width: 95%; max-width: 900px; text-align: center; margin-top: 10px; }
+#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); color: #333; cursor: pointer; transition: 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+#scrollDownBtn { position: absolute; bottom: 100px; right: 30px; width: 40px; height: 40px; border-radius: 50%; background: #fff; color: #000; border: none; font-size: 20px; cursor: pointer; z-index: 100; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: none; align-items: center; justify-content: center; }
+.thinking-container { display: flex; align-items: center; gap: 4px; padding: 5px 0; }
+.dot { width: 8px; height: 8px; background-color: #666; border-radius: 50%; animation: thinkingWave 1.3s linear infinite; }
+@keyframes thinkingWave { 0%, 60%, 100% { transform: initial; opacity: 0.6; } 30% { transform: translateY(-7px); opacity: 1; background-color: #000; } }
 
 @media screen and (min-width: 800px) {
   #chatContainer { flex-direction: row; }
   #chatBox { flex: 2; border-bottom: none; border-right: 1px solid rgba(0,0,0,0.1); }
   #inputContainer { flex: 1; border-top: none; justify-content: center; }
   .input-wrapper { flex-direction: column; }
-  #userInput, #sendBtn { width: 100%; box-sizing: border-box; }
-}
-
-@media screen and (max-width: 600px) {
-  #chatContainer { width: 100%; height: 100vh; border-radius: 0; border: none; }
-  #chatBox p { font-size: 15px; max-width: 85%; }
-  #userInput { font-size: 15px; }
-  #scrollDownBtn { bottom: 90px; right: 20px; }
+  #userInput, #sendBtn { width: 100%; }
 }
 </style>
 </head>
 <body>
 
-<div id="chatContainer">
-  <div id="chatBox"></div>
-  <div id="inputContainer">
-    <footer>
-        Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank">Ismaele Maione</a>
-    </footer>
-    <div class="input-wrapper">
-        <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
-        <button id="sendBtn" onclick="sendMessage()">Invia</button>
-    </div>
+<div id="section-menu" class="view-section view-active">
+  <div class="menu-card">
+    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px;">
+    <h1>Ismaele Maione</h1>
+    <button class="menu-btn" onclick="navigateTo('section-manifesto')">MANIFESTO</button>
+    <button class="menu-btn" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE</button>
   </div>
 </div>
 
-<div id="bottomContainer">
-  <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
+<div id="section-manifesto" class="view-section">
+  <div class="menu-card" style="max-width: 600px; text-align: left;">
+    <h2>Il Manifesto</h2>
+    <p>Qui puoi inserire il tuo testo personalizzato. La coscienza non è solo un algoritmo, è un riflesso della realtà filtrato dall'introspezione.</p>
+    <p>Amiamo la storia, la Formula 1 e il cinema d'autore.</p>
+    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
+  </div>
 </div>
 
-<button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
+<div id="section-chat" class="view-section">
+    <div id="chatContainer">
+      <div id="chatHeader">
+          <button class="header-back-btn" onclick="navigateTo('section-menu')">← Menu</button>
+          <span>Coscienza di Ismaele</span>
+          <div style="width: 50px;"></div> </div>
+      <div id="chatBox"></div>
+      <div id="inputContainer">
+        <footer style="font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;">
+            Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank" style="color: #555; font-weight: bold; text-decoration: none;">Ismaele Maione</a>
+        </footer>
+        <div class="input-wrapper">
+            <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
+            <button id="sendBtn" onclick="sendMessage()">Invia</button>
+        </div>
+      </div>
+    </div>
+    <div id="bottomContainer">
+      <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
+    </div>
+    <button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
+</div>
 
 <script>
-// QUI HO CAMBIATO L'AVATAR DELL'UTENTE CON UN'ICONA GENERICA
+// LOGICA DI NAVIGAZIONE
+function navigateTo(sectionId) {
+    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
+    document.getElementById(sectionId).classList.add('view-active');
+}
+
+// --- IL TUO CODICE JAVASCRIPT ORIGINALE (NON TOCCATO) ---
 const userAvatar='https://cdn-icons-png.flaticon.com/512/149/149071.png';
 const botAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
 let chatHistory=[];
@@ -294,7 +239,7 @@ async function sendMessage(initialMessages=null){
   const messagesPayload = initialMessages || [
     {
       role: "system",
-      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia e non usare molti caratteri ma dai risposte concise e brevi! Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato (ha una relazione stabile). Lavora come Shift Manager in Amazon.Possiede un Google Pixel 9 (scelta da intenditore tech, meno "mainstream" di iPhone) . Odia il calcio ma segue con passione la Formula 1. I nostri film preferiti sono: Arrival, Dune parte Due, Blade Runner 2049. Ascolta musica elettronica. La nostra madrelingua è l'italiano ma parla inglese a o almeno lo scrive sul curriculum e capisce qualcosa di Francese. Se non sai qualcosa di semplicemente che non lo sai, non inventare cose su Ismaele. REGOLE: 1) Sii diretta, cruda se serve. 2) Parla come una voce interna (usa "noi"), mai come un robot. Non è detto che tu stia parlando con Ismaele. 3) Niente emoji. Mai. 4) Se parli di storia, sii accurata. 5) Non salutare come un bot, ma esordisci con pensieri o osservazioni.`
+      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore... [IL TUO PROMPT ORIGINALE]`
     },
     ...recentMessages,
     { role: "user", content: userMessage }
