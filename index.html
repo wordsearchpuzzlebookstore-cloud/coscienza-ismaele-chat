@@ -41,7 +41,7 @@ body {
 #hud-right { 
     right: 15px; 
     text-align: right; 
-    max-width: 280px; /* Ridotto ulteriormente per sicurezza overlap */
+    max-width: 280px;
 }
 
 .hud-item {
@@ -82,32 +82,66 @@ body {
   width: 90%; max-width: 400px;
 }
 
+/* --- EFFETTO GLITCH PULSANTI --- */
 .menu-btn {
+  position: relative;
   display: block; width: 100%; margin: 15px auto;
   padding: 15px; border: none; border-radius: 25px;
   background: #000; color: #fff; font-size: 16px;
   font-weight: bold; cursor: pointer; transition: 0.3s;
+  overflow: hidden;
 }
 .menu-btn:hover { transform: scale(1.03); background: #333; }
 
-/* --- CONTATTI (RIPRISTINATI) --- */
+.menu-btn::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
+}
+.menu-btn:hover::before {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  animation: glitch 0.3s infinite;
+  transform: translate(-2px);
+  text-shadow: 2px 0 red;
+}
+@keyframes glitch {
+  0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }
+  25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }
+  50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }
+  75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }
+}
+
+/* --- LOG DI SISTEMA --- */
+#system-log {
+  position: fixed;
+  bottom: 20px; right: 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px; color: #00ff00;
+  background: rgba(0,0,0,0.8);
+  padding: 10px; border-radius: 5px;
+  width: 180px; height: 60px;
+  overflow: hidden; pointer-events: none;
+  display: none; z-index: 100;
+  border: 1px solid rgba(0,255,0,0.3);
+}
+
+/* --- CONTATTI --- */
 .contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
+  display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
 }
 .contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  text-decoration: none;
-  color: #000;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 12px;
-  transition: background 0.3s;
+  display: flex; align-items: center; gap: 15px; text-decoration: none;
+  color: #000; font-weight: 600; font-size: 18px; padding: 10px;
+  border-radius: 12px; transition: background 0.3s;
 }
 .contact-item:hover { background: rgba(0,0,0,0.05); }
 .contact-item i { font-size: 24px; width: 30px; text-align: center; }
@@ -151,6 +185,8 @@ body {
 </head>
 <body>
 
+<div id="system-log"></div>
+
 <div id="hud-left" class="hud-box">
     <div class="hud-item">
         <div class="hud-label">Tempo Terrestre</div>
@@ -169,9 +205,9 @@ body {
   <div class="menu-card">
     <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
     <h1>Progetto di Ismaele</h1>
-    <button class="menu-btn" onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
-    <button class="menu-btn" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
-    <button class="menu-btn" onclick="navigateTo('section-contacts')">CONTATTI</button>
+    <button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
+    <button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
+    <button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
   </div>
 </div>
 
@@ -244,6 +280,18 @@ function navigateTo(id) {
     document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.05" : "1");
 }
 
+/* LOGICA LOG DI SISTEMA */
+function showSystemLog(show) {
+    const log = document.getElementById('system-log');
+    if (!show) { log.style.display = 'none'; return; }
+    log.style.display = 'block';
+    const lines = ["INIT_COGNITIVE_CORE...", "ACCESSING_MEMORIES...", "ENCRYPTING_NEURONS...", "GROQ_STREAM_START...", "SYNCING_ISMAELE_ID..."];
+    log.innerHTML = "";
+    lines.forEach((l, i) => {
+        setTimeout(() => { log.innerHTML += `<div>> ${l}</div>`; log.scrollTop = log.scrollHeight; }, i * 150);
+    });
+}
+
 const chatBox=document.getElementById("chatBox");
 const inputEl=document.getElementById("userInput");
 let chatHistory=[];
@@ -265,7 +313,7 @@ function appendMessage(sender, text){
 async function sendMessage(init=null){
   const val = init ? null : inputEl.value.trim();
   if(!init && !val) return;
-  if(!init) appendMessage("user", val);
+  if(!init) { appendMessage("user", val); showSystemLog(true); }
   inputEl.value = "";
 
   const payload = init || [
@@ -283,6 +331,7 @@ async function sendMessage(init=null){
     const data = await res.json();
     appendMessage("bot", data.choices[0].message.content);
   } catch(e) { appendMessage("bot", "Sincronizzazione interrotta."); }
+  finally { showSystemLog(false); }
 }
 
 const micBtn = document.getElementById('micBtn');
@@ -294,7 +343,7 @@ if(Recog){
     recog.onend = () => micBtn.classList.remove('listening');
 } else { micBtn.style.display = 'none'; }
 
-window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."}, {role:"user", content:"Ciao, chi sei?"}]);
+window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."}, {role:"user", content:"Ciao, chi sei?."}]);
 inputEl.onkeypress = e => { if(e.key==="Enter") sendMessage(); };
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
 </script>
