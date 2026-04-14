@@ -25,12 +25,10 @@ body {
   overflow: hidden; 
 }
 
-/* --- HUD RIPOSIZIONATO A SINISTRA --- */
-#hud-container {
+/* --- NUOVO HUD DISTRIBUITO --- */
+.hud-box {
   position: absolute;
-  top: 20px;
-  left: 20px; /* Spostato a sinistra */
-  text-align: left; /* Allineamento a sinistra */
+  top: 15px;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   font-family: 'Courier New', Courier, monospace;
@@ -39,19 +37,47 @@ body {
   transition: opacity 0.3s;
 }
 
-.hud-item {
-  margin-bottom: 10px;
-  background: rgba(0, 0, 0, 0.4);
-  padding: 10px 15px;
-  border-left: 3px solid #fff; /* Bordo a sinistra */
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 0 4px 4px 0; /* Arrotondamento invertito */
+/* Sinistra: Orologio */
+#hud-left { left: 15px; text-align: left; }
+/* Destra: Storia */
+#hud-right { right: 15px; text-align: right; }
+/* Centro: Stato Coscienza */
+#hud-center { 
+    left: 50%; 
+    transform: translateX(-50%); 
+    text-align: center;
+    width: auto;
+    min-width: 120px;
 }
 
-.hud-label { font-size: 0.7rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 3px; letter-spacing: 1px; }
-#tempo-terrestre { font-size: 1.2rem; font-weight: bold; letter-spacing: 2px; }
-#accadde-oggi { font-size: 0.8rem; max-width: 250px; line-height: 1.3; }
+.hud-item {
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 12px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 4px;
+}
+
+#hud-left .hud-item { border-left: 3px solid #fff; }
+#hud-right .hud-item { border-right: 3px solid #fff; }
+#hud-center .hud-item { border-bottom: 2px solid rgba(255,255,255,0.5); }
+
+.hud-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; letter-spacing: 1px; }
+#tempo-terrestre { font-size: 1rem; font-weight: bold; }
+#accadde-oggi { font-size: 0.75rem; max-width: 180px; line-height: 1.2; }
+
+/* Barra di stato coscienza */
+.sync-container { width: 100px; height: 4px; background: rgba(255,255,255,0.2); margin: 5px auto; border-radius: 2px; overflow: hidden; }
+#sync-bar { width: 88%; height: 100%; background: #fff; transition: width 1s ease-in-out; }
+#sync-text { font-size: 0.7rem; font-weight: bold; }
+
+/* Responsive Mobile */
+@media screen and (max-width: 600px) {
+    .hud-box { top: 10px; }
+    #accadde-oggi { max-width: 110px; font-size: 0.65rem; }
+    #tempo-terrestre { font-size: 0.85rem; }
+    #hud-center { display: none; } /* Nascondiamo il centro su schermi piccolissimi per evitare sovrapposizioni */
+}
 
 /* --- LOGICA SEZIONI --- */
 .view-section {
@@ -243,11 +269,22 @@ body {
 </head>
 <body>
 
-<div id="hud-container">
+<div id="hud-left" class="hud-box">
     <div class="hud-item">
         <div class="hud-label">Tempo Terrestre</div>
         <div id="tempo-terrestre">00:00:00</div>
     </div>
+</div>
+
+<div id="hud-center" class="hud-box">
+    <div class="hud-item">
+        <div class="hud-label">Sincronizzazione Sinaptica</div>
+        <div class="sync-container"><div id="sync-bar"></div></div>
+        <div id="sync-text">98.2%</div>
+    </div>
+</div>
+
+<div id="hud-right" class="hud-box">
     <div class="hud-item">
         <div class="hud-label">Accadde Oggi</div>
         <div id="accadde-oggi">Sincronizzazione...</div>
@@ -327,6 +364,12 @@ function updateClock() {
     document.getElementById('tempo-terrestre').textContent = ora.toLocaleTimeString('it-IT', { hour12: false });
 }
 
+function updateSync() {
+    const val = (Math.random() * (99.9 - 97.0) + 97.0).toFixed(1);
+    document.getElementById('sync-bar').style.width = val + "%";
+    document.getElementById('sync-text').textContent = val + "%";
+}
+
 async function updateHistoryEvent() {
     const target = document.getElementById('accadde-oggi');
     const oggi = new Date();
@@ -343,19 +386,23 @@ async function updateHistoryEvent() {
 }
 
 setInterval(updateClock, 1000);
+setInterval(updateSync, 3000);
 updateClock();
+updateSync();
 updateHistoryEvent();
 
 function navigateTo(sectionId) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
     document.getElementById(sectionId).classList.add('view-active');
     
-    const hud = document.getElementById('hud-container');
-    if(sectionId === 'section-chat') {
-        hud.style.opacity = "0.15"; 
-    } else {
-        hud.style.opacity = "1";
-    }
+    const huds = document.querySelectorAll('.hud-box');
+    huds.forEach(hud => {
+        if(sectionId === 'section-chat') {
+            hud.style.opacity = "0.15"; 
+        } else {
+            hud.style.opacity = "1";
+        }
+    });
     
     if(sectionId === 'section-chat') scrollToBottom();
 }
