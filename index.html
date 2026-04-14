@@ -25,7 +25,7 @@ body {
   overflow: hidden; 
 }
 
-/* --- NUOVO HUD DISTRIBUITO --- */
+/* --- HUD DISTRIBUITO (SINISTRA E DESTRA) --- */
 .hud-box {
   position: absolute;
   top: 15px;
@@ -37,17 +37,11 @@ body {
   transition: opacity 0.3s;
 }
 
-/* Sinistra: Orologio */
 #hud-left { left: 15px; text-align: left; }
-/* Destra: Storia */
-#hud-right { right: 15px; text-align: right; }
-/* Centro: Stato Coscienza */
-#hud-center { 
-    left: 50%; 
-    transform: translateX(-50%); 
-    text-align: center;
-    width: auto;
-    min-width: 120px;
+#hud-right { 
+    right: 15px; 
+    text-align: right; 
+    max-width: 400px; /* Spazio aumentato per evitare sovrapposizioni */
 }
 
 .hud-item {
@@ -60,23 +54,17 @@ body {
 
 #hud-left .hud-item { border-left: 3px solid #fff; }
 #hud-right .hud-item { border-right: 3px solid #fff; }
-#hud-center .hud-item { border-bottom: 2px solid rgba(255,255,255,0.5); }
 
 .hud-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; letter-spacing: 1px; }
 #tempo-terrestre { font-size: 1rem; font-weight: bold; }
-#accadde-oggi { font-size: 0.75rem; max-width: 180px; line-height: 1.2; }
-
-/* Barra di stato coscienza */
-.sync-container { width: 100px; height: 4px; background: rgba(255,255,255,0.2); margin: 5px auto; border-radius: 2px; overflow: hidden; }
-#sync-bar { width: 88%; height: 100%; background: #fff; transition: width 1s ease-in-out; }
-#sync-text { font-size: 0.7rem; font-weight: bold; }
+#accadde-oggi { font-size: 0.75rem; line-height: 1.2; }
 
 /* Responsive Mobile */
 @media screen and (max-width: 600px) {
     .hud-box { top: 10px; }
-    #accadde-oggi { max-width: 110px; font-size: 0.65rem; }
+    #hud-right { max-width: 50%; } /* Evita collisione con la parte sinistra su mobile */
+    #accadde-oggi { font-size: 0.65rem; }
     #tempo-terrestre { font-size: 0.85rem; }
-    #hud-center { display: none; } /* Nascondiamo il centro su schermi piccolissimi per evitare sovrapposizioni */
 }
 
 /* --- LOGICA SEZIONI --- */
@@ -89,11 +77,8 @@ body {
   justify-content: center;
 }
 
-.view-active {
-  display: flex;
-}
+.view-active { display: flex; }
 
-/* --- MENU CARD & BUTTONS --- */
 .menu-card {
   background: var(--glass-bg);
   backdrop-filter: blur(12px);
@@ -122,50 +107,14 @@ body {
   transition: 0.3s;
 }
 
-.menu-btn:hover {
-  transform: scale(1.03);
-  background: #333;
-}
+.menu-btn:hover { transform: scale(1.03); background: #333; }
 
-/* --- SEZIONE CONTATTI --- */
-.contact-links {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  margin-top: 20px;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  text-decoration: none;
-  color: #000;
-  font-weight: 600;
-  font-size: 18px;
-  padding: 10px;
-  border-radius: 12px;
-  transition: background 0.3s;
-}
-
-.contact-item:hover {
-  background: rgba(0,0,0,0.05);
-}
-
-.contact-item i {
-  font-size: 24px;
-  width: 30px;
-  text-align: center;
-}
-
-.back-link {
-  cursor: pointer;
-  text-decoration: underline;
-  font-size: 14px;
-  margin-top: 25px;
-  display: inline-block;
-  color: #555;
-}
+/* --- CONTATTI --- */
+.contact-links { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
+.contact-item { display: flex; align-items: center; gap: 15px; text-decoration: none; color: #000; font-weight: 600; font-size: 18px; padding: 10px; border-radius: 12px; transition: background 0.3s; }
+.contact-item:hover { background: rgba(0,0,0,0.05); }
+.contact-item i { font-size: 24px; width: 30px; text-align: center; }
+.back-link { cursor: pointer; text-decoration: underline; font-size: 14px; margin-top: 25px; display: inline-block; color: #555; }
 
 /* --- CHAT CONTAINER --- */
 #chatContainer {
@@ -185,86 +134,44 @@ body {
 
 #chatHeader {
   flex-shrink: 0;
-  position: sticky;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex; align-items: center; justify-content: center;
   background: rgba(255,255,255,0.9);
-  color: #000;
-  font-weight: 700;
-  padding: 15px;
+  color: #000; font-weight: 700; padding: 15px;
   border-bottom: 1px solid rgba(0,0,0,0.1);
   font-size: 18px;
-  z-index: 100;
 }
 
-.header-back-btn {
-  position: absolute;
-  left: 15px;
-  background: #000;
-  color: #fff;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 15px;
-  cursor: pointer;
-  font-size: 11px;
-  font-weight: bold;
-  z-index: 101;
-}
+.header-back-btn { position: absolute; left: 15px; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }
 
 #chatBox { 
-  flex-grow: 1;
-  overflow-y: auto; 
-  padding: 20px; 
-  display: flex; 
-  flex-direction: column; 
-  gap: 12px; 
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch;
+  flex-grow: 1; overflow-y: auto; padding: 20px; 
+  display: flex; flex-direction: column; gap: 12px; 
 }
 
 #chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }
 
-.chat-main-wrapper {
-  display: flex;
-  flex-direction: column;
-  flex: 2;
-  height: 100%;
-  overflow: hidden;
-}
-
-@media screen and (min-width: 800px) {
-  #chatContainer { flex-direction: row; }
-  #inputContainer { 
-    flex: 1; 
-    border-top: none; 
-    border-left: 1px solid rgba(0,0,0,0.1); 
-    justify-content: center; 
-  }
-}
-
 .user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
 .bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
-.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
 
-#inputContainer { 
-  flex-shrink: 0;
-  display: flex; 
-  flex-direction: column; 
-  background: rgba(255,255,255,0.9); 
-  padding: 15px; 
-  gap: 10px; 
-  z-index: 20; 
-}
-
-.input-wrapper { display: flex; gap: 10px; width: 100%; }
+#inputContainer { background: rgba(255,255,255,0.9); padding: 15px; z-index: 20; }
+.input-wrapper { display: flex; gap: 8px; width: 100%; align-items: center; }
 #userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }
-#sendBtn { padding: 0 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }
-#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin-top: 10px; }
-#scrollDownBtn { position: absolute; bottom: 100px; right: 30px; width: 40px; height: 40px; border-radius: 50%; background: #fff; border: none; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: var(--shadow); z-index: 100; }
 
+/* TASTI INPUT & VOCE */
+#sendBtn { padding: 12px 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }
+#micBtn { 
+    background: none; border: 1px solid #ccc; 
+    width: 42px; height: 42px; border-radius: 50%; 
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: 0.3s; color: #555;
+}
+#micBtn.listening { color: #ff4b2b; border-color: #ff4b2b; box-shadow: 0 0 10px rgba(255,75,43,0.3); animation: pulse 1.5s infinite; }
+
+@keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
 @keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+
+#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin: 10px auto; display: block; }
 </style>
 </head>
 <body>
@@ -273,14 +180,6 @@ body {
     <div class="hud-item">
         <div class="hud-label">Tempo Terrestre</div>
         <div id="tempo-terrestre">00:00:00</div>
-    </div>
-</div>
-
-<div id="hud-center" class="hud-box">
-    <div class="hud-item">
-        <div class="hud-label">Sincronizzazione Sinaptica</div>
-        <div class="sync-container"><div id="sync-bar"></div></div>
-        <div id="sync-text">98.2%</div>
     </div>
 </div>
 
@@ -294,7 +193,7 @@ body {
 <div id="section-menu" class="view-section view-active">
   <div class="menu-card">
     <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
-    <h1 style="margin-bottom: 30px;">Progetto di Ismaele</h1>
+    <h1>Progetto di Ismaele</h1>
     <button class="menu-btn" onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
     <button class="menu-btn" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
     <button class="menu-btn" onclick="navigateTo('section-contacts')">CONTATTI</button>
@@ -304,8 +203,7 @@ body {
 <div id="section-manifesto" class="view-section">
   <div class="menu-card" style="max-width: 500px; text-align: left;">
     <h2>Il Manifesto</h2>
-    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p>
-    <p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p>
+    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte.</p>
     <p>-Ismaele- Aprile 2026.</p>
     <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
   </div>
@@ -315,18 +213,8 @@ body {
   <div class="menu-card">
     <h2>Contatti</h2>
     <div class="contact-links">
-      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item">
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-      <a href="https://x.com/ismaele_maione" target="_blank" class="contact-item">
-        <i class="fab fa-twitter"></i> Twitter/X
-      </a>
-      <a href="mailto:maioneismaele@gmail.com" class="contact-item">
-        <i class="fas fa-envelope"></i> Email
-      </a>
+      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item"><i class="fab fa-instagram"></i> Instagram</a>
+      <a href="mailto:maioneismaele@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> Email</a>
     </div>
     <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
   </div>
@@ -334,173 +222,124 @@ body {
 
 <div id="section-chat" class="view-section">
     <div id="chatContainer">
-      <div class="chat-main-wrapper">
-          <div id="chatHeader">
-              <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
-              <span>Coscienza di Ismaele</span>
-          </div>
-          <div id="chatBox"></div>
+      <div id="chatHeader">
+          <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
+          <span>Coscienza di Ismaele</span>
       </div>
+      <div id="chatBox"></div>
 
       <div id="inputContainer">
-        <footer style="font-size: 11px; color: #888; text-align: center; margin-bottom: 5px;">
-            Progetto di <a href="https://www.instagram.com/ismaelemaione" target="_blank" style="color: #555; font-weight: bold; text-decoration: none;">Ismaele Maione</a>
-        </footer>
         <div class="input-wrapper">
+            <button id="micBtn" title="Comando Vocale"><i class="fas fa-microphone"></i></button>
             <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
             <button id="sendBtn" onclick="sendMessage()">Invia</button>
         </div>
       </div>
     </div>
-    
     <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
-    <button id="scrollDownBtn" onclick="scrollToBottom()">⬇️</button>
 </div>
 
 <script>
-// --- FUNZIONI HUD ---
+// --- LOGICA HUD ---
 function updateClock() {
-    const ora = new Date();
-    document.getElementById('tempo-terrestre').textContent = ora.toLocaleTimeString('it-IT', { hour12: false });
+    document.getElementById('tempo-terrestre').textContent = new Date().toLocaleTimeString('it-IT', { hour12: false });
 }
-
-function updateSync() {
-    const val = (Math.random() * (99.9 - 97.0) + 97.0).toFixed(1);
-    document.getElementById('sync-bar').style.width = val + "%";
-    document.getElementById('sync-text').textContent = val + "%";
-}
-
 async function updateHistoryEvent() {
     const target = document.getElementById('accadde-oggi');
     const oggi = new Date();
-    const giorno = oggi.getDate();
-    const mese = oggi.getMonth() + 1;
     try {
-        const response = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${mese}/${giorno}`);
+        const response = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${oggi.getMonth() + 1}/${oggi.getDate()}`);
         const data = await response.json();
-        if (data.events && data.events.length > 0) {
-            const evento = data.events[Math.floor(Math.random() * data.events.length)];
-            target.textContent = `${evento.year}: ${evento.text}`;
-        }
+        const evento = data.events[Math.floor(Math.random() * data.events.length)];
+        target.textContent = `${evento.year}: ${evento.text}`;
     } catch (e) { target.textContent = "La storia è in pausa."; }
 }
-
 setInterval(updateClock, 1000);
-setInterval(updateSync, 3000);
 updateClock();
-updateSync();
 updateHistoryEvent();
 
 function navigateTo(sectionId) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
     document.getElementById(sectionId).classList.add('view-active');
-    
-    const huds = document.querySelectorAll('.hud-box');
-    huds.forEach(hud => {
-        if(sectionId === 'section-chat') {
-            hud.style.opacity = "0.15"; 
-        } else {
-            hud.style.opacity = "1";
-        }
-    });
-    
+    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = sectionId === 'section-chat' ? "0.15" : "1");
     if(sectionId === 'section-chat') scrollToBottom();
 }
 
-const userAvatar='https://cdn-icons-png.flaticon.com/512/149/149071.png';
+// --- CHAT & VOCE ---
 const botAvatar='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
 let chatHistory=[];
 const chatBox=document.getElementById("chatBox");
 const inputEl=document.getElementById("userInput");
 
-function appendMessage(sender, text, isHtml = false){
+function appendMessage(sender, text){
   const p = document.createElement("p");
   p.className = sender;
   const avatar = document.createElement("img");
   avatar.className = "avatar";
-  avatar.src = sender === "user" ? userAvatar : botAvatar;
+  avatar.src = sender === "user" ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : botAvatar;
   const contentDiv = document.createElement("div");
-  if(isHtml) { contentDiv.innerHTML = text; } else { contentDiv.textContent = text; }
+  contentDiv.textContent = text;
   p.appendChild(avatar);
   p.appendChild(contentDiv);
   chatBox.appendChild(p);
   scrollToBottom();
-  if(sender !== 'bot-thinking') { chatHistory.push({sender, text}); }
-  return p;
+  chatHistory.push({sender, text});
 }
 
-function showThinking() {
-    const thinkingHtml = `<div style="display:flex; gap:4px; padding:5px 0;"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>`;
-    const styleExists = document.getElementById('thinking-style');
-    if(!styleExists){
-      const style = document.createElement('style');
-      style.id = 'thinking-style';
-      style.innerHTML = `.dot { width:8px; height:8px; background:#666; border-radius:50%; animation: thinkingWave 1.3s infinite; } @keyframes thinkingWave { 0%,60%,100% {transform:translateY(0)} 30% {transform:translateY(-7px)} }`;
-      document.head.appendChild(style);
-    }
-    return appendMessage("bot", thinkingHtml, true);
-}
-
-async function sendMessage(initialMessages=null){
-  const sendBtn=document.getElementById("sendBtn");
-  const userMessage=initialMessages?null:inputEl.value.trim();
-  if(!initialMessages && !userMessage) return;
-  if(!initialMessages) appendMessage("user", userMessage);
-  inputEl.value="";
-  inputEl.disabled=sendBtn.disabled=true;
-
-  const recentMessages=chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text}));
-  const messagesPayload = initialMessages || [
-    {
-      role: "system",
-      content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.`
-    },
-    ...recentMessages,
-    { role: "user", content: userMessage }
-  ];
-
-  const thinkingElement = showThinking();
-
-  try{
+async function sendMessage(){
+  const text = inputEl.value.trim();
+  if(!text) return;
+  appendMessage("user", text);
+  inputEl.value = "";
+  
+  try {
     const response = await fetch("/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messagesPayload })
+      body: JSON.stringify({ 
+        messagesPayload: [
+          { role: "system", content: "Sei la coscienza di Ismaele. Risposte brevi, dirette, filosofiche. Niente emoji." },
+          { role: "user", content: text }
+        ] 
+      })
     });
-    chatBox.removeChild(thinkingElement);
-    const data=await response.json();
-    if(data.choices) appendMessage("bot", data.choices[0].message.content);
-  } catch(e){
-    if(thinkingElement.parentNode) chatBox.removeChild(thinkingElement);
-    appendMessage("bot", "Errore nella sinapsi.");
-  } finally{
-    inputEl.disabled=sendBtn.disabled=false;
-    inputEl.focus();
-    scrollToBottom();
-  }
+    const data = await response.json();
+    appendMessage("bot", data.choices[0].message.content);
+  } catch(e) { appendMessage("bot", "Errore nella sinapsi."); }
 }
 
+function scrollToBottom(){ chatBox.scrollTop = chatBox.scrollHeight; }
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
-function scrollToBottom(){ 
-  setTimeout(() => { 
-    chatBox.scrollTop = chatBox.scrollHeight;
-  }, 50); 
+
+// --- WEB SPEECH API (VOCE) ---
+const micBtn = document.getElementById('micBtn');
+const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+if (SpeechRecognition) {
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'it-IT';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    micBtn.addEventListener('click', () => {
+        recognition.start();
+        micBtn.classList.add('listening');
+    });
+
+    recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        inputEl.value = transcript;
+        micBtn.classList.remove('listening');
+        sendMessage(); // Invia automaticamente dopo aver parlato
+    };
+
+    recognition.onerror = () => micBtn.classList.remove('listening');
+    recognition.onend = () => micBtn.classList.remove('listening');
+} else {
+    micBtn.style.display = 'none'; // Nasconde se il browser non supporta la voce
 }
 
-window.addEventListener('DOMContentLoaded',()=>{
-  sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Diretta, no emoji."}, {role:"user",content:"Ciao."}]);
-});
-
-inputEl.addEventListener('keypress',e=>{if(e.key==="Enter") sendMessage();});
-
-chatBox.addEventListener('scroll', () => {
-    const btn = document.getElementById("scrollDownBtn");
-    if(chatBox.scrollTop + chatBox.clientHeight < chatBox.scrollHeight - 100) { 
-      btn.style.display = "flex"; 
-    } else { 
-      btn.style.display = "none"; 
-    }
-});
+inputEl.addEventListener('keypress', e => { if(e.key==="Enter") sendMessage(); });
 </script>
 </body>
 </html>
