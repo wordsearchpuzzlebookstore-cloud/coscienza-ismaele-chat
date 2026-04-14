@@ -294,7 +294,7 @@ if(Recog){
     recog.onend = () => micBtn.classList.remove('listening');
 } else { micBtn.style.display = 'none'; }
 
-window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia."}, {role:"user", content:"Ciao, chi sei?"}]);
+window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."}, {role:"user", content:"Ciao, chi sei?"}]);
 inputEl.onkeypress = e => { if(e.key==="Enter") sendMessage(); };
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
 </script>
