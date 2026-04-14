@@ -241,7 +241,7 @@ setInterval(updateClock, 1000); updateClock(); updateHistoryEvent();
 function navigateTo(id) {
     document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
     document.getElementById(id).classList.add('view-active');
-    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.15" : "1");
+    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.05" : "1");
 }
 
 const chatBox=document.getElementById("chatBox");
