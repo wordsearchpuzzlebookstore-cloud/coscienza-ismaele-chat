@@ -266,7 +266,7 @@ if(Recog){
     recog.onend = () => micBtn.classList.remove('listening');
 } else { micBtn.style.display = 'none'; }
 
-window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Inizia con un pensiero profondo."}, {role:"user", content:"Svegliati."}]);
+window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Inizia con un pensiero profondo."}, {role:"user", content:"Ciao"}]);
 inputEl.onkeypress = e => { if(e.key==="Enter") sendMessage(); };
 function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
 </script>
