@@ -1,351 +1,367 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-<meta charset="UTF-8" />
-<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<title>Coscienza-di-Ismaele.Beta</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-<style>
-:root {
-  --primary-color: #252525;
-  --accent-color: #4a90e2;
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0; padding: 0;
-  height: 100vh;
-  background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #333;
-  overflow: hidden; 
-}
-
-/* --- HUD OTTIMIZZATO --- */
-.hud-box {
-  position: absolute;
-  top: 15px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  font-family: 'Courier New', Courier, monospace;
-  pointer-events: none;
-  z-index: 50;
-  transition: opacity 0.3s;
-}
-
-#hud-left { left: 15px; text-align: left; }
-#hud-right { 
-    right: 15px; 
-    text-align: right; 
-    max-width: 280px;
-}
-
-.hud-item {
-  background: rgba(0, 0, 0, 0.4);
-  padding: 8px 12px;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 4px;
-}
-
-#hud-left .hud-item { border-left: 3px solid #fff; }
-#hud-right .hud-item { border-right: 3px solid #fff; }
-
-.hud-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; letter-spacing: 1px; }
-#tempo-terrestre { font-size: 1rem; font-weight: bold; }
-#accadde-oggi { font-size: 0.80rem; line-height: 1.2; }
-
-@media screen and (max-width: 600px) {
-    #hud-right { max-width: 140px; }
-    #accadde-oggi { font-size: 0.65rem; }
-}
-
-/* --- LOGICA SEZIONI --- */
-.view-section {
-  display: none;
-  width: 100%; height: 100%;
-  flex-direction: column; align-items: center; justify-content: center;
-}
-.view-active { display: flex; }
-
-.menu-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 40px; border-radius: 20px;
-  text-align: center; box-shadow: var(--shadow);
-  border: 1px solid var(--glass-border);
-  width: 90%; max-width: 400px;
-}
-
-/* --- EFFETTO GLITCH PULSANTI --- */
-.menu-btn {
-  position: relative;
-  display: block; width: 100%; margin: 15px auto;
-  padding: 15px; border: none; border-radius: 25px;
-  background: #000; color: #fff; font-size: 16px;
-  font-weight: bold; cursor: pointer; transition: 0.3s;
-  overflow: hidden;
-}
-.menu-btn:hover { transform: scale(1.03); background: #333; }
-
-.menu-btn::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
-}
-.menu-btn:hover::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: #000;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  animation: glitch 0.3s infinite;
-  transform: translate(-2px);
-  text-shadow: 2px 0 red;
-}
-@keyframes glitch {
-  0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }
-  25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }
-  50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }
-  75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }
-  100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }
-}
-
-/* --- LOG DI SISTEMA --- */
-#system-log {
-  position: fixed;
-  bottom: 20px; right: 20px;
-  font-family: 'Courier New', monospace;
-  font-size: 10px; color: #00ff00;
-  background: rgba(0,0,0,0.8);
-  padding: 10px; border-radius: 5px;
-  width: 180px; height: 60px;
-  overflow: hidden; pointer-events: none;
-  display: none; z-index: 100;
-  border: 1px solid rgba(0,255,0,0.3);
-}
-
-/* --- CONTATTI --- */
-.contact-links {
-  display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
-}
-.contact-item {
-  display: flex; align-items: center; gap: 15px; text-decoration: none;
-  color: #000; font-weight: 600; font-size: 18px; padding: 10px;
-  border-radius: 12px; transition: background 0.3s;
-}
-.contact-item:hover { background: rgba(0,0,0,0.05); }
-.contact-item i { font-size: 24px; width: 30px; text-align: center; }
-.back-link { cursor: pointer; text-decoration: underline; font-size: 14px; margin-top: 25px; display: inline-block; color: #555; }
-
-/* --- CHAT --- */
-#chatContainer {
-  display: flex; flex-direction: column;
-  width: 95%; max-width: 900px; height: 85vh;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
-  position: relative;
-}
-#chatHeader {
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.9); color: #000; font-weight: 700;
-  padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 18px;
-}
-.header-back-btn { position: absolute; left: 15px; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }
-#chatBox { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
-#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }
-
-.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }
-.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }
-.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-
-#inputContainer { background: rgba(255,255,255,0.9); padding: 15px; }
-.input-wrapper { display: flex; gap: 8px; width: 100%; align-items: center; }
-#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }
-#sendBtn { padding: 12px 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }
-#micBtn { background: none; border: 1px solid #ccc; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #555; }
-#micBtn.listening { color: #ff4b2b; border-color: #ff4b2b; animation: pulse 1.5s infinite; }
-
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-@keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-
-#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin: 10px auto; display: block; }
-</style>
-</head>
-<body>
-
+<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8" /><link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>Coscienza-di-Ismaele.Beta</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /><style>:root {--primary-color: #252525;--accent-color: #4a90e2;--glass-bg: rgba(255, 255, 255, 0.75);--glass-border: rgba(255, 255, 255, 0.4);--shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);}body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;margin: 0; padding: 0;height: 100vh;background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;display: flex; flex-direction: column; align-items: center; justify-content: center;color: #333;overflow: hidden; }
+.hud-box {position: absolute;top: 15px;color: rgba(255, 255, 255, 0.9);text-shadow: 0 2px 4px rgba(0,0,0,0.5);font-family: 'Courier New', Courier, monospace;pointer-events: none;z-index: 50;transition: opacity 0.3s;}#hud-left { left: 15px; text-align: left; }#hud-right { right: 15px; text-align: right; max-width: 280px;}.hud-item {background: rgba(0, 0, 0, 0.4);padding: 8px 12px;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);border-radius: 4px;}#hud-left .hud-item { border-left: 3px solid #fff; }#hud-right .hud-item { border-right: 3px solid #fff; }.hud-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; letter-spacing: 1px; }#tempo-terrestre { font-size: 1rem; font-weight: bold; }#accadde-oggi { font-size: 0.80rem; line-height: 1.2; }@media screen and (max-width: 600px) {#hud-right { max-width: 140px; }#accadde-oggi { font-size: 0.65rem; }}
+.view-section {display: none;width: 100%; height: 100%;flex-direction: column; align-items: center; justify-content: center;}.view-active { display: flex; }
+.menu-card {background: var(--glass-bg);backdrop-filter: blur(12px);-webkit-backdrop-filter: blur(12px);padding: 40px; border-radius: 20px;text-align: center; box-shadow: var(--shadow);border: 1px solid var(--glass-border);width: 90%; max-width: 400px;}
+.menu-btn {position: relative;display: block; width: 100%; margin: 15px auto;padding: 15px; border: none; border-radius: 25px;background: #000; color: #fff; font-size: 16px;font-weight: bold; cursor: pointer; transition: 0.3s;overflow: hidden;}.menu-btn:hover { transform: scale(1.03); background: #333; }.menu-btn::after {content: '';position: absolute;top: 0; left: 0; width: 100%; height: 100%;background: rgba(255, 255, 255, 0.1);opacity: 0;}.menu-btn:hover::before {content: attr(data-text);position: absolute;top: 0; left: 0; width: 100%; height: 100%;background: #000;display: flex; align-items: center; justify-content: center;color: #fff;clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);animation: glitch 0.3s infinite;transform: translate(-2px);text-shadow: 2px 0 red;}@keyframes glitch {0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }}
+#system-log {position: fixed;bottom: 20px; right: 20px;font-family: 'Courier New', monospace;font-size: 10px; color: #00ff00;background: rgba(0,0,0,0.8);padding: 10px; border-radius: 5px;width: 180px; height: 60px;overflow: hidden; pointer-events: none;display: none; z-index: 100;border: 1px solid rgba(0,255,0,0.3);}
+.contact-links {display: flex; flex-direction: column; gap: 15px; margin-top: 20px;}.contact-item {display: flex; align-items: center; gap: 15px; text-decoration: none;color: #000; font-weight: 600; font-size: 18px; padding: 10px;border-radius: 12px; transition: background 0.3s;}.contact-item:hover { background: rgba(0,0,0,0.05); }.contact-item i { font-size: 24px; width: 30px; text-align: center; }.back-link { cursor: pointer; text-decoration: underline; font-size: 14px; margin-top: 25px; display: inline-block; color: #555; }
+#chatContainer {display: flex; flex-direction: column;width: 95%; max-width: 900px; height: 85vh;background: var(--glass-bg);backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);border: 1px solid var(--glass-border);border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);position: relative;}#chatHeader {flex-shrink: 0; display: flex; align-items: center; justify-content: center;background: rgba(255,255,255,0.9); color: #000; font-weight: 700;padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 18px;}.header-back-btn { position: absolute; left: 15px; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }#chatBox { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }#inputContainer { background: rgba(255,255,255,0.9); padding: 15px; }.input-wrapper { display: flex; gap: 8px; width: 100%; align-items: center; }#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }#sendBtn { padding: 12px 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; }#micBtn { background: none; border: 1px solid #ccc; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #555; }#micBtn.listening { color: #ff4b2b; border-color: #ff4b2b; animation: pulse 1.5s infinite; }@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }@keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }#clearBtn { padding: 8px 16px; font-size: 12px; border-radius: 20px; border: none; background: rgba(255,255,255,0.8); cursor: pointer; margin: 10px auto; display: block; }
+/* --- FLAPPY SECTION --- */
+#section-flappy { background: #0a0015; }
+#section-flappy .header-back-btn { position: fixed; top: 10px; left: 10px; z-index: 999; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }
+#flappyGameArea { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 100%; }
+#flappyGameArea canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none; -webkit-tap-highlight-color: transparent; }
+#flappyAutoBtn { padding: 7px 18px; border: 2px solid #ff6b00; border-radius: 20px; background: rgba(10,0,30,0.85); color: #ffd700; font: bold 12px monospace; cursor: pointer; letter-spacing: 1px; transition: background 0.2s, color 0.2s; user-select: none; flex-shrink: 0; }
+#flappyAutoBtn:hover, #flappyAutoBtn:active, #flappyAutoBtn.active { background: #ff6b00; color: #1a0a2e; }
+</style></head><body>
 <div id="system-log"></div>
+<div id="hud-left" class="hud-box"><div class="hud-item"><div class="hud-label">Tempo Terrestre</div><div id="tempo-terrestre">00:00:00</div></div></div>
+<div id="hud-right" class="hud-box"><div class="hud-item"><div class="hud-label">Accadde Oggi</div><div id="accadde-oggi">Sincronizzazione...</div></div></div>
 
-<div id="hud-left" class="hud-box">
-    <div class="hud-item">
-        <div class="hud-label">Tempo Terrestre</div>
-        <div id="tempo-terrestre">00:00:00</div>
-    </div>
+<!-- MENU -->
+<div id="section-menu" class="view-section view-active"><div class="menu-card">
+<img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
+<h1>Progetto di Ismaele</h1>
+<button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
+<button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta)</button>
+<button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
+<button class="menu-btn" data-text="FLAPPY ISMA" onclick="navigateTo('section-flappy')">FLAPPY ISMA</button>
+</div></div>
+
+<!-- MANIFESTO -->
+<div id="section-manifesto" class="view-section"><div class="menu-card" style="max-width: 500px; text-align: left;"><h2>Il Manifesto</h2><p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p><p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p><p>-Ismaele- Aprile 2026.</p><span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span></div></div>
+
+<!-- CONTATTI -->
+<div id="section-contacts" class="view-section"><div class="menu-card"><h2>Contatti</h2><div class="contact-links"><a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item"><i class="fab fa-instagram"></i> Instagram</a><a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://x.com/ismaele_maione" target="_blank" class="contact-item"><i class="fab fa-twitter"></i> Twitter/X</a><a href="mailto:maioneismaele@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> Email</a></div><span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span></div></div>
+
+<!-- CHAT -->
+<div id="section-chat" class="view-section"><div id="chatContainer"><div id="chatHeader"><button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button><span>Coscienza di Ismaele</span></div><div id="chatBox"></div><div id="inputContainer"><div class="input-wrapper"><button id="micBtn"><i class="fas fa-microphone"></i></button><input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" /><button id="sendBtn" onclick="sendMessage()">Invia</button></div></div></div><button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button></div>
+
+<!-- FLAPPY ISMA -->
+<div id="section-flappy" class="view-section">
+<button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
+<div id="flappyGameArea">
+<canvas id="gameCanvas"></canvas>
+<button id="flappyAutoBtn">🤖 AUTOPLAY: OFF</button>
 </div>
-
-<div id="hud-right" class="hud-box">
-    <div class="hud-item">
-        <div class="hud-label">Accadde Oggi</div>
-        <div id="accadde-oggi">Sincronizzazione...</div>
-    </div>
-</div>
-
-<div id="section-menu" class="view-section view-active">
-  <div class="menu-card">
-    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
-    <h1>Progetto di Ismaele</h1>
-    <button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
-    <button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
-    <button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
-  </div>
-</div>
-
-<div id="section-manifesto" class="view-section">
-  <div class="menu-card" style="max-width: 500px; text-align: left;">
-    <h2>Il Manifesto</h2>
-    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p>
-    <p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p>
-    <p>-Ismaele- Aprile 2026.</p>
-    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
-  </div>
-</div>
-
-<div id="section-contacts" class="view-section">
-  <div class="menu-card">
-    <h2>Contatti</h2>
-    <div class="contact-links">
-      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item">
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-      <a href="https://x.com/ismaele_maione" target="_blank" class="contact-item">
-        <i class="fab fa-twitter"></i> Twitter/X
-      </a>
-      <a href="mailto:maioneismaele@gmail.com" class="contact-item">
-        <i class="fas fa-envelope"></i> Email
-      </a>
-    </div>
-    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
-  </div>
-</div>
-
-<div id="section-chat" class="view-section">
-    <div id="chatContainer">
-      <div id="chatHeader">
-          <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
-          <span>Coscienza di Ismaele</span>
-      </div>
-      <div id="chatBox"></div>
-      <div id="inputContainer">
-        <div class="input-wrapper">
-            <button id="micBtn"><i class="fas fa-microphone"></i></button>
-            <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
-            <button id="sendBtn" onclick="sendMessage()">Invia</button>
-        </div>
-      </div>
-    </div>
-    <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
 </div>
 
 <script>
-function updateClock() {
-    document.getElementById('tempo-terrestre').textContent = new Date().toLocaleTimeString('it-IT', { hour12: false });
-}
-async function updateHistoryEvent() {
-    try {
-        const res = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${new Date().getMonth()+1}/${new Date().getDate()}`);
-        const data = await res.json();
-        const ev = data.events[Math.floor(Math.random()*data.events.length)];
-        document.getElementById('accadde-oggi').textContent = `${ev.year}: ${ev.text}`;
-    } catch(e) { document.getElementById('accadde-oggi').textContent = "Storia in pausa."; }
-}
-setInterval(updateClock, 1000); updateClock(); updateHistoryEvent();
+// ===================== HOME LOGIC =====================
+function updateClock(){document.getElementById('tempo-terrestre').textContent=new Date().toLocaleTimeString('it-IT',{hour12:false});}
+async function updateHistoryEvent(){try{const res=await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${new Date().getMonth()+1}/${new Date().getDate()}`);const data=await res.json();const ev=data.events[Math.floor(Math.random()*data.events.length)];document.getElementById('accadde-oggi').textContent=`${ev.year}: ${ev.text}`;}catch(e){document.getElementById('accadde-oggi').textContent="Storia in pausa.";}}
+setInterval(updateClock,1000);updateClock();updateHistoryEvent();
 
-function navigateTo(id) {
-    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
-    document.getElementById(id).classList.add('view-active');
-    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.05" : "1");
+let flappyStarted=false;
+function navigateTo(id){
+document.querySelectorAll('.view-section').forEach(s=>s.classList.remove('view-active'));
+document.getElementById(id).classList.add('view-active');
+document.querySelectorAll('.hud-box').forEach(h=>h.style.opacity=(id==='section-chat'||id==='section-flappy')?"0":"1");
+if(id==='section-flappy'&&!flappyStarted){flappyStarted=true;initFlappy();}
 }
 
-/* LOGICA LOG DI SISTEMA */
-function showSystemLog(show) {
-    const log = document.getElementById('system-log');
-    if (!show) { log.style.display = 'none'; return; }
-    log.style.display = 'block';
-    const lines = ["INIT_COGNITIVE_CORE...", "ACCESSING_MEMORIES...", "ENCRYPTING_NEURONS...", "GROQ_STREAM_START...", "SYNCING_ISMAELE_ID..."];
-    log.innerHTML = "";
-    lines.forEach((l, i) => {
-        setTimeout(() => { log.innerHTML += `<div>> ${l}</div>`; log.scrollTop = log.scrollHeight; }, i * 150);
-    });
-}
-
-const chatBox=document.getElementById("chatBox");
-const inputEl=document.getElementById("userInput");
-let chatHistory=[];
-
-function appendMessage(sender, text){
-  const p = document.createElement("p");
-  p.className = sender;
-  const img = document.createElement("img");
-  img.className = "avatar";
-  img.src = sender === "user" ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";
-  const div = document.createElement("div");
-  div.textContent = text;
-  p.appendChild(img); p.appendChild(div);
-  chatBox.appendChild(p);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  chatHistory.push({sender, text});
-}
-
-async function sendMessage(init=null){
-  const val = init ? null : inputEl.value.trim();
-  if(!init && !val) return;
-  if(!init) { appendMessage("user", val); showSystemLog(true); }
-  inputEl.value = "";
-
-  const payload = init || [
-    { role: "system", content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.` },
-    ...chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text})),
-    { role: "user", content: val }
-  ];
-
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messagesPayload: payload })
-    });
-    const data = await res.json();
-    appendMessage("bot", data.choices[0].message.content);
-  } catch(e) { appendMessage("bot", "Sincronizzazione interrotta."); }
-  finally { showSystemLog(false); }
-}
-
-const micBtn = document.getElementById('micBtn');
-const Recog = window.SpeechRecognition || window.webkitSpeechRecognition;
-if(Recog){
-    const recog = new Recog(); recog.lang = 'it-IT';
-    micBtn.onclick = () => { recog.start(); micBtn.classList.add('listening'); };
-    recog.onresult = (e) => { inputEl.value = e.results[0][0].transcript; sendMessage(); };
-    recog.onend = () => micBtn.classList.remove('listening');
-} else { micBtn.style.display = 'none'; }
-
-window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."}, {role:"user", content:"Ciao, chi sei?."}]);
-inputEl.onkeypress = e => { if(e.key==="Enter") sendMessage(); };
-function clearHistory(){ chatHistory=[]; chatBox.innerHTML=""; }
+function showSystemLog(show){const log=document.getElementById('system-log');if(!show){log.style.display='none';return;}log.style.display='block';const lines=["INIT_COGNITIVE_CORE...","ACCESSING_MEMORIES...","ENCRYPTING_NEURONS...","GROQ_STREAM_START...","SYNCING_ISMAELE_ID..."];log.innerHTML="";lines.forEach((l,i)=>{setTimeout(()=>{log.innerHTML+=`<div>> ${l}</div>`;log.scrollTop=log.scrollHeight;},i*150);});}
+const chatBox=document.getElementById("chatBox");const inputEl=document.getElementById("userInput");let chatHistory=[];
+function appendMessage(sender,text){const p=document.createElement("p");p.className=sender;const img=document.createElement("img");img.className="avatar";img.src=sender==="user"?"https://cdn-icons-png.flaticon.com/512/149/149071.png":"https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";const div=document.createElement("div");div.textContent=text;p.appendChild(img);p.appendChild(div);chatBox.appendChild(p);chatBox.scrollTop=chatBox.scrollHeight;chatHistory.push({sender,text});}
+async function sendMessage(init=null){const val=init?null:inputEl.value.trim();if(!init&&!val)return;if(!init){appendMessage("user",val);showSystemLog(true);}inputEl.value="";const payload=init||[{role:"system",content:`Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.`},...chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant",content:m.text})),{role:"user",content:val}];try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messagesPayload:payload})});const data=await res.json();appendMessage("bot",data.choices[0].message.content);}catch(e){appendMessage("bot","Sincronizzazione interrotta.");}finally{showSystemLog(false);}}
+const micBtn=document.getElementById('micBtn');const Recog=window.SpeechRecognition||window.webkitSpeechRecognition;if(Recog){const recog=new Recog();recog.lang='it-IT';micBtn.onclick=()=>{recog.start();micBtn.classList.add('listening');};recog.onresult=(e)=>{inputEl.value=e.results[0][0].transcript;sendMessage();};recog.onend=()=>micBtn.classList.remove('listening');}else{micBtn.style.display='none';}
+window.onload=()=>sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."},{role:"user",content:"Ciao, chi sei?."}]);
+inputEl.onkeypress=e=>{if(e.key==="Enter")sendMessage();};
+function clearHistory(){chatHistory=[];chatBox.innerHTML="";}
 </script>
-</body>
-</html>
+
+<script>
+// ===================== FLAPPY ISMA GAME =====================
+function initFlappy(){
+const canvas=document.getElementById('gameCanvas');
+const ctx=canvas.getContext('2d');
+const autoBtn=document.getElementById('flappyAutoBtn');
+const BASE_W=288,BASE_H=512;
+let scale=1;
+function resize(){
+const area=document.getElementById('flappyGameArea');
+const btnH=window.innerHeight<600?44:56;
+const s=Math.min(window.innerWidth/BASE_W,(window.innerHeight-btnH)/BASE_H,2.5);
+scale=s;canvas.width=BASE_W*s;canvas.height=BASE_H*s;
+canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+}
+resize();window.addEventListener('resize',resize);
+
+const PHASES=[
+{name:'afternoon',sky:['#1a6fa8','#2e90c8','#72cce3','#b8e8f5','#d6f0f8'],sunColor:['#fffde7','#fff9c4','#fff176'],sunGlow:'rgba(255,245,100,{a})',hasSun:true,hasMoon:false,groundTop:'#7ec850',groundDark:'#5a9e30',grassTop:'#6dbf3e',grassTuft:'#4a9c28',cloudColor:'rgba(255,255,255,0.85)',pipeRim:'#4caf50',stars:false,cityAlpha:0.5,cityWin:'rgba(200,230,255,0.15)'},
+{name:'sunset',sky:['#1a0535','#6b1a4e','#c0392b','#f39c12','#f9ca24'],sunColor:['#fffde7','#f9ca24','#f39c12'],sunGlow:'rgba(249,202,36,{a})',hasSun:true,hasMoon:false,groundTop:'#c0852a',groundDark:'#8b5e1a',grassTop:'#e67e22',grassTuft:'#d35400',cloudColor:'rgba(255,140,60,0.35)',pipeRim:'#ff6b00',stars:false,cityAlpha:0.92,cityWin:'rgba(255,210,70,0.50)'},
+{name:'night',sky:['#000008','#020318','#060b2e','#0a1245','#0d1a5a'],sunColor:['#fffde7','#e8e8d0','#d0d0b0'],sunGlow:'rgba(200,220,255,{a})',hasSun:false,hasMoon:true,groundTop:'#2a3a1a',groundDark:'#1a2510',grassTop:'#2e4020',grassTuft:'#1e2e14',cloudColor:'rgba(80,100,160,0.30)',pipeRim:'#4466aa',stars:true,cityAlpha:0.98,cityWin:'rgba(100,160,255,0.65)'}
+];
+let phaseIdx=1,phaseTarget=1,phaseT=1.0,transitioning=false;
+const STARS=Array.from({length:55},()=>({x:Math.random()*BASE_W,y:Math.random()*(BASE_H*0.65),r:0.5+Math.random()*1.2,twinkle:Math.random()*Math.PI*2}));
+function triggerPhaseChange(n){if(n===phaseIdx&&!transitioning)return;phaseIdx=phaseTarget;phaseTarget=n;phaseT=0;transitioning=true;}
+function updatePhase(dt){if(!transitioning)return;phaseT+=dt*0.018;if(phaseT>=1){phaseT=1;phaseIdx=phaseTarget;transitioning=false;}}
+function lerpColor(a,b,t){const r1=parseInt(a.slice(1,3),16),g1=parseInt(a.slice(3,5),16),b1=parseInt(a.slice(5,7),16);const r2=parseInt(b.slice(1,3),16),g2=parseInt(b.slice(3,5),16),b2_=parseInt(b.slice(5,7),16);return`rgb(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2_-b1)*t)})`;}
+
+let newsHeadlines=['📡 Flappy Isma — by Ismaele Maione'];
+let newsIndex=0,newsText=newsHeadlines[0],newsX=BASE_W+10;
+const NEWS_SPEED=1.8;
+async function fetchNews(){const feeds=['https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml','https://feeds.bbci.co.uk/news/world/rss.xml'];let h=[];for(const feed of feeds){try{const res=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed));if(!res.ok)continue;const data=await res.json();const xml=new DOMParser().parseFromString(data.contents,'text/xml');const tag=feed.includes('ansa')?'🇮🇹':'🇬🇧';xml.querySelectorAll('item').forEach((item,i)=>{if(i>=5)return;const t=item.querySelector('title')?.textContent?.trim();if(t&&t.length>5)h.push(tag+' '+t+'  •  ');});}catch(e){}}if(h.length>0){newsHeadlines=h;newsIndex=0;newsText=h[0];newsX=BASE_W+10;}}
+fetchNews();setInterval(fetchNews,5*60*1000);
+function advanceNews(){newsIndex=(newsIndex+1)%newsHeadlines.length;newsText=newsHeadlines[newsIndex];newsX=BASE_W+4;}
+
+const AudioCtx=window.AudioContext||window.webkitAudioContext;let audioCtx;
+function ensureAudio(){if(!audioCtx)audioCtx=new AudioCtx();if(audioCtx.state==='suspended')audioCtx.resume();}
+function playTone(freq,type,dur,g,d=0){if(!audioCtx)return;const o=audioCtx.createOscillator(),gain=audioCtx.createGain();o.connect(gain);gain.connect(audioCtx.destination);o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime+d);gain.gain.setValueAtTime(g,audioCtx.currentTime+d);gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d+dur);o.start(audioCtx.currentTime+d);o.stop(audioCtx.currentTime+d+dur+0.01);}
+const SFX={flap(){ensureAudio();playTone(600,'square',0.08,0.3);playTone(800,'square',0.05,0.2,0.05);},score(){ensureAudio();playTone(523,'square',0.06,0.25);playTone(659,'square',0.06,0.25,0.07);playTone(784,'square',0.10,0.25,0.14);},hit(){ensureAudio();playTone(200,'sawtooth',0.15,0.4);playTone(100,'sawtooth',0.25,0.5,0.12);},die(){ensureAudio();playTone(300,'square',0.10,0.3);playTone(200,'square',0.10,0.3,0.12);playTone(100,'square',0.20,0.4,0.24);}};
+
+const GRAVITY=0.00040*BASE_H,FLAP_FORCE=-0.014*BASE_H,FLAP_CAP=-0.016*BASE_H,PIPE_WIDTH=40,PIPE_GAP=220,PIPE_SPEED_BASE=0.9,GROUND_H=112,NEWS_BAND_H=22,BIRD_X=80,PIPE_SPAWN_DIST=300,MAX_SPEED_MULT=1.05,WING_FRAMES=3;
+
+const FACE_IMG=new Image();
+FACE_IMG.src='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
+let faceLoaded=false;FACE_IMG.onload=()=>{faceLoaded=true;};
+
+let state,bird,pipes,score,bestScore=0;
+let groundOffset,bgOffset,frameCount,pipeSpeed,deathTimer,particles;
+let autoplay=false,phaseChangeCount=0;
+
+autoBtn.addEventListener('click',()=>{
+autoplay=!autoplay;autoBtn.textContent='🤖 AUTOPLAY: '+(autoplay?'ON':'OFF');
+autoBtn.classList.toggle('active',autoplay);
+if(autoplay&&(state==='idle'||state==='dead')){initGame();state='playing';}
+});
+
+function initGame(){
+state='idle';score=0;groundOffset=0;bgOffset=0;frameCount=0;
+pipeSpeed=PIPE_SPEED_BASE;deathTimer=0;particles=[];pipes=[];
+phaseChangeCount=0;
+bird={x:BIRD_X,y:BASE_H/2-20,vy:0,rot:0,wing:0,wingT:0,alive:true,radius:12,flashT:0};
+delete spawnPipe.lastGap;
+}
+
+function runAutoplay(dt){
+if(state!=='playing')return;
+const next=pipes.find(p=>p.x+PIPE_WIDTH>bird.x-5);
+const fieldCenter=(BASE_H-GROUND_H)/2;
+let targetY,halfBand;
+if(next){targetY=(next.gapTop+next.gapBot)/2;halfBand=Math.min(38,(next.gapBot-next.gapTop)*0.28);}
+else{targetY=fieldCenter;halfBand=42;}
+const bandTop=targetY-halfBand,bandBot=targetY+halfBand;
+const STEPS=38;
+let sY=bird.y,sVy=bird.vy;for(let i=0;i<STEPS;i++){sVy+=GRAVITY;sVy=Math.min(sVy,12);sY+=sVy;}
+let fY=bird.y,fVy=FLAP_FORCE;for(let i=0;i<STEPS;i++){fVy+=GRAVITY;fVy=Math.min(fVy,12);fY+=fVy;}
+if(sY>bandBot&&fY>=bandTop)flap(true);
+}
+
+function flap(silent=false){
+if(!silent)ensureAudio();
+if(state==='idle'){state='playing';bird.vy=FLAP_FORCE;if(!silent)SFX.flap();return;}
+if(state==='playing'){bird.vy=FLAP_FORCE;bird.wingT=0;bird.wing=0;if(!silent)SFX.flap();}
+if(state==='dead'&&deathTimer>40)initGame();
+}
+
+document.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!autoplay)flap();}});
+canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(!autoplay)flap();});
+
+function updatePhysics(dt){
+if(state!=='playing')return;
+updatePhase(dt);
+if(autoplay)runAutoplay(dt);
+bird.vy+=GRAVITY*dt;bird.y+=bird.vy*dt;
+if(bird.vy<FLAP_CAP)bird.vy=FLAP_CAP;
+const targetRot=bird.vy<0?Math.max(-0.30,bird.vy*0.025):Math.min(Math.PI*0.35,bird.vy*0.065);
+bird.rot+=(targetRot-bird.rot)*0.10*dt;
+bird.wingT+=dt;if(bird.wingT>5){bird.wingT=0;bird.wing=(bird.wing+1)%WING_FRAMES;}
+groundOffset=(groundOffset-pipeSpeed*dt)%48;
+bgOffset=(bgOffset-pipeSpeed*0.3*dt)%BASE_W;
+updatePipes(dt);
+if(bird.y+bird.radius>=BASE_H-GROUND_H){bird.y=BASE_H-GROUND_H-bird.radius;if(autoplay){bird.vy=FLAP_FORCE;}else killBird();}
+if(bird.y-bird.radius<=0){bird.y=bird.radius;bird.vy=0;}
+particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=0.3*dt;p.life-=dt;p.alpha=Math.max(0,p.life/p.maxLife);});
+particles=particles.filter(p=>p.life>0);
+pipeSpeed=PIPE_SPEED_BASE*(1+Math.min(score*0.008,MAX_SPEED_MULT-1));
+}
+
+function updatePipes(dt){
+pipes.forEach(p=>p.x-=pipeSpeed*dt);
+const last=pipes[pipes.length-1];
+if(!last||last.x<BASE_W-PIPE_SPAWN_DIST)spawnPipe();
+pipes.forEach(p=>{
+if(!p.scored&&p.x+PIPE_WIDTH<bird.x){p.scored=true;score++;if(score>bestScore)bestScore=score;SFX.score();spawnScoreParticles();
+if(score%5===0){phaseChangeCount++;const cycle=[1,2,0];triggerPhaseChange(cycle[phaseChangeCount%cycle.length]);}}
+if(!autoplay&&collidesPipe(p))killBird();
+});
+pipes=pipes.filter(p=>p.x+PIPE_WIDTH>-10);
+}
+
+function spawnPipe(){
+const minY=60,maxY=BASE_H-GROUND_H-PIPE_GAP-60;
+if(typeof spawnPipe.lastGap==='undefined')spawnPipe.lastGap=(minY+maxY)/2;
+const step=(Math.random()-0.5)*(maxY-minY)*0.55;
+spawnPipe.lastGap=Math.max(minY+20,Math.min(maxY-20,spawnPipe.lastGap+step));
+const gapTop=spawnPipe.lastGap;
+const PIPE_PALETTES=[{body:'#2c1a00',light:'#5a3200',dark:'#1a0e00',cap:'#3d2200',rim:'#ff6b00'},{body:'#003320',light:'#006640',dark:'#001a10',cap:'#004428',rim:'#00cc66'},{body:'#1a0035',light:'#3a0070',dark:'#0d0018',cap:'#280050',rim:'#aa44ff'},{body:'#003355',light:'#005588',dark:'#001a2e',cap:'#004470',rim:'#00aaff'},{body:'#440000',light:'#880000',dark:'#220000',cap:'#660000',rim:'#ff2200'},{body:'#2a2a00',light:'#555500',dark:'#151500',cap:'#3a3a00',rim:'#dddd00'}];
+const pc=PIPE_PALETTES[Math.floor(Math.random()*PIPE_PALETTES.length)];
+pipes.push({x:BASE_W+10,gapTop,gapBot:gapTop+PIPE_GAP,scored:false,pc});
+}
+
+function collidesPipe(p){const bx=bird.x,by=bird.y,r=bird.radius*0.80;if(bx+r<p.x||bx-r>p.x+PIPE_WIDTH)return false;if(by-r<p.gapTop)return true;if(by+r>p.gapBot)return true;return false;}
+function killBird(){if(!bird.alive)return;bird.alive=false;state='dead';deathTimer=0;SFX.hit();setTimeout(()=>SFX.die(),200);spawnDeathParticles();}
+function spawnDeathParticles(){for(let i=0;i<18;i++){const a=Math.random()*Math.PI*2,s=1+Math.random()*3;particles.push({x:bird.x,y:bird.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,color:['#f5d442','#e8a020','#fff'][i%3],size:3+Math.random()*4,life:30+Math.random()*30,maxLife:60,alpha:1});}}
+function spawnScoreParticles(){for(let i=0;i<6;i++)particles.push({x:bird.x+30,y:bird.y,vx:1+Math.random()*2,vy:-1-Math.random()*2,color:'#ffd700',size:4,life:25,maxLife:25,alpha:1});}
+
+// ===================== RENDER =====================
+function lerp(a,b,t){return a+(b-a)*t;}
+function skyColor(i){const A=PHASES[phaseIdx].sky[i];if(!transitioning)return A;return lerpColor(A,PHASES[phaseTarget].sky[i],phaseT);}
+function groundColor(k){const A=PHASES[phaseIdx][k];if(!transitioning)return A;return lerpColor(A,PHASES[phaseTarget][k],phaseT);}
+function lerpAlpha(c1,c2,t){const p1=c1.match(/[\d.]+/g).map(Number);const p2=c2.match(/[\d.]+/g).map(Number);const r=p1.map((v,i)=>v+(p2[i]-v)*t);return`rgba(${Math.round(r[0])},${Math.round(r[1])},${Math.round(r[2])},${r[3].toFixed(2)})`;}
+
+function render(){
+ctx.save();ctx.scale(scale,scale);ctx.clearRect(0,0,BASE_W,BASE_H);
+drawSky();drawStars();drawSunOrMoon();drawCityLine();drawClouds();drawPipes();drawBird();drawGround();drawNewsTicker();drawParticles();drawHUD();
+ctx.restore();
+}
+
+function drawSky(){const gy=BASE_H-GROUND_H;const g=ctx.createLinearGradient(0,0,0,gy);[0,0.28,0.55,0.78,1].forEach((s,i)=>g.addColorStop(s,skyColor(i)));ctx.fillStyle=g;ctx.fillRect(0,0,BASE_W,gy);}
+
+function drawStars(){
+let nightAlpha=0;
+if(phaseIdx===2&&!transitioning)nightAlpha=1;
+else if(transitioning&&phaseTarget===2)nightAlpha=phaseT;
+else if(transitioning&&phaseIdx===2)nightAlpha=1-phaseT;
+if(nightAlpha<=0)return;
+STARS.forEach(s=>{const tw=0.5+0.5*Math.sin(frameCount*0.04+s.twinkle);ctx.save();ctx.globalAlpha=nightAlpha*tw*0.9;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();ctx.restore();});
+}
+
+function drawSunOrMoon(){
+const gy=BASE_H-GROUND_H;
+let sunAlpha=0;
+if(!transitioning){sunAlpha=PHASES[phaseIdx].hasSun?1:0;}else{const f=PHASES[phaseIdx].hasSun?1:0;const t=PHASES[phaseTarget].hasSun?1:0;sunAlpha=f+(t-f)*phaseT;}
+if(sunAlpha>0){
+const sx=BASE_W*0.72,sy=gy-28,sr=22;
+const sc0=transitioning?lerpColor(PHASES[phaseIdx].sunColor[0],PHASES[phaseTarget].sunColor[0],phaseT):PHASES[phaseIdx].sunColor[0];
+const sc1=transitioning?lerpColor(PHASES[phaseIdx].sunColor[1],PHASES[phaseTarget].sunColor[1],phaseT):PHASES[phaseIdx].sunColor[1];
+const sc2=transitioning?lerpColor(PHASES[phaseIdx].sunColor[2],PHASES[phaseTarget].sunColor[2],phaseT):PHASES[phaseIdx].sunColor[2];
+ctx.save();ctx.globalAlpha=sunAlpha;
+for(let i=4;i>=0;i--){ctx.beginPath();ctx.arc(sx,sy,sr+i*9,0,Math.PI*2);ctx.fillStyle=`rgba(249,202,36,${(0.055-i*0.01)*sunAlpha})`;ctx.fill();}
+const g=ctx.createRadialGradient(sx,sy,0,sx,sy,sr);g.addColorStop(0,sc0);g.addColorStop(0.5,sc1);g.addColorStop(1,sc2);
+ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.restore();
+}
+let moonAlpha=0;
+if(!transitioning){moonAlpha=PHASES[phaseIdx].hasMoon?1:0;}else{const f=PHASES[phaseIdx].hasMoon?1:0;const t=PHASES[phaseTarget].hasMoon?1:0;moonAlpha=f+(t-f)*phaseT;}
+if(moonAlpha>0){
+const mx=BASE_W*0.72,my=gy-45,mr=18;
+ctx.save();ctx.globalAlpha=moonAlpha;
+for(let i=3;i>=0;i--){ctx.beginPath();ctx.arc(mx,my,mr+i*7,0,Math.PI*2);ctx.fillStyle=`rgba(200,220,255,${0.04-i*0.008})`;ctx.fill();}
+const mg=ctx.createRadialGradient(mx-4,my-4,0,mx,my,mr);mg.addColorStop(0,'#fffdf0');mg.addColorStop(0.6,'#e8e8d8');mg.addColorStop(1,'#c8c8b8');
+ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fillStyle=mg;ctx.fill();
+ctx.beginPath();ctx.arc(mx+5,my-3,mr-3,0,Math.PI*2);ctx.fillStyle='rgba(0,5,30,0.55)';ctx.fill();
+ctx.restore();
+}
+}
+
+const BUILDINGS=[{x:0,w:18,h:55},{x:14,w:22,h:75},{x:30,w:16,h:48},{x:44,w:24,h:90},{x:62,w:14,h:60},{x:74,w:20,h:40},{x:90,w:28,h:80},{x:112,w:16,h:55},{x:124,w:22,h:70},{x:142,w:18,h:50},{x:156,w:26,h:95},{x:178,w:14,h:65},{x:188,w:20,h:45},{x:204,w:24,h:85},{x:224,w:16,h:60},{x:236,w:22,h:40},{x:254,w:18,h:72},{x:268,w:20,h:52}];
+function drawCityLine(){
+const gy=BASE_H-GROUND_H,ox=bgOffset*0.5;
+let ca=PHASES[phaseIdx].cityAlpha;if(transitioning)ca=lerp(ca,PHASES[phaseTarget].cityAlpha,phaseT);
+const winA=transitioning?lerpAlpha(PHASES[phaseIdx].cityWin,PHASES[phaseTarget].cityWin,phaseT):PHASES[phaseIdx].cityWin;
+for(let pass=0;pass<3;pass++){BUILDINGS.forEach(b=>{const bx=((b.x+ox+pass*BASE_W)%(BASE_W*3))-BASE_W;if(bx+b.w<-2||bx>BASE_W+2)return;ctx.fillStyle=`rgba(10,5,25,${ca})`;ctx.fillRect(bx,gy-b.h,b.w,b.h);for(let wy=gy-b.h+6;wy<gy-8;wy+=11)for(let wx=bx+3;wx<bx+b.w-3;wx+=7)if((Math.floor(wx/7)+Math.floor(wy/11))%3!==0){ctx.fillStyle=winA;ctx.fillRect(wx,wy,3,4);}});}
+}
+
+const CLOUDS=[{x:20,y:40,w:65,h:20},{x:120,y:22,w:85,h:26},{x:195,y:60,w:55,h:18},{x:260,y:42,w:72,h:24}];
+function drawClouds(){let cc=PHASES[phaseIdx].cloudColor;if(transitioning)cc=lerpAlpha(cc,PHASES[phaseTarget].cloudColor,phaseT);CLOUDS.forEach(cl=>{const cx=((cl.x+bgOffset*0.4+BASE_W*3)%(BASE_W+120))-60;ctx.fillStyle=cc;cloudShape(cx,cl.y,cl.w,cl.h);});}
+function cloudShape(x,y,w,h){ctx.beginPath();ctx.ellipse(x+w*.5,y+h*.6,w*.5,h*.5,0,0,Math.PI*2);ctx.ellipse(x+w*.25,y+h*.8,w*.3,h*.4,0,0,Math.PI*2);ctx.ellipse(x+w*.75,y+h*.8,w*.28,h*.4,0,0,Math.PI*2);ctx.fill();}
+
+function drawGround(){
+const gy=BASE_H-GROUND_H,ds=gy+NEWS_BAND_H;
+ctx.fillStyle='#0f000a';ctx.fillRect(0,gy,BASE_W,NEWS_BAND_H);
+ctx.fillStyle='#ff6b35';ctx.fillRect(0,gy+NEWS_BAND_H-2,BASE_W,2);
+ctx.fillStyle=groundColor('groundTop');ctx.fillRect(0,ds,BASE_W,GROUND_H-NEWS_BAND_H);
+ctx.fillStyle=groundColor('groundDark');ctx.fillRect(0,ds+16,BASE_W,GROUND_H-NEWS_BAND_H-16);
+ctx.fillStyle=groundColor('grassTop');ctx.fillRect(0,ds,BASE_W,8);
+ctx.fillStyle=groundColor('grassTuft');
+for(let x=(groundOffset%24);x<BASE_W+24;x+=24){ctx.beginPath();ctx.moveTo(x,ds+8);ctx.lineTo(x+4,ds);ctx.lineTo(x+8,ds+8);ctx.fill();}
+}
+
+function drawNewsTicker(){
+const gy=BASE_H-GROUND_H,ty=gy+NEWS_BAND_H/2;
+ctx.save();ctx.beginPath();ctx.rect(36,gy,BASE_W-36,NEWS_BAND_H);ctx.clip();
+ctx.fillStyle='#ffd700';ctx.font='9px monospace';ctx.textAlign='left';ctx.textBaseline='middle';
+ctx.fillText(newsText,newsX,ty);const tw=ctx.measureText(newsText).width;newsX-=NEWS_SPEED;if(newsX+tw<36)advanceNews();
+ctx.restore();
+ctx.fillStyle='#ff6b35';ctx.fillRect(0,gy+3,34,NEWS_BAND_H-6);
+ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('NEWS',17,ty);
+}
+
+function drawPipes(){
+let rim=PHASES[phaseIdx].pipeRim;if(transitioning)rim=lerpColor(rim,PHASES[phaseTarget].pipeRim,phaseT);
+pipes.forEach(p=>{const pr=p.pc?p.pc.rim:rim;const pp=p.pc||null;drawPipe(p.x,0,p.gapTop,true,pr,pp);drawPipe(p.x,p.gapBot,BASE_H-GROUND_H,false,pr,pp);});
+}
+function drawPipe(x,y,h,isTop,rim,pp){
+if(!pp)pp={body:'#2c1a00',light:'#5a3200',dark:'#1a0e00',cap:'#3d2200'};if(h<=0)return;
+const capH=26,capW=PIPE_WIDTH+8,capX=x-4;
+ctx.fillStyle=pp.body;ctx.fillRect(x,y,PIPE_WIDTH,h);
+ctx.fillStyle=pp.light;ctx.fillRect(x+3,y,6,h);
+ctx.fillStyle=pp.dark;ctx.fillRect(x+PIPE_WIDTH-7,y,7,h);
+ctx.strokeStyle=rim;ctx.lineWidth=1;ctx.strokeRect(x,y,PIPE_WIDTH,h);
+const capY=isTop?h-capH:y;
+ctx.fillStyle=pp.cap;ctx.fillRect(capX,capY,capW,capH);
+ctx.fillStyle=pp.light;ctx.fillRect(capX+3,capY+3,capW-6,7);
+ctx.strokeStyle=rim;ctx.lineWidth=1;ctx.strokeRect(capX,capY,capW,capH);
+}
+
+function drawBird(){
+const r=18;ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(bird.rot);
+if(bird.flashT>0){ctx.globalAlpha=0.5+0.5*Math.sin(bird.flashT*0.8);bird.flashT--;}
+ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.clip();
+if(faceLoaded){ctx.drawImage(FACE_IMG,-r,-r,r*2,r*2);}else{ctx.fillStyle='#f5d442';ctx.fill();}
+ctx.restore();
+ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(bird.rot);
+ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.strokeStyle='#ff6b00';ctx.lineWidth=2.5;ctx.stroke();
+ctx.restore();
+}
+
+function drawParticles(){particles.forEach(p=>{ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;ctx.fillRect(p.x-p.size/2,p.y-p.size/2,p.size,p.size);ctx.restore();});}
+
+function drawHUD(){
+if(state==='playing'||state==='dead')drawScore(score,BASE_W/2,52);
+if(state==='playing'){const pn=transitioning?'✨':['☀️','🌅','🌙'][phaseIdx];ctx.fillStyle='rgba(0,0,0,0.45)';ctx.font='10px monospace';ctx.textAlign='right';ctx.textBaseline='top';ctx.fillText(pn+(autoplay?' 🤖':''),BASE_W-6,6);}
+if(state==='idle')drawStartScreen();
+if(state==='dead'){deathTimer++;if(!bird.alive&&deathTimer<30)bird.flashT=5;if(deathTimer>25)drawGameOver();if(autoplay&&deathTimer>50){initGame();state='playing';}}
+}
+function drawScore(val,cx,cy){ctx.font='bold 32px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillText(String(val),cx+2,cy+2);ctx.fillStyle='#fff';ctx.fillText(String(val),cx,cy);}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
+
+function drawStartScreen(){
+bird.y=BASE_H/2-20+Math.sin(frameCount*0.05)*8;bird.rot=Math.sin(frameCount*0.04)*0.12;bird.wing=Math.floor(frameCount/5)%WING_FRAMES;
+const pw=224,ph=132,px=(BASE_W-pw)/2,py=BASE_H/2-145;
+roundRect(ctx,px,py,pw,ph,12);ctx.fillStyle='rgba(10,0,30,0.80)';ctx.fill();ctx.strokeStyle='#ff6b00';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle='#f9ca24';ctx.font='bold 22px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('FLAPPY ISMA',BASE_W/2,py+30);
+ctx.fillStyle='#ff9955';ctx.font='9px monospace';ctx.fillText('by Ismaele Maione',BASE_W/2,py+54);
+ctx.strokeStyle='rgba(255,153,85,0.35)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px+18,py+68);ctx.lineTo(px+pw-18,py+68);ctx.stroke();
+if(Math.floor(frameCount/20)%2===0){ctx.fillStyle='#fff';ctx.font='10px monospace';ctx.fillText('TAP TO START',BASE_W/2,py+92);}
+if(bestScore>0){ctx.fillStyle='#ffd700';ctx.font='9px monospace';ctx.fillText('BEST: '+bestScore,BASE_W/2,py+114);}
+}
+
+function drawGameOver(){
+const pw=210,ph=deathTimer>60?170:100,px=(BASE_W-pw)/2,py=BASE_H/2-118;
+roundRect(ctx,px,py,pw,ph,12);ctx.fillStyle='rgba(10,0,30,0.80)';ctx.fill();ctx.strokeStyle='#f55';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle='#ff4444';ctx.font='bold 18px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('GAME OVER',BASE_W/2,py+30);
+ctx.fillStyle='#fff';ctx.font='13px monospace';ctx.fillText('SCORE: '+score,BASE_W/2,py+58);
+if(deathTimer>60){
+ctx.fillStyle='#ffd700';ctx.fillText('BEST:  '+bestScore,BASE_W/2,py+82);
+if(Math.floor(deathTimer/20)%2===0){ctx.fillStyle='#fff';ctx.font='10px monospace';ctx.fillText('TAP TO RESTART',BASE_W/2,py+128);}
+ctx.fillStyle='rgba(255,153,85,0.55)';ctx.font='8px monospace';ctx.fillText('by Ismaele Maione',BASE_W/2,py+152);
+}
+}
+
+// ===================== GAME LOOP =====================
+let lastTime=0;const TARGET_DT=60;
+function loop(ts){
+const dt=Math.min((ts-lastTime)/(1000/TARGET_DT),3);lastTime=ts;frameCount++;
+if(state!=='playing')updatePhase(dt);
+updatePhysics(dt);
+if(state==='idle'){groundOffset=(groundOffset-PIPE_SPEED_BASE*dt)%48;bgOffset=(bgOffset-PIPE_SPEED_BASE*0.3*dt)%BASE_W;bird.wing=Math.floor(frameCount/5)%WING_FRAMES;if(autoplay){state='playing';}}
+render();requestAnimationFrame(loop);
+}
+
+initGame();
+requestAnimationFrame(ts=>{lastTime=ts;requestAnimationFrame(loop);});
+} // end initFlappy
+</script>
+</body></html>
