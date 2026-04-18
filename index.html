@@ -8,48 +8,48 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
 :root {
-  --primary-color: #252525;
-  --accent-color: #4a90e2;
-  --glass-bg: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.4);
-  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  --primary-color: #252525;
+  --accent-color: #4a90e2;
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  margin: 0; padding: 0;
-  height: 100vh;
-  background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  color: #333;
-  overflow: hidden; 
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  margin: 0; padding: 0;
+  height: 100vh;
+  background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  color: #333;
+  overflow: hidden; 
 }
 
 /* --- HUD OTTIMIZZATO --- */
 .hud-box {
-  position: absolute;
-  top: 15px;
-  color: rgba(255, 255, 255, 0.9);
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-  font-family: 'Courier New', Courier, monospace;
-  pointer-events: none;
-  z-index: 50;
-  transition: opacity 0.3s;
+  position: absolute;
+  top: 15px;
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  font-family: 'Courier New', Courier, monospace;
+  pointer-events: none;
+  z-index: 50;
+  transition: opacity 0.3s;
 }
 
 #hud-left { left: 15px; text-align: left; }
-#hud-right { 
-    right: 15px; 
-    text-align: right; 
-    max-width: 280px;
+#hud-right { 
+    right: 15px; 
+    text-align: right; 
+    max-width: 280px;
 }
 
 .hud-item {
-  background: rgba(0, 0, 0, 0.4);
-  padding: 8px 12px;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
-  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.4);
+  padding: 8px 12px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 4px;
 }
 
 #hud-left .hud-item { border-left: 3px solid #fff; }
@@ -60,88 +60,88 @@ body {
 #accadde-oggi { font-size: 0.80rem; line-height: 1.2; }
 
 @media screen and (max-width: 600px) {
-    #hud-right { max-width: 140px; }
-    #accadde-oggi { font-size: 0.65rem; }
+    #hud-right { max-width: 140px; }
+    #accadde-oggi { font-size: 0.65rem; }
 }
 
 /* --- LOGICA SEZIONI --- */
 .view-section {
-  display: none;
-  width: 100%; height: 100%;
-  flex-direction: column; align-items: center; justify-content: center;
+  display: none;
+  width: 100%; height: 100%;
+  flex-direction: column; align-items: center; justify-content: center;
 }
 .view-active { display: flex; }
 
 .menu-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding: 40px; border-radius: 20px;
-  text-align: center; box-shadow: var(--shadow);
-  border: 1px solid var(--glass-border);
-  width: 90%; max-width: 400px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 40px; border-radius: 20px;
+  text-align: center; box-shadow: var(--shadow);
+  border: 1px solid var(--glass-border);
+  width: 90%; max-width: 400px;
 }
 
 /* --- EFFETTO GLITCH PULSANTI --- */
 .menu-btn {
-  position: relative;
-  display: block; width: 100%; margin: 15px auto;
-  padding: 15px; border: none; border-radius: 25px;
-  background: #000; color: #fff; font-size: 16px;
-  font-weight: bold; cursor: pointer; transition: 0.3s;
-  overflow: hidden;
+  position: relative;
+  display: block; width: 100%; margin: 15px auto;
+  padding: 15px; border: none; border-radius: 25px;
+  background: #000; color: #fff; font-size: 16px;
+  font-weight: bold; cursor: pointer; transition: 0.3s;
+  overflow: hidden;
 }
 .menu-btn:hover { transform: scale(1.03); background: #333; }
 
 .menu-btn::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  opacity: 0;
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  opacity: 0;
 }
 .menu-btn:hover::before {
-  content: attr(data-text);
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: #000;
-  display: flex; align-items: center; justify-content: center;
-  color: #fff;
-  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
-  animation: glitch 0.3s infinite;
-  transform: translate(-2px);
-  text-shadow: 2px 0 red;
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: #000;
+  display: flex; align-items: center; justify-content: center;
+  color: #fff;
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  animation: glitch 0.3s infinite;
+  transform: translate(-2px);
+  text-shadow: 2px 0 red;
 }
 @keyframes glitch {
-  0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }
-  25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }
-  50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }
-  75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }
-  100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }
+  0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }
+  25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }
+  50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }
+  75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }
+  100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }
 }
 
 /* --- LOG DI SISTEMA --- */
 #system-log {
-  position: fixed;
-  bottom: 20px; right: 20px;
-  font-family: 'Courier New', monospace;
-  font-size: 10px; color: #00ff00;
-  background: rgba(0,0,0,0.8);
-  padding: 10px; border-radius: 5px;
-  width: 180px; height: 60px;
-  overflow: hidden; pointer-events: none;
-  display: none; z-index: 100;
-  border: 1px solid rgba(0,255,0,0.3);
+  position: fixed;
+  bottom: 20px; right: 20px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px; color: #00ff00;
+  background: rgba(0,0,0,0.8);
+  padding: 10px; border-radius: 5px;
+  width: 180px; height: 60px;
+  overflow: hidden; pointer-events: none;
+  display: none; z-index: 100;
+  border: 1px solid rgba(0,255,0,0.3);
 }
 
 /* --- CONTATTI --- */
 .contact-links {
-  display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
+  display: flex; flex-direction: column; gap: 15px; margin-top: 20px;
 }
 .contact-item {
-  display: flex; align-items: center; gap: 15px; text-decoration: none;
-  color: #000; font-weight: 600; font-size: 18px; padding: 10px;
-  border-radius: 12px; transition: background 0.3s;
+  display: flex; align-items: center; gap: 15px; text-decoration: none;
+  color: #000; font-weight: 600; font-size: 18px; padding: 10px;
+  border-radius: 12px; transition: background 0.3s;
 }
 .contact-item:hover { background: rgba(0,0,0,0.05); }
 .contact-item i { font-size: 24px; width: 30px; text-align: center; }
@@ -149,18 +149,18 @@ body {
 
 /* --- CHAT --- */
 #chatContainer {
-  display: flex; flex-direction: column;
-  width: 95%; max-width: 900px; height: 85vh;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--glass-border);
-  border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
-  position: relative;
+  display: flex; flex-direction: column;
+  width: 95%; max-width: 900px; height: 85vh;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+  position: relative;
 }
 #chatHeader {
-  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
-  background: rgba(255,255,255,0.9); color: #000; font-weight: 700;
-  padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 18px;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+  background: rgba(255,255,255,0.9); color: #000; font-weight: 700;
+  padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 18px;
 }
 .header-back-btn { position: absolute; left: 15px; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }
 #chatBox { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
@@ -188,108 +188,108 @@ body {
 <div id="system-log"></div>
 
 <div id="hud-left" class="hud-box">
-    <div class="hud-item">
-        <div class="hud-label">Tempo Terrestre</div>
-        <div id="tempo-terrestre">00:00:00</div>
-    </div>
+    <div class="hud-item">
+        <div class="hud-label">Tempo Terrestre</div>
+        <div id="tempo-terrestre">00:00:00</div>
+    </div>
 </div>
 
 <div id="hud-right" class="hud-box">
-    <div class="hud-item">
-        <div class="hud-label">Accadde Oggi</div>
-        <div id="accadde-oggi">Sincronizzazione...</div>
-    </div>
+    <div class="hud-item">
+        <div class="hud-label">Accadde Oggi</div>
+        <div id="accadde-oggi">Sincronizzazione...</div>
+    </div>
 </div>
 
 <div id="section-menu" class="view-section view-active">
-  <div class="menu-card">
-    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
-    <h1>Progetto di Ismaele</h1>
-    <button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
-    <button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
-    <button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
-  </div>
+  <div class="menu-card">
+    <img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
+    <h1>Progetto di Ismaele</h1>
+    <button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
+    <button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta) </button>
+    <button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
+  </div>
 </div>
 
 <div id="section-manifesto" class="view-section">
-  <div class="menu-card" style="max-width: 500px; text-align: left;">
-    <h2>Il Manifesto</h2>
-    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p>
-    <p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p>
-    <p>-Ismaele- Aprile 2026.</p>
-    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
-  </div>
+  <div class="menu-card" style="max-width: 500px; text-align: left;">
+    <h2>Il Manifesto</h2>
+    <p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p>
+    <p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p>
+    <p>-Ismaele- Aprile 2026.</p>
+    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
+  </div>
 </div>
 
 <div id="section-contacts" class="view-section">
-  <div class="menu-card">
-    <h2>Contatti</h2>
-    <div class="contact-links">
-      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item">
-        <i class="fab fa-instagram"></i> Instagram
-      </a>
-      <a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item">
-        <i class="fab fa-linkedin"></i> LinkedIn
-      </a>
-      <a href="https://x.com/ismaele_maione" target="_blank" class="contact-item">
-        <i class="fab fa-twitter"></i> Twitter/X
-      </a>
-      <a href="mailto:maioneismaele@gmail.com" class="contact-item">
-        <i class="fas fa-envelope"></i> Email
-      </a>
-    </div>
-    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
-  </div>
+  <div class="menu-card">
+    <h2>Contatti</h2>
+    <div class="contact-links">
+      <a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item">
+        <i class="fab fa-instagram"></i> Instagram
+      </a>
+      <a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item">
+        <i class="fab fa-linkedin"></i> LinkedIn
+      </a>
+      <a href="https://x.com/ismaele_maione" target="_blank" class="contact-item">
+        <i class="fab fa-twitter"></i> Twitter/X
+      </a>
+      <a href="mailto:maioneismaele@gmail.com" class="contact-item">
+        <i class="fas fa-envelope"></i> Email
+      </a>
+    </div>
+    <span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span>
+  </div>
 </div>
 
 <div id="section-chat" class="view-section">
-    <div id="chatContainer">
-      <div id="chatHeader">
-          <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
-          <span>Coscienza di Ismaele</span>
-      </div>
-      <div id="chatBox"></div>
-      <div id="inputContainer">
-        <div class="input-wrapper">
-            <button id="micBtn"><i class="fas fa-microphone"></i></button>
-            <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
-            <button id="sendBtn" onclick="sendMessage()">Invia</button>
-        </div>
-      </div>
-    </div>
-    <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
+    <div id="chatContainer">
+      <div id="chatHeader">
+          <button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
+          <span>Coscienza di Ismaele</span>
+      </div>
+      <div id="chatBox"></div>
+      <div id="inputContainer">
+        <div class="input-wrapper">
+            <button id="micBtn"><i class="fas fa-microphone"></i></button>
+            <input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" />
+            <button id="sendBtn" onclick="sendMessage()">Invia</button>
+        </div>
+      </div>
+    </div>
+    <button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button>
 </div>
 
 <script>
 function updateClock() {
-    document.getElementById('tempo-terrestre').textContent = new Date().toLocaleTimeString('it-IT', { hour12: false });
+    document.getElementById('tempo-terrestre').textContent = new Date().toLocaleTimeString('it-IT', { hour12: false });
 }
 async function updateHistoryEvent() {
-    try {
-        const res = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${new Date().getMonth()+1}/${new Date().getDate()}`);
-        const data = await res.json();
-        const ev = data.events[Math.floor(Math.random()*data.events.length)];
-        document.getElementById('accadde-oggi').textContent = `${ev.year}: ${ev.text}`;
-    } catch(e) { document.getElementById('accadde-oggi').textContent = "Storia in pausa."; }
+    try {
+        const res = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${new Date().getMonth()+1}/${new Date().getDate()}`);
+        const data = await res.json();
+        const ev = data.events[Math.floor(Math.random()*data.events.length)];
+        document.getElementById('accadde-oggi').textContent = `${ev.year}: ${ev.text}`;
+    } catch(e) { document.getElementById('accadde-oggi').textContent = "Storia in pausa."; }
 }
 setInterval(updateClock, 1000); updateClock(); updateHistoryEvent();
 
 function navigateTo(id) {
-    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
-    document.getElementById(id).classList.add('view-active');
-    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.05" : "1");
+    document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
+    document.getElementById(id).classList.add('view-active');
+    document.querySelectorAll('.hud-box').forEach(h => h.style.opacity = id === 'section-chat' ? "0.05" : "1");
 }
 
 /* LOGICA LOG DI SISTEMA */
 function showSystemLog(show) {
-    const log = document.getElementById('system-log');
-    if (!show) { log.style.display = 'none'; return; }
-    log.style.display = 'block';
-    const lines = ["INIT_COGNITIVE_CORE...", "ACCESSING_MEMORIES...", "ENCRYPTING_NEURONS...", "GROQ_STREAM_START...", "SYNCING_ISMAELE_ID..."];
-    log.innerHTML = "";
-    lines.forEach((l, i) => {
-        setTimeout(() => { log.innerHTML += `<div>> ${l}</div>`; log.scrollTop = log.scrollHeight; }, i * 150);
-    });
+    const log = document.getElementById('system-log');
+    if (!show) { log.style.display = 'none'; return; }
+    log.style.display = 'block';
+    const lines = ["INIT_COGNITIVE_CORE...", "ACCESSING_MEMORIES...", "ENCRYPTING_NEURONS...", "GROQ_STREAM_START...", "SYNCING_ISMAELE_ID..."];
+    log.innerHTML = "";
+    lines.forEach((l, i) => {
+        setTimeout(() => { log.innerHTML += `<div>> ${l}</div>`; log.scrollTop = log.scrollHeight; }, i * 150);
+    });
 }
 
 const chatBox=document.getElementById("chatBox");
@@ -297,50 +297,50 @@ const inputEl=document.getElementById("userInput");
 let chatHistory=[];
 
 function appendMessage(sender, text){
-  const p = document.createElement("p");
-  p.className = sender;
-  const img = document.createElement("img");
-  img.className = "avatar";
-  img.src = sender === "user" ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";
-  const div = document.createElement("div");
-  div.textContent = text;
-  p.appendChild(img); p.appendChild(div);
-  chatBox.appendChild(p);
-  chatBox.scrollTop = chatBox.scrollHeight;
-  chatHistory.push({sender, text});
+  const p = document.createElement("p");
+  p.className = sender;
+  const img = document.createElement("img");
+  img.className = "avatar";
+  img.src = sender === "user" ? "https://cdn-icons-png.flaticon.com/512/149/149071.png" : "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";
+  const div = document.createElement("div");
+  div.textContent = text;
+  p.appendChild(img); p.appendChild(div);
+  chatBox.appendChild(p);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  chatHistory.push({sender, text});
 }
 
 async function sendMessage(init=null){
-  const val = init ? null : inputEl.value.trim();
-  if(!init && !val) return;
-  if(!init) { appendMessage("user", val); showSystemLog(true); }
-  inputEl.value = "";
+  const val = init ? null : inputEl.value.trim();
+  if(!init && !val) return;
+  if(!init) { appendMessage("user", val); showSystemLog(true); }
+  inputEl.value = "";
 
-  const payload = init || [
-    { role: "system", content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.` },
-    ...chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text})),
-    { role: "user", content: val }
-  ];
+  const payload = init || [
+    { role: "system", content: `Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.` },
+    ...chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant", content:m.text})),
+    { role: "user", content: val }
+  ];
 
-  try {
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messagesPayload: payload })
-    });
-    const data = await res.json();
-    appendMessage("bot", data.choices[0].message.content);
-  } catch(e) { appendMessage("bot", "Sincronizzazione interrotta."); }
-  finally { showSystemLog(false); }
+  try {
+    const res = await fetch("/api/chat", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ messagesPayload: payload })
+    });
+    const data = await res.json();
+    appendMessage("bot", data.choices[0].message.content);
+  } catch(e) { appendMessage("bot", "Sincronizzazione interrotta."); }
+  finally { showSystemLog(false); }
 }
 
 const micBtn = document.getElementById('micBtn');
 const Recog = window.SpeechRecognition || window.webkitSpeechRecognition;
 if(Recog){
-    const recog = new Recog(); recog.lang = 'it-IT';
-    micBtn.onclick = () => { recog.start(); micBtn.classList.add('listening'); };
-    recog.onresult = (e) => { inputEl.value = e.results[0][0].transcript; sendMessage(); };
-    recog.onend = () => micBtn.classList.remove('listening');
+    const recog = new Recog(); recog.lang = 'it-IT';
+    micBtn.onclick = () => { recog.start(); micBtn.classList.add('listening'); };
+    recog.onresult = (e) => { inputEl.value = e.results[0][0].transcript; sendMessage(); };
+    recog.onend = () => micBtn.classList.remove('listening');
 } else { micBtn.style.display = 'none'; }
 
 window.onload = () => sendMessage([{role:"system", content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."}, {role:"user", content:"Ciao, chi sei?."}]);
