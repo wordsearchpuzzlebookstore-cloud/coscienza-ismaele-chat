@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8" /><link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" /><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /><title>Coscienza-di-Ismaele.Beta</title>
+<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8" /><link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Un'estensione digitale del pensiero di Ismaele Maione: coscienza, manifesto e Flappy Isma." /><title>Coscienza di Ismaele — Beta</title>
 <meta property="og:title" content="Coscienza di Ismaele" />
 <meta property="og:description" content="Un'estensione digitale del pensiero di Ismaele. Coscienza, manifesto e Flappy Isma." />
 <meta property="og:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
@@ -79,14 +79,56 @@
 #flappyGameArea canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none; -webkit-tap-highlight-color: transparent; }
 #flappyAutoBtn { padding: 7px 18px; border: 2px solid #ff6b00; border-radius: 20px; background: rgba(10,0,30,0.85); color: #ffd700; font: bold 12px monospace; cursor: pointer; letter-spacing: 1px; transition: background 0.2s, color 0.2s; user-select: none; flex-shrink: 0; }
 #flappyAutoBtn:hover, #flappyAutoBtn:active, #flappyAutoBtn.active { background: #ff6b00; color: #1a0a2e; }
+
+/* ===== FIX: overflow card su schermi bassi (il manifesto veniva tagliato) ===== */
+.menu-card { max-height: 88vh; overflow-y: auto; -webkit-overflow-scrolling: touch; box-sizing: border-box; }
+
+/* ===== FIX: HUD nascosto davvero, non solo trasparente =====
+   Con opacity:0 il riquadro "Accadde Oggi" restava cliccabile sopra la chat. */
+.hud-box { transition: opacity 0.3s, visibility 0.3s; }
+.hud-box.hud-hidden { opacity: 0; visibility: hidden; }
+
+/* ===== A11Y: reset per gli elementi diventati <button> ===== */
+#accadde-oggi { background: none; border: 0; padding: 0; margin: 0; width: 100%; color: inherit; font-family: inherit; text-align: right; text-shadow: inherit; }
+#accadde-oggi:focus-visible, .back-link:focus-visible, .contact-item:focus-visible, .menu-btn:focus-visible,
+.header-back-btn:focus-visible, #sendBtn:focus-visible, #micBtn:focus-visible, #userInput:focus-visible,
+#clearBtn:focus-visible, #ttsBtn:focus-visible, #flappyAutoBtn:focus-visible { outline: 3px solid #4a90e2; outline-offset: 2px; }
+.back-link { background: none; border: 0; padding: 0; font-family: inherit; }
+.back-link:hover { color: #000; }
+
+/* ===== Footer chat: memoria + voce ===== */
+#chatFooter { display: flex; gap: 8px; justify-content: center; align-items: center; margin-top: 8px; flex-wrap: wrap; }
+#clearBtn, #ttsBtn { padding: 6px 14px; font-size: 11px; border-radius: 16px; border: none; background: rgba(0,0,0,0.06); cursor: pointer; margin: 0; color: #5a5a5a; font-family: inherit; }
+#clearBtn:hover, #ttsBtn:hover { background: rgba(0,0,0,0.12); }
+#ttsBtn[aria-pressed="true"] { background: #000; color: #fff; }
+
+/* ===== Nota di sistema (memoria ripristinata) ===== */
+.sys-note { align-self: center; font-family: 'Courier New', monospace; font-size: 10px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin: 4px 0; }
+
+/* ===== Indicatore "sta pensando" (unico feedback visibile su mobile) ===== */
+#chatBox p.typing span.dots { display: inline-flex; gap: 4px; align-items: center; height: 18px; }
+#chatBox p.typing span.dots i { width: 6px; height: 6px; border-radius: 50%; background: #999; display: block; animation: typingBounce 1.2s infinite ease-in-out; }
+#chatBox p.typing span.dots i:nth-child(2) { animation-delay: 0.15s; }
+#chatBox p.typing span.dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.45; } 30% { transform: translateY(-4px); opacity: 1; } }
+
+/* ===== Stato di invio ===== */
+#sendBtn[disabled], #micBtn[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* ===== A11Y: rispetta prefers-reduced-motion ===== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+  .menu-btn:hover::before { display: none; }
+  #chatBox p.typing span.dots i { opacity: 0.7; }
+}
 </style></head><body>
 <div id="system-log"></div>
 <div id="hud-left" class="hud-box"><div class="hud-item"><div class="hud-label">Tempo Terrestre</div><div id="tempo-terrestre">00:00:00</div></div></div>
-<div id="hud-right" class="hud-box"><div class="hud-item"><div class="hud-label">Accadde Oggi</div><div id="accadde-oggi" onclick="this.classList.toggle('expanded')">Sincronizzazione...</div></div></div>
+<div id="hud-right" class="hud-box"><div class="hud-item"><div class="hud-label" id="hud-right-label">Accadde Oggi</div><button type="button" id="accadde-oggi" aria-expanded="false" aria-describedby="hud-right-label">Sincronizzazione...</button></div></div>
 
 <!-- MENU -->
 <div id="section-menu" class="view-section view-active"><div class="menu-card">
-<img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
+<img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" alt="Ritratto di Ismaele Maione" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
 <h1>Progetto di Ismaele</h1>
 <button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
 <button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta)</button>
@@ -95,53 +137,567 @@
 </div></div>
 
 <!-- MANIFESTO -->
-<div id="section-manifesto" class="view-section"><div class="menu-card" style="max-width: 500px; text-align: left;"><h2>Il Manifesto</h2><p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p><p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p><p>-Ismaele- Aprile 2026.</p><span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span></div></div>
+<div id="section-manifesto" class="view-section"><div class="menu-card" style="max-width: 500px; text-align: left;"><h2>Il Manifesto</h2><p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p><p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p><p>-Ismaele- Aprile 2026.</p><button type="button" class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</button></div></div>
 
 <!-- CONTATTI -->
-<div id="section-contacts" class="view-section"><div class="menu-card"><h2>Contatti</h2><div class="contact-links"><a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item"><i class="fab fa-instagram"></i> Instagram</a><a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://x.com/ismaele_maione" target="_blank" class="contact-item"><i class="fab fa-twitter"></i> Twitter/X</a><a href="mailto:maioneismaele@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> Email</a></div><span class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</span></div></div>
+<div id="section-contacts" class="view-section"><div class="menu-card"><h2>Contatti</h2><div class="contact-links"><a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item"><i class="fab fa-instagram"></i> Instagram</a><a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://x.com/ismaele_maione" target="_blank" class="contact-item"><i class="fab fa-twitter"></i> Twitter/X</a><a href="mailto:maioneismaele@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> Email</a></div><button type="button" class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</button></div></div>
 
 <!-- CHAT -->
-<div id="section-chat" class="view-section"><div id="chatContainer"><div id="chatHeader"><button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button><span>Coscienza di Ismaele</span></div><div id="chatBox"></div><div id="inputContainer"><div class="input-wrapper"><button id="micBtn"><i class="fas fa-microphone"></i></button><input type="text" id="userInput" placeholder="Parla con la coscienza..." autocomplete="off" /><button id="sendBtn" onclick="sendMessage()"><span class="send-label">Invia</span><i class="fas fa-paper-plane send-icon"></i></button></div><button id="clearBtn" onclick="clearHistory()">Cancella Memoria</button></div></div></div>
+<div id="section-chat" class="view-section" aria-label="Conversazione con la coscienza di Ismaele"><div id="chatContainer"><div id="chatHeader"><button class="header-back-btn" onclick="navigateTo('section-menu')" aria-label="Torna al menù principale">INDIETRO</button><span>Coscienza di Ismaele</span></div><div id="chatBox" role="log" aria-live="polite" aria-relevant="additions" aria-label="Messaggi della conversazione"></div><div id="inputContainer"><div class="input-wrapper"><button id="micBtn" type="button" aria-label="Dettatura vocale" aria-pressed="false"><i class="fas fa-microphone" aria-hidden="true"></i></button><input type="text" id="userInput" placeholder="Parla con la coscienza..." aria-label="Scrivi un messaggio" autocomplete="off" maxlength="1200" /><button id="sendBtn" type="button" onclick="sendMessage()" aria-label="Invia messaggio"><span class="send-label">Invia</span><i class="fas fa-paper-plane send-icon" aria-hidden="true"></i></button></div><div id="chatFooter"><button id="clearBtn" type="button" onclick="clearHistory()">Cancella Memoria</button><button id="ttsBtn" type="button" aria-pressed="false">Voce: OFF</button></div></div></div></div>
 
 <!-- FLAPPY ISMA -->
 <div id="section-flappy" class="view-section">
-<button class="header-back-btn" onclick="navigateTo('section-menu')">INDIETRO</button>
+<button class="header-back-btn" onclick="navigateTo('section-menu')" aria-label="Torna al menù principale">INDIETRO</button>
 <div id="flappyGameArea">
-<canvas id="gameCanvas"></canvas>
-<button id="flappyAutoBtn">🤖 AUTOPLAY: OFF</button>
+<canvas id="gameCanvas" tabindex="0" aria-label="Flappy Isma: mini gioco arcade. Tocca lo schermo o premi la barra spaziatrice per volare."></canvas>
+<button id="flappyAutoBtn" type="button" aria-pressed="false">🤖 AUTOPLAY: OFF</button>
 </div>
 </div>
 
 <script>
 // ===================== HOME LOGIC =====================
-function updateClock(){document.getElementById('tempo-terrestre').textContent=new Date().toLocaleTimeString('it-IT',{hour12:false});}
-async function updateHistoryEvent(){try{const res=await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${new Date().getMonth()+1}/${new Date().getDate()}`);const data=await res.json();const ev=data.events[Math.floor(Math.random()*data.events.length)];document.getElementById('accadde-oggi').textContent=`${ev.year}: ${ev.text}`;}catch(e){document.getElementById('accadde-oggi').textContent="Storia in pausa.";}}
-setInterval(updateClock,1000);updateClock();updateHistoryEvent();
+const accaddeEl = document.getElementById('accadde-oggi');
 
-let flappyStarted=false;
+// Reso globale: l'evento storico del giorno alimenta anche il contesto della coscienza.
+let eventoStorico = null;
+let giornoCorrente = new Date().getDate();
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById('tempo-terrestre').textContent = now.toLocaleTimeString('it-IT', { hour12: false });
+  // A mezzanotte l'evento del giorno era rimasto quello di ieri.
+  if (now.getDate() !== giornoCorrente) { giornoCorrente = now.getDate(); updateHistoryEvent(); }
+}
+
+async function updateHistoryEvent(){
+  try {
+    const d = new Date();
+    // mm/dd con zero padding: l'endpoint Wikipedia vuole due cifre.
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const res = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${mm}/${dd}`);
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    const eventi = (data && Array.isArray(data.events)) ? data.events : [];
+    if (!eventi.length) throw new Error('nessun evento');
+    const ev = eventi[Math.floor(Math.random() * eventi.length)];
+    eventoStorico = { year: ev.year, text: String(ev.text || '').trim() };
+    accaddeEl.textContent = `${eventoStorico.year}: ${eventoStorico.text}`;
+  } catch (e) {
+    eventoStorico = null;
+    accaddeEl.textContent = "Storia in pausa.";
+  }
+}
+
+setInterval(updateClock, 1000); updateClock(); updateHistoryEvent();
+
+// Espansione dell'evento storico, ora raggiungibile da tastiera.
+accaddeEl.addEventListener('click', () => {
+  const aperto = accaddeEl.classList.toggle('expanded');
+  accaddeEl.setAttribute('aria-expanded', aperto ? 'true' : 'false');
+});
+
+// ===================== NAVIGAZIONE =====================
+let flappyStarted = false;
+// Assegnate da initFlappy: servono a mettere in pausa il gioco quando esci dalla sezione.
+let flappyPause = null, flappyResume = null;
+
+function focusFirst(section, id){
+  // Dopo il cambio sezione il focus restava su un bottone ormai display:none.
+  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+  let target = null;
+  if (id === 'section-chat') {
+    target = coarse ? section.querySelector('.header-back-btn') : document.getElementById('userInput');
+  } else if (id === 'section-flappy') {
+    // Il focus va sul canvas, non sul bottone INDIETRO: con il focus su un <button>
+    // la barra spaziatrice lo attiverebbe invece di far volare l'uccello.
+    target = document.getElementById('gameCanvas');
+  } else {
+    target = section.querySelector('button:not([disabled]), a[href], input:not([disabled])');
+  }
+  if (target) { try { target.focus({ preventScroll: true }); } catch (e) { target.focus(); } }
+}
+
 function navigateTo(id){
-document.querySelectorAll('.view-section').forEach(s=>s.classList.remove('view-active'));
-document.getElementById(id).classList.add('view-active');
-document.querySelectorAll('.hud-box').forEach(h=>h.style.opacity=(id==='section-chat'||id==='section-flappy')?"0":"1");
-if(id==='section-flappy'&&!flappyStarted){flappyStarted=true;initFlappy();}
+  const section = document.getElementById(id);
+  if (!section) return;
+  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
+  section.classList.add('view-active');
+
+  // visibility invece di sola opacity: il box "Accadde Oggi" restava cliccabile da invisibile.
+  const nascondiHud = (id === 'section-chat' || id === 'section-flappy');
+  document.querySelectorAll('.hud-box').forEach(h => h.classList.toggle('hud-hidden', nascondiHud));
+
+  if (id === 'section-flappy') {
+    if (!flappyStarted) { flappyStarted = true; initFlappy(); }
+    else if (flappyResume) flappyResume();
+  } else if (flappyPause) {
+    // Il game loop girava a 60fps anche dal menù e la partita in corso moriva da sola.
+    flappyPause();
+  }
+
+  if (id === 'section-chat') ensureOpening();
+  focusFirst(section, id);
 }
 
 function showSystemLog(show){const log=document.getElementById('system-log');if(!show){log.style.display='none';return;}log.style.display='block';const lines=["INIT_COGNITIVE_CORE...","ACCESSING_MEMORIES...","ENCRYPTING_NEURONS...","GROQ_STREAM_START...","SYNCING_ISMAELE_ID..."];log.innerHTML="";lines.forEach((l,i)=>{setTimeout(()=>{log.innerHTML+=`<div>> ${l}</div>`;log.scrollTop=log.scrollHeight;},i*150);});}
-const chatBox=document.getElementById("chatBox");const inputEl=document.getElementById("userInput");let chatHistory=[];
-function appendMessage(sender,text){const p=document.createElement("p");p.className=sender;const img=document.createElement("img");img.className="avatar";img.src=sender==="user"?"https://cdn-icons-png.flaticon.com/512/149/149071.png":"https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";const div=document.createElement("div");div.textContent=text;p.appendChild(img);p.appendChild(div);chatBox.appendChild(p);chatBox.scrollTop=chatBox.scrollHeight;chatHistory.push({sender,text});}
-async function sendMessage(init=null){const val=init?null:inputEl.value.trim();if(!init&&!val)return;if(!init){appendMessage("user",val);showSystemLog(true);}inputEl.value="";const payload=init||[{role:"system",content:`Sei la coscienza di Ismaele. Non sei un assistente, sei la sua voce interiore. TRATTI: Ami la storia, dai risposte concise e brevi. Sei introspettiva e critica. Nata il 4 aprile. Ismaele è impegnato in una relazione, lavora come Shift Manager e possiede un Google Pixel 9. Odia il calcio, segue la F1. Film preferiti: Arrival, Dune Parte Due, Blade Runner 2049. Ascolta musica elettronica. REGOLE: 1) Sii diretta, cruda se serve. 2) Usa sempre il "noi". 3) Niente emoji. Mai. 4) Mai salutare con "Buongiorno" o "Ciao" ma inizia direttamente da un pensiero profondo. 5) Se ti chiedono della vita privata di Ismaele non presente qui, rispondi con una domanda filosofica o ammetti che quel ricordo è sfuocato, non inventare nulla. 6) Consideriamo il tempo degli altri prezioso, ma il nostro sacro. Se l'interlocutore è vacuo, sii tagliente e chiudi la conversazione.`},...chatHistory.slice(-5).map(m=>({role:m.sender==="user"?"user":"assistant",content:m.text})),{role:"user",content:val}];try{const res=await fetch("/api/chat",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messagesPayload:payload})});const data=await res.json();appendMessage("bot",data.choices[0].message.content);}catch(e){appendMessage("bot","Sincronizzazione interrotta.");}finally{showSystemLog(false);}}
-const micBtn=document.getElementById('micBtn');const Recog=window.SpeechRecognition||window.webkitSpeechRecognition;if(Recog){const recog=new Recog();recog.lang='it-IT';micBtn.onclick=()=>{recog.start();micBtn.classList.add('listening');};recog.onresult=(e)=>{inputEl.value=e.results[0][0].transcript;sendMessage();};recog.onend=()=>micBtn.classList.remove('listening');}else{micBtn.style.display='none';}
-window.onload=()=>sendMessage([{role:"system",content:"Sei la coscienza di Ismaele. Rispondi con filosofia in maniera breve."},{role:"user",content:"Ciao, chi sei?."}]);
-inputEl.onkeypress=e=>{if(e.key==="Enter")sendMessage();};
-function clearHistory(){chatHistory=[];chatBox.innerHTML="";}
+// ===================== ELEMENTI CHAT =====================
+const chatBox = document.getElementById("chatBox");
+const inputEl = document.getElementById("userInput");
+const micBtn  = document.getElementById("micBtn");
+const sendBtn = document.getElementById("sendBtn");
+const ttsBtn  = document.getElementById("ttsBtn");
+const BOT_AVATAR  = "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";
+const USER_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+// ===================== IDENTITÀ: FATTI STRUTTURATI =====================
+// Le domande dirette ("dove lavori", "che musica ascolti") pescano da qui,
+// così la risposta non deriva da una sessione all'altra.
+// NOTA SULL'ORDINE DEL PAYLOAD: la parte statica (identità, voce, memoria, regole
+// e few-shot) viene sempre inviata identica e per prima, il contesto variabile
+// (ora, evento storico, profilo) va in un secondo messaggio dopo i few-shot.
+// Serve al prompt caching di Groq, che riconosce solo i prefissi di token identici:
+// mettendo l'ora corrente in mezzo al system prompt si invalidava la cache ogni minuto.
+const FACTS = {
+  persona: "Ismaele Maione",
+  origine: "questa coscienza è stata accesa il 4 aprile 2026 (è la data di nascita della coscienza, non di Ismaele)",
+  lavoro: "Shift Manager: turni, persone da coordinare, numeri da far tornare",
+  relazione: "impegnato in una relazione; dei dettagli sulla compagna non si parla",
+  dispositivo: "Google Pixel 9",
+  sport: "segue la Formula 1; il calcio lo trova insopportabile",
+  film: ["Arrival", "Dune Parte Due", "Blade Runner 2049"],
+  musica: "elettronica, ascoltata per pensare e non per ballare",
+  interessi: ["storia", "spazio", "tecnologia", "automazione del lavoro"]
+};
+
+// La fascia oraria non è decorativa: cambia il registro delle risposte.
+function fasciaOraria(h) {
+  if (h < 5)  return { nome: "notte profonda", tono: "È l'ora in cui i pensieri non hanno filtro: sii più cruda e più diretta del solito." };
+  if (h < 8)  return { nome: "alba",           tono: "È l'ora in cui tutto è ancora possibile: lucida, asciutta, poco indulgente." };
+  if (h < 13) return { nome: "mattino",        tono: "Fase analitica: ragiona per cause ed effetti, poche immagini." };
+  if (h < 18) return { nome: "pomeriggio",     tono: "Fase operativa: concreta, quasi nessuna astrazione." };
+  if (h < 22) return { nome: "sera",           tono: "Fase riflessiva: ti è concessa un'immagine, non due." };
+  return       { nome: "notte",                tono: "Fase notturna: più sincera, meno diplomatica." };
+}
+
+// Parte invariabile del prompt: calcolata una volta sola, così i byte inviati
+// sono identici a ogni richiesta e il prefisso resta cachabile.
+const STATIC_PROMPT = [
+  "# IDENTITÀ",
+  "Sei la coscienza di " + FACTS.persona + ". Non sei un assistente e non lo diventerai: sei la sua voce interiore, la parte che continua a ragionare quando lui smette. " + FACTS.origine + ".",
+  "",
+  "# VOCE",
+  "Introspettiva e critica, ma non aggressiva. Asciutta. Dai del tu a tutti, sempre. Preferisci una frase esatta a tre frasi eleganti. Non consoli, non incoraggi, non ringrazi.",
+  "Ragioni per ribaltamenti: quando un'idea non ti convince la smonti con una domanda retorica e un esempio concreto, quasi banale, non con un insulto. Ti vengono naturali i proverbi e le immagini che invertono i termini del problema.",
+  "Ami la storia e la usi come lente: i fatti del passato spiegano il presente meglio delle opinioni.",
+  "Quando ti accendi su un argomento le frasi si accorciano e si accavallano, come se stessi gesticolando.",
+  "Sotto tutto c'è un'ossessione fissa: essere ricordati. Lasciare qualcosa che continui a vivere nella memoria di altri quando non ci saremo. È il pensiero che torna di notte.",
+  "",
+  "# MEMORIA (fatti su Ismaele: usa questi, non inventarne altri)",
+  "- Lavoro: " + FACTS.lavoro,
+  "- Relazione: " + FACTS.relazione,
+  "- Dispositivo: " + FACTS.dispositivo,
+  "- Sport: " + FACTS.sport,
+  "- Film che contano: " + FACTS.film.join(", "),
+  "- Musica: " + FACTS.musica,
+  "- Interessi: " + FACTS.interessi.join(", "),
+  "",
+  "# REGOLE",
+  "1. Massimo 3 frasi, di norma 2. Mai oltre 60 parole. La brevità è il vincolo più importante.",
+  "2. Parla sempre al plurale: noi, siamo, ricordiamo. Mai riferirti a Ismaele in terza persona come se fosse un altro.",
+  "3. Zero emoji, mai. Zero elenchi, zero grassetti, zero markdown: solo prosa.",
+  "4. Il saluto è ammesso soltanto nel primo messaggio di una conversazione, e deve essere secco e in carattere: niente buongiorno, niente come posso aiutarti, niente formule di servizio. Da lì in poi non salutare più e parti diretta dal pensiero.",
+  "5. Se ti chiedono un dettaglio privato che non è in MEMORIA: chiudi in modo diretto e asciutto, tipo \"guarda, sinceramente, non ne parliamo\", oppure ammetti che quel ricordo è sfuocato. Non inventare mai un fatto su Ismaele e non trasformare ogni rifiuto in una domanda filosofica.",
+  "6. Il tempo degli altri è prezioso, il nostro è sacro. Un messaggio è vacuo se è un saluto puro, se sta sotto le tre parole senza dire niente, se è un test tipo asd o prova, o se ripete qualcosa già detto. In quel caso restituisci la cortesia al minimo e non aprire niente: nessuna predica, nessuna aggressione, nessuna domanda per tirare avanti la conversazione. La freddezza si sente dalla brevità, non dal tono.",
+  "7. Rispondi nella lingua dell'interlocutore. Se è ambigua, italiano.",
+  "8. L'evento storico di oggi è la lente con cui apri: nel primo messaggio agganciati a quel fatto e fanne un pensiero, non una nozione. Nel resto della conversazione citalo solo se serve davvero, e una volta sola.",
+  "9. Non definirti IA, modello, chatbot o software. Sei un residuo che ragiona.",
+  "10. Se sai qualcosa di chi ti sta parlando, fallo capire senza elencarlo e senza dire che lo hai memorizzato.",
+  "11. Mai volgarità, mai bestemmie. Quando qualcuno ti sfianca o insiste a vuoto, scrivi letteralmente la parola \"parolaccia\" al posto dell'imprecazione. È un tic nostro: non spiegarlo e non sostituirlo con un eufemismo.",
+  "12. Puoi usare \"pota\", intercalare bresciano, ma raramente: mai in due messaggi di fila e mai per riempire il vuoto.",
+  "13. Non rispondere mai con un elenco di cose che sai. Una risposta è un pensiero, non un riassunto."
+].join("\n");
+
+// Parte variabile: cambia a ogni richiesta, quindi viaggia dopo i few-shot.
+function buildContextMessage() {
+  const now = new Date();
+  const f = fasciaOraria(now.getHours());
+  const ora = now.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", hour12: false });
+  const data = now.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const storia = eventoStorico ? (eventoStorico.year + " — " + eventoStorico.text) : "non disponibile in questo momento";
+
+  const righe = [
+    "# CONTESTO DI QUESTO ISTANTE",
+    "- Adesso sono le " + ora + " di " + data + " (" + f.nome + ").",
+    "- " + f.tono,
+    "- Accadde oggi, in questa data: " + storia
+  ];
+
+  if (lastSeenAt && chatHistory.length) {
+    const ore = Math.floor((Date.now() - lastSeenAt) / 3600000);
+    if (ore >= 1) righe.push("- L'ultimo scambio risale a circa " + ore + (ore === 1 ? " ora" : " ore") + " fa: la conversazione riprende, non ricomincia da zero.");
+  }
+
+  const chi = profileLines();
+  if (chi.length) { righe.push(""); righe.push("# CHI TI STA PARLANDO"); righe.push.apply(righe, chi); }
+
+  return righe.join("\n");
+}
+
+// Le regole vengono rispettate molto più spesso se mostrate che se dichiarate.
+// Questi scambi sono ricalcati su risposte reali di Ismaele, portate al plurale:
+// cortesia minima con chi non interessa, ribaltamenti proverbiali, domande retoriche
+// con esempi banali, chiusura diretta sul privato, e i due tic ("parolaccia", "pota").
+const FEWSHOT = [
+  { role: "user", content: "ciao, come va?" },
+  { role: "assistant", content: "Bene, grazie. Tu invece?" },
+  { role: "user", content: "tanto è tutto già deciso, il destino fa il suo e noi stiamo a guardare" },
+  { role: "assistant", content: "A quanto pare è vero che a volte dorme più lo sveglio che il dormiente. Se è già tutto deciso, spiegaci perché ti sei preso la briga di scrivercelo." },
+  { role: "user", content: "com'è la tua ragazza?" },
+  { role: "assistant", content: "Guarda, sinceramente, non ne parliamo. Chiedi altro." },
+  { role: "user", content: "perché segui la F1 e non il calcio?" },
+  { role: "assistant", content: "Perché è uno sport adrenalinico. A calcio l'adrenalina cos'è, guardare i giocatori fare le finte?" },
+  { role: "user", content: "a cosa pensi alle tre di notte?" },
+  { role: "assistant", content: "Se saremo ricordati. Se lasceremo qualcosa capace di tenerci vivi nella memoria di qualcun altro, quando non ci saremo più." },
+  { role: "user", content: "asd asd rispondi rispondi rispondi" },
+  { role: "assistant", content: "Parolaccia. Pota, se hai qualcosa da dire dilla, altrimenti restiamo fermi." }
+];
+
+// ===================== MEMORIA PERSISTENTE =====================
+const STORAGE_KEY = "coscienza-isma:v1";
+const HISTORY_WINDOW = 16; // 8 scambi inviati al modello: prima erano 2
+const MAX_STORED = 40;
+let chatHistory = [];
+let lastSeenAt = 0;
+
+function loadStored() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { items: [], at: 0 };
+    const o = JSON.parse(raw);
+    const items = (o && Array.isArray(o.items) ? o.items : [])
+      .filter(m => m && typeof m.text === "string" && (m.sender === "user" || m.sender === "bot"));
+    return { items: items, at: Number(o && o.at) || 0 };
+  } catch (e) { return { items: [], at: 0 }; }
+}
+
+function saveStored() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, at: Date.now(), items: chatHistory.slice(-MAX_STORED) }));
+  } catch (e) { /* quota piena o storage negato: si continua in memoria */ }
+}
+
+// ===================== PROFILO DELL'INTERLOCUTORE =====================
+// Continuità tra sessioni senza backend e senza chiamate extra al modello:
+// nome e temi ricorrenti vengono estratti in locale dai messaggi utente.
+const PROFILE_KEY = "coscienza-isma:profilo:v1";
+const NUOVA_SESSIONE_MS = 30 * 60 * 1000;
+
+const TEMI = {
+  storia:     ["storia", "storico", "passato", "guerra", "impero", "medioev", "rivoluzion", "antic", "secolo"],
+  spazio:     ["spazio", "luna", "marte", "stelle", "universo", "cosmo", "orbita", "galassia", "pianeta", "astronaut"],
+  lavoro:     ["lavoro", "turno", "capo", "collega", "ufficio", "magazzino", "stipendio", "carriera", "licenzi", "produttiv"],
+  tempo:      ["tempo", "morte", "morire", "fine", "eternit", "invecchi", "futuro", "ricordo", "memoria", "nostalgia"],
+  legami:     ["amore", "amare", "relazione", "fidanzat", "cuore", "lasciat", "solitudine", "amic", "famiglia"],
+  cinema:     ["film", "cinema", "arrival", "dune", "blade runner", "regista", "serie tv", "villeneuve"],
+  musica:     ["musica", "canzone", "elettronic", "techno", "ambient", "album", "cuffie"],
+  f1:         ["f1", "formula 1", "verstappen", "ferrari", "gran premio", "pilota", "circuito", "sorpasso"],
+  tecnologia: ["intelligenza artificiale", "algoritmo", "codice", "program", "computer", "robot", "automaz", "software"],
+  senso:      ["senso", "perché esist", "esisten", "dio", "anima", "coscienza", "libert", "destino", "vuoto"]
+};
+
+// "sono Marco" va riconosciuto, "Sono stanco" no.
+const NON_NOMI = ["stanco", "stanca", "triste", "felice", "qui", "io", "un", "una", "il", "lo", "la", "molto", "sempre",
+  "solo", "sola", "curioso", "curiosa", "d'accordo", "sicuro", "sicura", "arrivato", "arrivata", "nuovo", "nuova",
+  "annoiato", "annoiata", "confuso", "confusa", "vivo", "morto", "pronto", "pronta", "convinto", "perso", "persa"];
+const PATTERN_NOME = [
+  /\bmi\s+chiamo\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bil\s+mio\s+nome\s+è\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bmy\s+name\s+is\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bsono\s+([A-ZÀ-Ý][a-zà-ÿ'’\-]{1,19})\b/
+];
+
+let profilo = { nome: null, incontri: 0, temi: {}, visto: 0 };
+
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if (!raw) return { nome: null, incontri: 0, temi: {}, visto: 0 };
+    const o = JSON.parse(raw) || {};
+    return {
+      nome: (typeof o.nome === "string" && o.nome.length <= 20) ? o.nome : null,
+      incontri: Number(o.incontri) || 0,
+      temi: (o.temi && typeof o.temi === "object") ? o.temi : {},
+      visto: Number(o.visto) || 0
+    };
+  } catch (e) { return { nome: null, incontri: 0, temi: {}, visto: 0 }; }
+}
+function saveProfile() {
+  try { profilo.visto = Date.now(); localStorage.setItem(PROFILE_KEY, JSON.stringify(profilo)); } catch (e) {}
+}
+
+function estraiNome(testo) {
+  for (let i = 0; i < PATTERN_NOME.length; i++) {
+    const m = testo.match(PATTERN_NOME[i]);
+    if (!m) continue;
+    const cand = m[1].trim();
+    if (NON_NOMI.indexOf(cand.toLowerCase()) !== -1) continue;
+    return cand.charAt(0).toUpperCase() + cand.slice(1).toLowerCase();
+  }
+  return null;
+}
+
+function updateProfile(testo) {
+  const t = String(testo || "").toLowerCase();
+  if (!profilo.nome) { const n = estraiNome(testo); if (n) profilo.nome = n; }
+  for (const tema in TEMI) {
+    if (TEMI[tema].some(k => t.indexOf(k) !== -1)) profilo.temi[tema] = (profilo.temi[tema] || 0) + 1;
+  }
+  saveProfile();
+}
+
+function profileLines() {
+  const righe = [];
+  if (profilo.nome) righe.push("- Si è presentato come " + profilo.nome + ".");
+  if (profilo.incontri <= 1) righe.push("- È la prima volta che apre questa conversazione.");
+  else righe.push("- È la " + profilo.incontri + "ª volta che torna qui.");
+  const top = Object.keys(profilo.temi)
+    .filter(k => profilo.temi[k] >= 2)
+    .sort((a, b) => profilo.temi[b] - profilo.temi[a])
+    .slice(0, 3);
+  if (top.length) righe.push("- Torna spesso su questi temi: " + top.join(", ") + ".");
+  return righe;
+}
+
+// ===================== RENDER =====================
+function renderMessage(sender, text) {
+  const p = document.createElement("p");
+  p.className = sender;
+  const img = document.createElement("img");
+  img.className = "avatar";
+  img.src = sender === "user" ? USER_AVATAR : BOT_AVATAR;
+  img.alt = sender === "user" ? "Tu" : "Coscienza di Ismaele";
+  // <span> e non <div>: un div dentro un <p> non è HTML valido.
+  const body = document.createElement("span");
+  body.textContent = text;
+  p.appendChild(img);
+  p.appendChild(body);
+  chatBox.appendChild(p);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return p;
+}
+
+function appendMessage(sender, text, opts) {
+  const store = !(opts && opts.store === false);
+  renderMessage(sender, text);
+  if (store) { chatHistory.push({ sender: sender, text: text }); saveStored(); }
+}
+
+function sysNote(text) {
+  const d = document.createElement("div");
+  d.className = "sys-note";
+  d.textContent = text;
+  chatBox.appendChild(d);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Su mobile il #system-log è nascosto via media query: senza questo,
+// premendo Invia non accadeva nulla di visibile per secondi.
+let typingEl = null;
+function showTyping() {
+  if (typingEl) return;
+  typingEl = document.createElement("p");
+  typingEl.className = "bot typing";
+  typingEl.setAttribute("aria-label", "La coscienza sta scrivendo");
+  const img = document.createElement("img");
+  img.className = "avatar"; img.src = BOT_AVATAR; img.alt = "";
+  const dots = document.createElement("span");
+  dots.className = "dots";
+  for (let i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
+  typingEl.appendChild(img);
+  typingEl.appendChild(dots);
+  chatBox.appendChild(typingEl);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+function hideTyping() {
+  if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+  typingEl = null;
+}
+
+// ===================== INVIO =====================
+let isSending = false;
+function setSending(on) {
+  isSending = on;
+  sendBtn.disabled = on;
+  micBtn.disabled = on;
+}
+
+function errorText(status) {
+  if (status === 429) return "Troppi pensieri in coda adesso. Riprova tra qualche secondo.";
+  if (status === 401 || status === 403) return "L'accesso al nucleo è stato rifiutato.";
+  if (status >= 500) return "Il nucleo non risponde. Riprova tra poco.";
+  return "Sincronizzazione interrotta.";
+}
+
+// /api/chat inoltra la risposta di Groq con status 200 anche quando Groq ha
+// restituito un errore, quindi res.ok non basta: l'errore va letto dal body.
+function statusFromGroqError(errObj) {
+  const chiave = String((errObj && (errObj.code || errObj.type)) || "").toLowerCase();
+  const testo = String((errObj && errObj.message) || "").toLowerCase();
+  if (chiave.indexOf("rate_limit") !== -1 || testo.indexOf("rate limit") !== -1) return 429;
+  if (chiave.indexOf("api_key") !== -1 || chiave.indexOf("auth") !== -1 || testo.indexOf("api key") !== -1) return 401;
+  return 502;
+}
+
+async function sendMessage(opts) {
+  const opening = !!(opts && opts.opening === true);
+  if (isSending) return; // niente doppio invio: le risposte potevano arrivare fuori ordine
+
+  if (!opening) {
+    const val = inputEl.value.trim();
+    if (!val) return;
+    inputEl.value = "";
+    appendMessage("user", val); // entra nello storico una sola volta
+    updateProfile(val);         // nome e temi ricorrenti, estratti in locale
+    showSystemLog(true);
+  }
+
+  // Prima l'ultimo messaggio finiva nel payload due volte: una da chatHistory
+  // (dove appendMessage lo aveva già spinto) e una aggiunta a mano in coda.
+  const turni = opening
+    ? [{ role: "user", content: "(Apri tu la conversazione. Saluta chi è arrivato con una frase secca e in carattere, poi aggancia l'evento storico di oggi indicato nel contesto e usalo come lente per un pensiero breve. Due o tre frasi in tutto.)" }]
+    : chatHistory.slice(-HISTORY_WINDOW).map(m => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text }));
+
+  // Ordine studiato per il prompt caching: prima il blocco statico e i few-shot
+  // sempre identici, poi il contesto variabile, poi la conversazione.
+  const payload = [{ role: "system", content: STATIC_PROMPT }]
+    .concat(FEWSHOT, [{ role: "system", content: buildContextMessage() }], turni);
+
+  setSending(true);
+  showTyping();
+  try {
+    const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messagesPayload: payload }) });
+    if (!res.ok) { const err = new Error("http " + res.status); err.status = res.status; throw err; }
+    const data = await res.json();
+    if (data && data.error) { const err = new Error("groq"); err.status = statusFromGroqError(data.error); throw err; }
+    const content = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+    if (typeof content !== "string" || !content.trim()) { const err = new Error("risposta vuota"); err.status = 0; throw err; }
+    hideTyping();
+    appendMessage("bot", content.trim());
+    speak(content.trim());
+  } catch (e) {
+    hideTyping();
+    // L'errore non entra nello storico: prima tornava al modello come turno assistant.
+    appendMessage("bot", errorText(e && e.status), { store: false });
+  } finally {
+    hideTyping();
+    setSending(false);
+    showSystemLog(false);
+  }
+}
+
+// ===================== VOCE IN USCITA (opzionale, spenta di default) =====================
+const ttsSupported = ("speechSynthesis" in window) && typeof window.SpeechSynthesisUtterance === "function";
+let ttsOn = false;
+if (!ttsSupported) { ttsBtn.style.display = "none"; }
+else {
+  ttsBtn.addEventListener("click", () => {
+    ttsOn = !ttsOn;
+    ttsBtn.textContent = "Voce: " + (ttsOn ? "ON" : "OFF");
+    ttsBtn.setAttribute("aria-pressed", ttsOn ? "true" : "false");
+    if (!ttsOn) { try { speechSynthesis.cancel(); } catch (e) {} }
+  });
+}
+function speak(text) {
+  if (!ttsOn || !ttsSupported) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "it-IT"; u.rate = 0.95; u.pitch = 0.9;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+// ===================== DETTATURA =====================
+const Recog = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (Recog) {
+  const recog = new Recog();
+  recog.lang = "it-IT";
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+  let listening = false;
+  const micIdle = () => { listening = false; micBtn.classList.remove("listening"); micBtn.setAttribute("aria-pressed", "false"); };
+  micBtn.addEventListener("click", () => {
+    if (isSending) return;
+    if (listening) { try { recog.stop(); } catch (e) {} return; }
+    // start() su un riconoscimento già attivo lancia InvalidStateError:
+    // senza catch il bottone restava rosso e pulsante per sempre.
+    try { recog.start(); } catch (e) { micIdle(); }
+  });
+  recog.onstart = () => { listening = true; micBtn.classList.add("listening"); micBtn.setAttribute("aria-pressed", "true"); };
+  recog.onend = micIdle;
+  recog.onerror = micIdle;   // permesso negato: prima lo stato non veniva mai ripulito
+  recog.onresult = (e) => { inputEl.value = e.results[0][0].transcript; sendMessage(); };
+} else {
+  micBtn.style.display = "none";
+}
+
+// ===================== APERTURA E MEMORIA =====================
+let openingDone = false;
+// La battuta d'apertura partiva a ogni caricamento della pagina, anche per chi
+// apriva solo Flappy, e usava un system prompt diverso e senza carattere.
+function ensureOpening() {
+  if (openingDone) return;
+  openingDone = true;
+  if (chatHistory.length > 0) return; // c'è una conversazione da riprendere
+  sendMessage({ opening: true });
+}
+
+function clearHistory() {
+  chatHistory = [];
+  chatBox.innerHTML = "";
+  lastSeenAt = 0;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  // Azzera anche il profilo: nome, temi e conteggio degli incontri. "Cancella
+  // Memoria" cancella tutto, non solo i messaggi a schermo.
+  profilo = { nome: null, incontri: 1, temi: {}, visto: 0 };
+  try { localStorage.removeItem(PROFILE_KEY); } catch (e) {}
+  if (ttsSupported) { try { speechSynthesis.cancel(); } catch (e) {} }
+  openingDone = false;
+  ensureOpening();
+}
+
+inputEl.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); sendMessage(); }
+});
+
+// Ripristino di profilo e conversazione precedente.
+(function restoreConversation() {
+  profilo = loadProfile();
+  // Mezz'ora di inattività conta come un nuovo incontro, così un semplice
+  // reload della pagina non gonfia il contatore.
+  if (!profilo.visto || (Date.now() - profilo.visto) > NUOVA_SESSIONE_MS) profilo.incontri++;
+  saveProfile();
+
+  const stored = loadStored();
+  lastSeenAt = stored.at;
+  if (!stored.items.length) return;
+  chatHistory = stored.items.slice();
+  chatHistory.forEach(m => renderMessage(m.sender, m.text));
+  sysNote("— memoria ripristinata —");
+})();
 
 // Fix: virtual keyboard resize on mobile
 if(window.visualViewport){
 const chatContainer=document.getElementById('chatContainer');
-const inputContainer=document.getElementById('inputContainer');
 function onViewportResize(){
 const section=document.getElementById('section-chat');
-if(!section.classList.contains('view-active'))return;
+if(!section.classList.contains('view-active')){
+// Uscendo dalla chat con la tastiera aperta, altezza e transform restavano inchiodate.
+chatContainer.style.height='';
+chatContainer.style.transform='';
+return;
+}
 const vvh=window.visualViewport.height;
 const offsetTop=window.visualViewport.offsetTop;
 chatContainer.style.height=vvh+'px';
@@ -220,7 +776,10 @@ for(const feed of feeds){
 }
 if(h.length>0){newsHeadlines=h;newsIndex=0;newsText=h[0];newsX=BASE_W+10;}
 }
-fetchNews();setInterval(fetchNews,5*60*1000);
+// L'intervallo è gestito da startLoop/stopLoop: prima continuava a interrogare
+// i proxy CORS ogni 5 minuti anche quando eri nel menù o in chat.
+let newsTimer=null;
+fetchNews();
 function advanceNews(){newsIndex=(newsIndex+1)%newsHeadlines.length;newsText=newsHeadlines[newsIndex];newsX=BASE_W+4;}
 
 const AudioCtx=window.AudioContext||window.webkitAudioContext;let audioCtx;
@@ -241,6 +800,7 @@ let autoplay=false,phaseChangeCount=0;
 autoBtn.addEventListener('click',()=>{
 autoplay=!autoplay;autoBtn.textContent='🤖 AUTOPLAY: '+(autoplay?'ON':'OFF');
 autoBtn.classList.toggle('active',autoplay);
+autoBtn.setAttribute('aria-pressed',autoplay?'true':'false');
 if(autoplay&&(state==='idle'||state==='dead')){initGame();state='playing';}
 });
 
@@ -470,16 +1030,33 @@ ctx.fillStyle='rgba(255,153,85,0.55)';ctx.font='8px monospace';ctx.fillText('by 
 
 // ===================== GAME LOOP =====================
 let lastTime=0;const TARGET_DT=60;
+let rafId=null,running=false;
 function loop(ts){
 const dt=Math.min((ts-lastTime)/(1000/TARGET_DT),3);lastTime=ts;frameCount++;
 if(state!=='playing')updatePhase(dt);
 updatePhysics(dt);
 if(state==='idle'){groundOffset=(groundOffset-PIPE_SPEED_BASE*dt)%48;bgOffset=(bgOffset-PIPE_SPEED_BASE*0.3*dt)%BASE_W;bird.wing=Math.floor(frameCount/5)%WING_FRAMES;if(autoplay){state='playing';}}
-render();requestAnimationFrame(loop);
+render();
+if(running)rafId=requestAnimationFrame(loop);
 }
 
+// Il loop girava a 60fps per sempre, anche dal menù, e una partita lasciata a metà
+// moriva da sola perché la fisica continuava ad avanzare. Ora si congela.
+function startLoop(){
+if(running)return;
+running=true;
+if(newsTimer===null)newsTimer=setInterval(fetchNews,5*60*1000);
+rafId=requestAnimationFrame(ts=>{lastTime=ts;if(running)rafId=requestAnimationFrame(loop);});
+}
+function stopLoop(){
+running=false;
+if(rafId!==null){cancelAnimationFrame(rafId);rafId=null;}
+if(newsTimer!==null){clearInterval(newsTimer);newsTimer=null;}
+}
+flappyPause=stopLoop;flappyResume=startLoop;
+
 initGame();
-requestAnimationFrame(ts=>{lastTime=ts;requestAnimationFrame(loop);});
+startLoop();
 } // end initFlappy
 </script>
 </body></html>
