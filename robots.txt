@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# SOSTITUISCI IL SEGNAPOSTO con il tuo indirizzo di produzione.
+Sitemap: https://coscienza-ismaele-chat.vercel.app/sitemap.xml

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SOSTITUISCI IL SEGNAPOSTO con il tuo indirizzo di produzione.
+     changefreq e priority sono volutamente assenti: Google li ignora. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://coscienza-ismaele-chat.vercel.app/</loc>
+    <lastmod>2026-09-15</lastmod>
+  </url>
+</urlset>
