@@ -19,17 +19,29 @@
 
 <meta property="og:title" content="Coscienza di Ismaele Maione" />
 <meta property="og:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
-<meta property="og:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
-<meta property="og:image:alt" content="Ritratto di Ismaele Maione" />
+<!-- Anteprima social: la foto ritagliata a 1200×630, il formato che
+     WhatsApp, LinkedIn e X si aspettano. In JPEG perché non tutte le
+     piattaforme leggono il WebP nelle anteprime. -->
+<meta property="og:image" content="https://coscienza-ismaele-chat.vercel.app/og-deserto.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Ismaele Maione di spalle cammina in un deserto di pietre verso l'orizzonte." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://coscienza-ismaele-chat.vercel.app/" />
 <meta property="og:site_name" content="Coscienza di Ismaele" />
 <meta property="og:locale" content="it_IT" />
-<meta name="twitter:card" content="summary" />
+<meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Coscienza di Ismaele Maione" />
 <meta name="twitter:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
-<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
+<meta name="twitter:image" content="https://coscienza-ismaele-chat.vercel.app/og-deserto.jpg" />
 <meta name="twitter:creator" content="@ismaele_maione" />
+
+<!-- Lo sfondo dell'hero è il primo pixel che si vede: lo annuncio prima
+     del foglio di stile, così parte a scaricare subito. -->
+<link rel="preload" as="image" href="hero-wide.webp" media="(min-width: 900px)" fetchpriority="high" />
+<link rel="preload" as="image" href="hero-deserto.webp" media="(max-width: 899px)"
+      imagesrcset="hero-deserto-760.webp 760w, hero-deserto.webp 1088w"
+      imagesizes="100vw" fetchpriority="high" />
 
 <!-- Dati strutturati: dicono a Google che il sito è di questa persona
      e che è la stessa dei profili elencati in sameAs. È il pezzo che
@@ -483,17 +495,40 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   overflow:hidden;
   isolation:isolate;
 }
-#stars{
+/* La foto è verticale (1088×1445) e lo schermo di solito non lo è: con cover
+   viene ritagliata, quindi ancoro il punto di interesse in alto perché è lì
+   che c'è il cielo su cui poggia il titolo. */
+#hero-img{
   position:absolute;inset:0;z-index:-2;
   width:100%;height:100%;
-  display:block;
+  object-fit:cover;
+  object-position:50% 22%;
+  will-change:transform;
 }
+/* Due veli sopra la foto: uno scurisce l'alto per il titolo, l'altro fonde
+   il basso col nero della pagina così il taglio non si vede. */
 #hero::after{
   content:'';position:absolute;inset:0;z-index:-1;
   background:
-    radial-gradient(120% 80% at 50% 8%,rgba(127,168,201,.10),transparent 62%),
-    radial-gradient(90% 70% at 50% 108%,rgba(11,11,12,.96),transparent 60%);
+    linear-gradient(180deg,rgba(7,7,10,.82) 0%,rgba(7,7,10,.42) 32%,rgba(7,7,10,.30) 52%,rgba(11,11,12,.88) 88%,var(--ink) 100%),
+    radial-gradient(120% 70% at 50% 4%,rgba(127,168,201,.10),transparent 60%);
   pointer-events:none;
+}
+
+/* ---- desktop: il titolo sale, la figura resta libera al centro ---- */
+@media (min-width:900px){
+  /* il ritaglio orizzontale ha la persona al centro: la mostro per intero */
+  #hero-img{object-position:50% 46%}
+  /* il titolo non è più centrato in verticale ma ancorato in alto,
+     così non si sovrappone a chi cammina */
+  .hero-top{align-items:flex-start;flex:0 0 auto}
+  #hero{justify-content:space-between}
+  /* velo più deciso dietro il testo, quasi trasparente dove c'è la figura */
+  #hero::after{
+    background:
+      linear-gradient(180deg,rgba(7,7,10,.88) 0%,rgba(7,7,10,.55) 26%,rgba(7,7,10,.14) 46%,rgba(7,7,10,.34) 68%,rgba(11,11,12,.92) 92%,var(--ink) 100%),
+      radial-gradient(90% 55% at 22% 22%,rgba(7,7,10,.55),transparent 70%);
+  }
 }
 
 .hero-top{
@@ -1283,12 +1318,13 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   .reader w{opacity:1}
   .js .fact dd em{opacity:1;transform:none}
   .mq-row{animation:none;width:auto;flex-wrap:wrap}
-  #stars{display:none}
+  /* la foto resta: è contenuto, non movimento. Si ferma solo il parallax. */
+  #hero-img{transform:none !important}
 }
 
-/* la classe .reduced è impostata da JS: spegne anche gli effetti su canvas */
+/* la classe .reduced è impostata da JS */
 .reduced .grain{display:none}
-.reduced #stars{display:none}
+.reduced #hero-img{transform:none}
 
 /* senza JS il contenuto resta leggibile */
 .no-js .rv,.no-js .mask > *{opacity:1;transform:none}
@@ -1351,7 +1387,20 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 
   <!-- ============ 00 — HERO ============ -->
   <section id="hero" aria-labelledby="hero-title">
-    <canvas id="stars" aria-hidden="true"></canvas>
+    <!-- Due inquadrature della stessa foto, non due dimensioni: su telefono
+         serve il taglio verticale, su monitor panoramico quello orizzontale
+         che contiene la figura intera. Un unico ritaglio non può fare entrambe
+         le cose senza sacrificare o il cielo o la persona. -->
+    <picture>
+      <source media="(min-width: 900px)" srcset="hero-wide.webp" width="1088" height="600" />
+      <img id="hero-img"
+           src="hero-deserto.webp"
+           srcset="hero-deserto-760.webp 760w, hero-deserto.webp 1088w"
+           sizes="100vw"
+           width="1088" height="1445"
+           fetchpriority="high" decoding="async"
+           alt="Ismaele Maione di spalle, con lo zaino, che cammina in un deserto di pietre verso l'orizzonte sotto un cielo carico." />
+    </picture>
 
     <div class="shell hero-top">
       <h1 class="hero-title" id="hero-title">
@@ -1855,7 +1904,7 @@ accaddeEl.addEventListener('click', () => {
 });
 
 /* ============================================================
-   D. DESIGN: preloader, stelle, rivelazioni, progresso
+   D. DESIGN: preloader, sfondo, rivelazioni, progresso
    Isolato in una funzione per non collidere con i nomi
    della logica di chat che segue.
    ============================================================ */
@@ -1891,66 +1940,25 @@ accaddeEl.addEventListener('click', () => {
     })(t0);
   }
 
-  /* ---------- D2. campo stellare ---------- */
-  const cv = document.getElementById('stars');
-  let ctx = null, stelle = [], dpr = 1, cw = 0, cht = 0, heroVisibile = true, tick = 0;
+  /* ---------- D2. profondità dello sfondo ----------
+     La foto scorre a un terzo della velocità del contenuto: è quello che dava
+     il campo stellare, ottenuto con una sola trasformazione invece di
+     ridisegnare duecento punti a ogni fotogramma. */
+  const heroImg = document.getElementById('hero-img');
+  const heroSez = document.getElementById('hero');
+  let heroVisibile = true;
 
-  function dimensionaStelle() {
-    if (!cv) return;
-    dpr = Math.min(window.devicePixelRatio || 1, 2);
-    const r = cv.getBoundingClientRect();
-    cw = Math.max(1, r.width); cht = Math.max(1, r.height);
-    cv.width = Math.round(cw * dpr);
-    cv.height = Math.round(cht * dpr);
-    ctx = cv.getContext('2d');
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // Meno stelle su mobile: è il disegno più frequente della pagina.
-    const densita = COARSE ? 9000 : 5200;
-    const quante = Math.min(220, Math.round((cw * cht) / densita));
-    stelle = [];
-    for (let i = 0; i < quante; i++) {
-      stelle.push({
-        x: Math.random() * cw,
-        y: Math.random() * cht,
-        r: Math.random() * 1.1 + 0.25,
-        z: Math.random() * 0.7 + 0.3,
-        f: Math.random() * Math.PI * 2
-      });
-    }
+  if ('IntersectionObserver' in window && heroSez) {
+    new IntersectionObserver(es => { heroVisibile = es[0].isIntersecting; }, { threshold: 0 })
+      .observe(heroSez);
   }
 
-  function disegnaStelle(offset) {
-    if (!ctx) return;
-    ctx.clearRect(0, 0, cw, cht);
-    for (let i = 0; i < stelle.length; i++) {
-      const s = stelle[i];
-      const y = s.y + offset * s.z * 0.35;
-      if (y < -4 || y > cht + 4) continue;
-      const lum = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(tick * 0.012 + s.f));
-      ctx.globalAlpha = lum * s.z;
-      ctx.fillStyle = s.z > 0.85 ? '#DCE6F2' : '#F2EFE9';
-      ctx.beginPath();
-      ctx.arc(s.x, y, s.r * s.z, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.globalAlpha = 1;
-  }
-
-  if (cv && !REDUCED) {
-    dimensionaStelle();
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(es => { heroVisibile = es[0].isIntersecting; }, { threshold: 0 })
-        .observe(document.getElementById('hero'));
-    }
-    (function loopStelle() {
-      if (!document.hidden && heroVisibile && !overlayAperti()) {
-        tick++;
-        disegnaStelle(window.scrollY || 0);
-      }
-      requestAnimationFrame(loopStelle);
-    })();
-  } else if (cv) {
-    cv.style.display = 'none';
+  // Lo scale compensa lo spostamento: senza, scorrendo si scoprirebbe il bordo.
+  const FATTORE = COARSE ? 0.18 : 0.32;
+  function muoviSfondo(y) {
+    if (!heroImg || REDUCED) return;
+    if (!heroVisibile) return;
+    heroImg.style.transform = 'translate3d(0,' + (y * FATTORE).toFixed(1) + 'px,0) scale(1.08)';
   }
 
   /* ---------- D3. rivelazioni all'ingresso ---------- */
@@ -2019,6 +2027,7 @@ accaddeEl.addEventListener('click', () => {
       else if (y < ultimoY - 4 || y < vh * 0.3) nav.classList.remove('hidden');
     }
     ultimoY = y;
+    muoviSfondo(y);
     if (!REDUCED) aggiornaLettori(vh);
   }
 
@@ -2032,7 +2041,7 @@ accaddeEl.addEventListener('click', () => {
   let debounce;
   window.addEventListener('resize', () => {
     clearTimeout(debounce);
-    debounce = setTimeout(() => { misura(); dimensionaStelle(); aggiorna(); }, 180);
+    debounce = setTimeout(() => { misura(); aggiorna(); }, 180);
   });
 
   // Capitolo corrente evidenziato sia nella barra sia nell'indice.
