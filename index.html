@@ -1,4 +1,13 @@
-<!DOCTYPE html><html lang="it"><head><meta charset="UTF-8" /><link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="description" content="Un'estensione digitale del pensiero di Ismaele Maione: coscienza, manifesto e Flappy Isma." /><title>Coscienza di Ismaele — Beta</title>
+<!DOCTYPE html>
+<html lang="it" class="no-js">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coscienza di Ismaele</title>
+<meta name="description" content="Un'estensione digitale del pensiero di Ismaele Maione. Coscienza, manifesto e Flappy Isma." />
+<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
+<meta name="theme-color" content="#0B0B0C" />
+
 <meta property="og:title" content="Coscienza di Ismaele" />
 <meta property="og:description" content="Un'estensione digitale del pensiero di Ismaele. Coscienza, manifesto e Flappy Isma." />
 <meta property="og:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
@@ -7,154 +16,1668 @@
 <meta name="twitter:title" content="Coscienza di Ismaele" />
 <meta name="twitter:description" content="Un'estensione digitale del pensiero di Ismaele." />
 <meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" /><style>:root {--primary-color: #252525;--accent-color: #4a90e2;--glass-bg: rgba(255, 255, 255, 0.75);--glass-border: rgba(255, 255, 255, 0.4);--shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);}body {font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;margin: 0; padding: 0;height: 100vh;background: url('https://preview.redd.it/silver-surfer-all-alone-in-the-space-wallpaper-with-ai-v0-68daljq9mide1.png?width=1080&crop=smart&auto=webp&s=a89b41016a1f9b274cbeff03c5298a29a61ce38b') center/cover fixed;display: flex; flex-direction: column; align-items: center; justify-content: center;color: #333;overflow: hidden; -webkit-tap-highlight-color: transparent; }
-.hud-box {position: absolute;top: 15px;color: rgba(255, 255, 255, 0.9);text-shadow: 0 2px 4px rgba(0,0,0,0.5);font-family: 'Courier New', Courier, monospace;pointer-events: none;z-index: 50;transition: opacity 0.3s;}#hud-left { left: 15px; text-align: left; }#hud-right { right: 15px; text-align: right; max-width: 280px;}.hud-item {background: rgba(0, 0, 0, 0.4);padding: 8px 12px;backdrop-filter: blur(5px);-webkit-backdrop-filter: blur(5px);border-radius: 4px;}#hud-left .hud-item { border-left: 3px solid #fff; }#hud-right .hud-item { border-right: 3px solid #fff; }.hud-label { font-size: 0.65rem; text-transform: uppercase; opacity: 0.7; margin-bottom: 2px; letter-spacing: 1px; }#tempo-terrestre { font-size: 1rem; font-weight: bold; }#accadde-oggi { font-size: 0.80rem; line-height: 1.2; max-height: 4.8rem; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; cursor: pointer; transition: max-height 0.3s ease; pointer-events: auto; }#accadde-oggi.expanded { max-height: none; -webkit-line-clamp: unset; display: block; }@media screen and (max-width: 600px) {
-#hud-right { max-width: 140px; top: 8px; }
-#accadde-oggi { font-size: 0.65rem; max-height: 3.2rem; -webkit-line-clamp: 3; }
-.menu-card { padding: 24px 18px; max-width: 92vw; }
-.menu-card h1 { font-size: 1.3rem; margin: 8px 0 12px; }
-.menu-card img { width: 60px !important; margin-bottom: 12px !important; }
-.menu-btn { padding: 12px; font-size: 14px; margin: 10px auto; }
-#section-chat { padding: 0; justify-content: flex-start; }
-#chatContainer { width: 100%; max-width: 100%; height: 100vh; height: 100dvh; border-radius: 0; border: none; box-shadow: none; }
-#chatHeader { padding: 12px 15px; font-size: 15px; position: relative; min-height: 44px; box-sizing: border-box; }
-.header-back-btn { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); z-index: 2; }
-#chatHeader span { display: block; width: 100%; text-align: center; }
-#chatBox { padding: 12px 10px; gap: 10px; }
-#chatBox p { font-size: 14px; max-width: 85%; padding: 10px 12px; border-radius: 16px; }
-#chatBox p.user { max-width: 80%; }
-#chatBox p.bot { max-width: 88%; }
-.avatar { width: 26px; height: 26px; flex-shrink: 0; }
-#inputContainer { padding: 10px; padding-bottom: max(10px, env(safe-area-inset-bottom)); }
-.input-wrapper { gap: 6px; }
-#userInput { padding: 10px 14px; font-size: 16px; border-radius: 22px; -webkit-appearance: none; }
-#sendBtn { padding: 10px 14px; font-size: 13px; border-radius: 22px; white-space: nowrap; flex-shrink: 0; min-width: 42px; min-height: 42px; display: flex; align-items: center; justify-content: center; }
-.send-label { display: none; }
-.send-icon { display: block; font-size: 18px; line-height: 1; width: 18px; height: 18px; }
-#micBtn { width: 38px; height: 38px; flex-shrink: 0; }
-#clearBtn { margin: 6px auto 0; font-size: 10px; padding: 4px 10px; }
-#section-chat { position: relative; }
-.contact-item { font-size: 15px; gap: 10px; padding: 8px; }
-.contact-item i { font-size: 20px; }
-#section-manifesto .menu-card { max-width: 92vw; padding: 20px 16px; }
-#section-manifesto .menu-card h2 { font-size: 1.2rem; }
-#section-manifesto .menu-card p { font-size: 0.9rem; line-height: 1.5; }
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" />
+
+<style>
+/* ============================================================
+   COSCIENZA DI ISMAELE — long scroll
+   Nessuna immagine: la profondità arriva da tipografia,
+   canvas generativo, grana e ritmo di rivelazione.
+   ============================================================ */
+
+:root{
+  --ink:#0B0B0C;
+  --void:#07070A;
+  --paper:#F2EFE9;
+  --paper-60:rgba(242,239,233,.60);
+  --paper-38:rgba(242,239,233,.38);
+  --paper-14:rgba(242,239,233,.14);
+  --paper-08:rgba(242,239,233,.08);
+  --accent:#C6A15B;
+  --cold:#7FA8C9;
+
+  --serif:"Instrument Serif",Iowan Old Style,Apple Garamond,Baskerville,Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+
+  /* scala fluida */
+  --step--1:clamp(.72rem,.68rem + .18vw,.82rem);
+  --step-0:clamp(.95rem,.9rem + .25vw,1.06rem);
+  --step-1:clamp(1.15rem,1rem + .7vw,1.5rem);
+  --step-2:clamp(1.5rem,1.2rem + 1.6vw,2.4rem);
+  --step-3:clamp(2rem,1.4rem + 3.2vw,4rem);
+  --step-4:clamp(2.6rem,1.3rem + 6.4vw,7rem);
+  --display:clamp(3rem,1rem + 12.5vw,13.5rem);
+
+  --gut:clamp(1.15rem,4vw,2.5rem);
+  --rail:clamp(1.15rem,5vw,5.5rem);
+  --sec-y:clamp(6rem,16vh,14rem);
+
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-io:cubic-bezier(.65,.05,.36,1);
 }
-@media screen and (max-width: 400px) {
-#hud-left, #hud-right { top: 8px; }
-#hud-left { left: 8px; }
-#hud-right { right: 8px; max-width: 120px; }
-.hud-item { padding: 5px 8px; }
-#tempo-terrestre { font-size: 0.85rem; }
-#accadde-oggi { font-size: 0.58rem; max-height: 2.4rem; -webkit-line-clamp: 2; }
-.hud-label { font-size: 0.55rem; }
-.menu-card { padding: 20px 14px; }
-.menu-card h1 { font-size: 1.15rem; }
-.menu-btn { padding: 11px; font-size: 13px; margin: 8px auto; }
-.header-back-btn { padding: 6px 10px; font-size: 10px; }
-#chatBox { padding: 10px 8px; gap: 8px; }
-#chatBox p { font-size: 13px; padding: 9px 10px; border-radius: 14px; }
-.avatar { width: 24px; height: 24px; }
-#chatHeader { font-size: 14px; padding: 10px 12px; }
-#userInput { padding: 9px 12px; font-size: 16px; }
-#sendBtn { padding: 9px 12px; font-size: 15px; min-width: 38px; min-height: 38px; }
-#micBtn { width: 36px; height: 36px; }
-#inputContainer { padding: 8px; }
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
 }
-@media (hover: none) and (pointer: coarse) {
-.menu-btn:hover::before { display: none; animation: none; }
-.menu-btn:hover { transform: none; background: #000; }
-#system-log { display: none !important; }
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:var(--step-0);
+  font-weight:300;
+  line-height:1.6;
+  letter-spacing:.005em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
 }
-.view-section {display: none;width: 100%; height: 100%;flex-direction: column; align-items: center; justify-content: center;}.view-active { display: flex; }
-.menu-card {background: var(--glass-bg);backdrop-filter: blur(12px);-webkit-backdrop-filter: blur(12px);padding: 40px; border-radius: 20px;text-align: center; box-shadow: var(--shadow);border: 1px solid var(--glass-border);width: 90%; max-width: 400px;}
-.menu-btn {position: relative;display: block; width: 100%; margin: 15px auto;padding: 15px; border: none; border-radius: 25px;background: #000; color: #fff; font-size: 16px;font-weight: bold; cursor: pointer; transition: 0.3s;overflow: hidden;}.menu-btn:hover { transform: scale(1.03); background: #333; }.menu-btn::after {content: '';position: absolute;top: 0; left: 0; width: 100%; height: 100%;background: rgba(255, 255, 255, 0.1);opacity: 0;}.menu-btn:hover::before {content: attr(data-text);position: absolute;top: 0; left: 0; width: 100%; height: 100%;background: #000;display: flex; align-items: center; justify-content: center;color: #fff;clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);animation: glitch 0.3s infinite;transform: translate(-2px);text-shadow: 2px 0 red;}@keyframes glitch {0% { clip-path: polygon(0 5%, 100% 5%, 100% 15%, 0 15%); transform: translate(2px); }25% { clip-path: polygon(0 30%, 100% 30%, 100% 40%, 0 40%); transform: translate(-2px); text-shadow: -2px 0 blue; }50% { clip-path: polygon(0 60%, 100% 60%, 100% 70%, 0 70%); transform: translate(2px); text-shadow: 2px 0 green; }75% { clip-path: polygon(0 80%, 100% 80%, 100% 95%, 0 95%); transform: translate(-2px); }100% { clip-path: polygon(0 0, 100% 0, 100% 10%, 0 10%); }}
-#system-log {position: fixed;bottom: 20px; right: 20px;font-family: 'Courier New', monospace;font-size: 10px; color: #00ff00;background: rgba(0,0,0,0.8);padding: 10px; border-radius: 5px;width: 180px; height: 60px;overflow: hidden; pointer-events: none;display: none; z-index: 100;border: 1px solid rgba(0,255,0,0.3);}
-.contact-links {display: flex; flex-direction: column; gap: 15px; margin-top: 20px;}.contact-item {display: flex; align-items: center; gap: 15px; text-decoration: none;color: #000; font-weight: 600; font-size: 18px; padding: 10px;border-radius: 12px; transition: background 0.3s;}.contact-item:hover { background: rgba(0,0,0,0.05); }.contact-item i { font-size: 24px; width: 30px; text-align: center; }.back-link { cursor: pointer; text-decoration: underline; font-size: 14px; margin-top: 25px; display: inline-block; color: #555; }
-#chatContainer {display: flex; flex-direction: column;width: 95%; max-width: 1100px; height: 92vh;background: var(--glass-bg);backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);border: 1px solid var(--glass-border);border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);position: relative;}#chatHeader {flex-shrink: 0; display: flex; align-items: center; justify-content: center;background: rgba(255,255,255,0.9); color: #000; font-weight: 700;padding: 15px; border-bottom: 1px solid rgba(0,0,0,0.1); font-size: 18px;}.header-back-btn { position: absolute; left: 15px; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }#chatBox { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; }#chatBox p { margin: 0; padding: 12px 16px; border-radius: 18px; max-width: 80%; display: flex; align-items: flex-start; gap: 10px; word-break: break-word; font-size: 15px; animation: popIn 0.3s ease; }.user { background: #333; color: #fff; align-self: flex-end; border-bottom-right-radius: 4px !important; flex-direction: row-reverse; }.bot { background: #fff; align-self: flex-start; border-bottom-left-radius: 4px !important; border: 1px solid rgba(0,0,0,0.05); }.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }#inputContainer { background: rgba(255,255,255,0.9); padding: 15px; }.input-wrapper { display: flex; gap: 8px; width: 100%; align-items: center; }#userInput { flex: 1; padding: 12px 15px; border: 1px solid #ccc; border-radius: 25px; outline: none; }#sendBtn { padding: 12px 20px; border: none; background: #000; color: #fff; font-weight: bold; border-radius: 25px; cursor: pointer; display: flex; align-items: center; justify-content: center; }.send-icon { display: none; }.send-label { display: inline; }#micBtn { background: none; border: 1px solid #ccc; width: 42px; height: 42px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #555; }#micBtn.listening { color: #ff4b2b; border-color: #ff4b2b; animation: pulse 1.5s infinite; }@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }@keyframes popIn { from { transform: scale(0.95); opacity: 0; } to { transform: scale(1); opacity: 1; } }#clearBtn { padding: 6px 14px; font-size: 11px; border-radius: 16px; border: none; background: rgba(0,0,0,0.06); cursor: pointer; display: block; margin: 8px auto 0; color: #888; }
-/* --- FLAPPY SECTION --- */
-#section-flappy { background: #0a0015; }
-#section-flappy .header-back-btn { position: fixed; top: 10px; left: 10px; z-index: 999; background: #000; color: #fff; border: none; padding: 8px 14px; border-radius: 15px; cursor: pointer; font-size: 11px; }
-#flappyGameArea { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; width: 100%; height: 100%; }
-#flappyGameArea canvas { display: block; image-rendering: pixelated; image-rendering: crisp-edges; touch-action: none; -webkit-tap-highlight-color: transparent; }
-#flappyAutoBtn { padding: 7px 18px; border: 2px solid #ff6b00; border-radius: 20px; background: rgba(10,0,30,0.85); color: #ffd700; font: bold 12px monospace; cursor: pointer; letter-spacing: 1px; transition: background 0.2s, color 0.2s; user-select: none; flex-shrink: 0; }
-#flappyAutoBtn:hover, #flappyAutoBtn:active, #flappyAutoBtn.active { background: #ff6b00; color: #1a0a2e; }
 
-/* ===== FIX: overflow card su schermi bassi (il manifesto veniva tagliato) ===== */
-.menu-card { max-height: 88vh; overflow-y: auto; -webkit-overflow-scrolling: touch; box-sizing: border-box; }
+body.locked{overflow:hidden}
 
-/* ===== FIX: HUD nascosto davvero, non solo trasparente =====
-   Con opacity:0 il riquadro "Accadde Oggi" restava cliccabile sopra la chat. */
-.hud-box { transition: opacity 0.3s, visibility 0.3s; }
-.hud-box.hud-hidden { opacity: 0; visibility: hidden; }
+h1,h2,h3,p,figure,blockquote{margin:0}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
 
-/* ===== A11Y: reset per gli elementi diventati <button> ===== */
-#accadde-oggi { background: none; border: 0; padding: 0; margin: 0; width: 100%; color: inherit; font-family: inherit; text-align: right; text-shadow: inherit; }
-#accadde-oggi:focus-visible, .back-link:focus-visible, .contact-item:focus-visible, .menu-btn:focus-visible,
-.header-back-btn:focus-visible, #sendBtn:focus-visible, #micBtn:focus-visible, #userInput:focus-visible,
-#clearBtn:focus-visible, #ttsBtn:focus-visible, #flappyAutoBtn:focus-visible { outline: 3px solid #4a90e2; outline-offset: 2px; }
-.back-link { background: none; border: 0; padding: 0; font-family: inherit; }
-.back-link:hover { color: #000; }
+::selection{background:var(--accent);color:var(--ink)}
 
-/* ===== Footer chat: memoria + voce ===== */
-#chatFooter { display: flex; gap: 8px; justify-content: center; align-items: center; margin-top: 8px; flex-wrap: wrap; }
-#clearBtn, #ttsBtn { padding: 6px 14px; font-size: 11px; border-radius: 16px; border: none; background: rgba(0,0,0,0.06); cursor: pointer; margin: 0; color: #5a5a5a; font-family: inherit; }
-#clearBtn:hover, #ttsBtn:hover { background: rgba(0,0,0,0.12); }
-#ttsBtn[aria-pressed="true"] { background: #000; color: #fff; }
-
-/* ===== Nota di sistema (memoria ripristinata) ===== */
-.sys-note { align-self: center; font-family: 'Courier New', monospace; font-size: 10px; color: #777; letter-spacing: 1px; text-transform: uppercase; margin: 4px 0; }
-
-/* ===== Indicatore "sta pensando" (unico feedback visibile su mobile) ===== */
-#chatBox p.typing span.dots { display: inline-flex; gap: 4px; align-items: center; height: 18px; }
-#chatBox p.typing span.dots i { width: 6px; height: 6px; border-radius: 50%; background: #999; display: block; animation: typingBounce 1.2s infinite ease-in-out; }
-#chatBox p.typing span.dots i:nth-child(2) { animation-delay: 0.15s; }
-#chatBox p.typing span.dots i:nth-child(3) { animation-delay: 0.3s; }
-@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); opacity: 0.45; } 30% { transform: translateY(-4px); opacity: 1; } }
-
-/* ===== Stato di invio ===== */
-#sendBtn[disabled], #micBtn[disabled] { opacity: 0.45; cursor: not-allowed; }
-
-/* ===== A11Y: rispetta prefers-reduced-motion ===== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-  .menu-btn:hover::before { display: none; }
-  #chatBox p.typing span.dots i { opacity: 0.7; }
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
 }
-</style></head><body>
-<div id="system-log"></div>
-<div id="hud-left" class="hud-box"><div class="hud-item"><div class="hud-label">Tempo Terrestre</div><div id="tempo-terrestre">00:00:00</div></div></div>
-<div id="hud-right" class="hud-box"><div class="hud-item"><div class="hud-label" id="hud-right-label">Accadde Oggi</div><button type="button" id="accadde-oggi" aria-expanded="false" aria-describedby="hud-right-label">Sincronizzazione...</button></div></div>
 
-<!-- MENU -->
-<div id="section-menu" class="view-section view-active"><div class="menu-card">
-<img src="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" alt="Ritratto di Ismaele Maione" style="width: 80px; border-radius: 50%; margin-bottom: 20px; border: 3px solid #fff;">
-<h1>Progetto di Ismaele</h1>
-<button class="menu-btn" data-text='"MANIFESTO"' onclick="navigateTo('section-manifesto')">"MANIFESTO"</button>
-<button class="menu-btn" data-text="COSCIENZA DI ISMAELE (beta)" onclick="navigateTo('section-chat')">COSCIENZA DI ISMAELE (beta)</button>
-<button class="menu-btn" data-text="FLAPPY ISMA" onclick="navigateTo('section-flappy')">FLAPPY ISMA</button>
-<button class="menu-btn" data-text="CONTATTI" onclick="navigateTo('section-contacts')">CONTATTI</button>
-</div></div>
+/* ---------- grana: SVG inline, nessun file esterno ---------- */
+.grain{
+  position:fixed;
+  inset:-50%;
+  z-index:9000;
+  pointer-events:none;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change:transform;
+  animation:grainShift 5s steps(5) infinite;
+}
+@keyframes grainShift{
+  0%{transform:translate(0,0)}
+  20%{transform:translate(-3%,2%)}
+  40%{transform:translate(2%,-3%)}
+  60%{transform:translate(-2%,-2%)}
+  80%{transform:translate(3%,1%)}
+  100%{transform:translate(0,0)}
+}
 
-<!-- MANIFESTO -->
-<div id="section-manifesto" class="view-section"><div class="menu-card" style="max-width: 500px; text-align: left;"><h2>Il Manifesto</h2><p>La coscienza non è solo un processo biologico, è il riflesso di ogni scelta, di ogni libro letto e di ogni secondo passato a guardare l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".</p><p>Questo spazio è un'estensione digitale del mio pensiero. Nessun dato viene tracciato ed è un piccolo progetto che sto portando avanti piano piano; La "coscienza" è sviluppata usando LLM+Groq+Vercel; seguiranno sviluppi per renderla più fedele alla mia persona.</p><p>-Ismaele- Aprile 2026.</p><button type="button" class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</button></div></div>
+/* ---------- utilità ---------- */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:9999;
+  background:var(--paper);color:var(--ink);
+  padding:.75rem 1.25rem;font-size:var(--step--1);
+}
+.skip:focus{left:1rem;top:1rem}
 
-<!-- CONTATTI -->
-<div id="section-contacts" class="view-section"><div class="menu-card"><h2>Contatti</h2><div class="contact-links"><a href="https://www.instagram.com/ismaelemaione" target="_blank" class="contact-item"><i class="fab fa-instagram"></i> Instagram</a><a href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" class="contact-item"><i class="fab fa-linkedin"></i> LinkedIn</a><a href="https://x.com/ismaele_maione" target="_blank" class="contact-item"><i class="fab fa-twitter"></i> Twitter/X</a><a href="mailto:maioneismaele@gmail.com" class="contact-item"><i class="fas fa-envelope"></i> Email</a></div><button type="button" class="back-link" onclick="navigateTo('section-menu')">← Torna al Menù</button></div></div>
+.sr{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
 
-<!-- CHAT -->
-<div id="section-chat" class="view-section" aria-label="Conversazione con la coscienza di Ismaele"><div id="chatContainer"><div id="chatHeader"><button class="header-back-btn" onclick="navigateTo('section-menu')" aria-label="Torna al menù principale">INDIETRO</button><span>Coscienza di Ismaele</span></div><div id="chatBox" role="log" aria-live="polite" aria-relevant="additions" aria-label="Messaggi della conversazione"></div><div id="inputContainer"><div class="input-wrapper"><button id="micBtn" type="button" aria-label="Dettatura vocale" aria-pressed="false"><i class="fas fa-microphone" aria-hidden="true"></i></button><input type="text" id="userInput" placeholder="Parla con la coscienza..." aria-label="Scrivi un messaggio" autocomplete="off" maxlength="1200" /><button id="sendBtn" type="button" onclick="sendMessage()" aria-label="Invia messaggio"><span class="send-label">Invia</span><i class="fas fa-paper-plane send-icon" aria-hidden="true"></i></button></div><div id="chatFooter"><button id="clearBtn" type="button" onclick="clearHistory()">Cancella Memoria</button><button id="ttsBtn" type="button" aria-pressed="false">Voce: OFF</button></div></div></div></div>
+.shell{
+  width:100%;
+  max-width:1560px;
+  margin-inline:auto;
+  padding-inline:var(--rail);
+}
 
-<!-- FLAPPY ISMA -->
-<div id="section-flappy" class="view-section">
-<button class="header-back-btn" onclick="navigateTo('section-menu')" aria-label="Torna al menù principale">INDIETRO</button>
-<div id="flappyGameArea">
-<canvas id="gameCanvas" tabindex="0" aria-label="Flappy Isma: mini gioco arcade. Tocca lo schermo o premi la barra spaziatrice per volare."></canvas>
-<button id="flappyAutoBtn" type="button" aria-pressed="false">🤖 AUTOPLAY: OFF</button>
+.eyebrow{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+}
+
+.rule{
+  height:1px;
+  background:var(--paper-14);
+  border:0;
+  margin:0;
+}
+
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:.94}
+.it{font-style:italic}
+.amber{color:var(--accent)}
+
+/* ============================================================
+   1. PRELOADER
+   ============================================================ */
+#preloader{
+  position:fixed;inset:0;z-index:8000;
+  background:var(--void);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:var(--rail);
+  transition:clip-path 1.1s var(--ease-io);
+  clip-path:inset(0 0 0 0);
+}
+#preloader.done{
+  clip-path:inset(0 0 100% 0);
+  pointer-events:none;
+}
+#preloader .pre-name{
+  font-family:var(--serif);
+  font-size:var(--step-2);
+  line-height:1;
+  color:var(--paper);
+  opacity:0;
+  transform:translateY(.4em);
+  animation:preIn .9s var(--ease) .15s forwards;
+}
+#preloader .pre-count{
+  font-family:var(--mono);
+  font-size:var(--step-2);
+  color:var(--paper-38);
+  font-variant-numeric:tabular-nums;
+}
+@keyframes preIn{to{opacity:1;transform:none}}
+#pre-bar{
+  position:absolute;left:0;bottom:0;height:1px;width:0%;
+  background:var(--accent);
+}
+
+/* ============================================================
+   2. PROGRESS + NAV
+   ============================================================ */
+#progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;
+  z-index:7000;pointer-events:none;
+  background:transparent;
+}
+#progress span{
+  display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--cold));
+  transform-origin:0 50%;
+}
+
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:6000;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  padding:clamp(1rem,2.2vw,1.6rem) var(--rail);
+  mix-blend-mode:difference;
+  transition:transform .5s var(--ease),opacity .4s ease;
+}
+#nav.hidden{transform:translateY(-110%);opacity:0}
+/* con l'indice aperto la barra resta: dentro c'è il bottone per chiuderlo */
+body.menu-open #nav{transform:none;opacity:1;mix-blend-mode:normal}
+.brand{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1;
+  letter-spacing:-.01em;
+  display:inline-flex;align-items:baseline;gap:.5rem;
+}
+.brand .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  display:inline-block;
+  animation:pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+/* Cinque voci con etichette lunghe non stanno in una barra da telefono:
+   sotto i 900px la navigazione passa al pannello a tutto schermo. */
+.nav-links{
+  display:none;
+  align-items:center;gap:clamp(.9rem,2vw,2rem);
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.nav-links a{
+  position:relative;
+  padding-block:.35rem;
+  color:var(--paper-60);
+  transition:color .35s ease;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;
+  height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .45s var(--ease);
+}
+.nav-links a:hover,.nav-links a.current{color:var(--paper)}
+.nav-links a:hover::after,.nav-links a.current::after{transform:scaleX(1)}
+
+/* sottotitolo di una voce: "Coscienza · la chat" senza rompere la riga */
+.nav-hint{
+  font-size:.82em;
+  letter-spacing:.1em;
+  opacity:.5;
+  margin-left:.5em;
+}
+.nav-hint::before{content:'· '}
+.nav-links a:hover .nav-hint,.nav-links a.current .nav-hint{opacity:.75}
+
+/* ---------- bottone dell'indice (compare sotto i 900px) ---------- */
+#menuBtn{
+  display:none;
+  align-items:center;gap:.7rem;
+  background:none;border:1px solid var(--paper-14);
+  border-radius:999px;
+  padding:.6rem 1.05rem;
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper);
+  transition:border-color .35s ease,background-color .35s ease,color .35s ease;
+}
+#menuBtn:hover{border-color:var(--paper-38)}
+/* la parola cambia da "Indice" a "Chiudi": larghezza fissa per non far
+   saltare le due barrette quando il testo si accorcia */
+.mb-word{
+  display:inline-block;
+  min-width:4.2em;
+  text-align:left;
+  font-variant-numeric:tabular-nums;
+}
+.mb-bars{display:block;width:16px;height:9px;position:relative;flex:0 0 auto}
+.mb-bars i{
+  position:absolute;left:0;width:100%;height:1px;
+  background:currentColor;
+  transition:transform .45s var(--ease),opacity .3s ease;
+}
+.mb-bars i:first-child{top:0}
+.mb-bars i:last-child{bottom:0}
+body.menu-open .mb-bars i:first-child{transform:translateY(4px) rotate(45deg)}
+body.menu-open .mb-bars i:last-child{transform:translateY(-4px) rotate(-45deg)}
+body.menu-open #menuBtn{border-color:var(--paper)}
+
+/* ---------- pannello a tutto schermo ---------- */
+#menuPanel{
+  position:fixed;inset:0;z-index:5900;
+  background:var(--void);
+  display:flex;align-items:center;
+  padding:calc(var(--rail) + 3.5rem) var(--rail) var(--rail);
+  visibility:hidden;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .8s var(--ease-io),visibility .8s step-end;
+}
+body.menu-open #menuPanel{
+  visibility:visible;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .8s var(--ease-io),visibility 0s;
+}
+.mp-inner{width:100%;max-width:1560px;margin-inline:auto}
+.mp-list{
+  list-style:none;margin:0;padding:0;
+  border-top:1px solid var(--paper-08);
+}
+.mp-list li{border-bottom:1px solid var(--paper-08)}
+.mp-list a{
+  position:relative;
+  display:grid;
+  grid-template-columns:2.75rem 1fr;
+  gap:clamp(1rem,4vw,2rem);
+  align-items:baseline;
+  padding:clamp(1rem,2.6vh,1.5rem) 0;
+  overflow:hidden;
+  /* le voci entrano a cascata quando il pannello si apre */
+  opacity:0;transform:translateY(1.4rem);
+  transition:opacity .6s ease,transform .7s var(--ease),padding-left .5s var(--ease);
+}
+body.menu-open .mp-list a{opacity:1;transform:none}
+body.menu-open .mp-list li:nth-child(1) a{transition-delay:.16s}
+body.menu-open .mp-list li:nth-child(2) a{transition-delay:.22s}
+body.menu-open .mp-list li:nth-child(3) a{transition-delay:.28s}
+body.menu-open .mp-list li:nth-child(4) a{transition-delay:.34s}
+body.menu-open .mp-list li:nth-child(5) a{transition-delay:.40s}
+.mp-n{
+  font-family:var(--mono);
+  font-size:.66rem;letter-spacing:.18em;
+  color:var(--accent);
+  padding-top:.7em;
+}
+.mp-t{
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--paper);
+  display:block;
+}
+.mp-t em{
+  display:block;
+  font-family:var(--mono);
+  font-style:normal;
+  font-size:.58rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  margin-top:.7rem;
+}
+.mp-list a::after{
+  content:'';position:absolute;right:0;top:50%;
+  width:1.1rem;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:100% 50%;
+  transition:transform .5s var(--ease);
+}
+.mp-list a:hover,.mp-list a:focus-visible{padding-left:.75rem}
+.mp-list a:hover::after,.mp-list a:focus-visible::after{transform:scaleX(1)}
+.mp-list a:hover .mp-t,.mp-list a:focus-visible .mp-t{color:var(--accent)}
+.mp-foot{margin-top:clamp(2rem,6vh,3.5rem)}
+
+/* ============================================================
+   3. CURSORE (solo puntatore fine)
+   ============================================================ */
+#cursor,#cursor-dot{
+  position:fixed;top:0;left:0;z-index:9500;
+  pointer-events:none;border-radius:50%;
+  opacity:0;transition:opacity .3s ease;
+}
+#cursor{
+  width:40px;height:40px;
+  margin:-20px 0 0 -20px;
+  border:1px solid var(--paper-38);
+  transition:opacity .3s ease,width .35s var(--ease),height .35s var(--ease),
+             margin .35s var(--ease),background-color .35s ease,border-color .35s ease;
+}
+#cursor.grow{
+  width:78px;height:78px;margin:-39px 0 0 -39px;
+  background:rgba(198,161,91,.12);
+  border-color:var(--accent);
+}
+#cursor-dot{
+  width:4px;height:4px;margin:-2px 0 0 -2px;
+  background:var(--accent);
+}
+body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+#hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(1.5rem,4vh,3rem);
+  overflow:hidden;
+  isolation:isolate;
+}
+#stars{
+  position:absolute;inset:0;z-index:-2;
+  width:100%;height:100%;
+  display:block;
+}
+#hero::after{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(120% 80% at 50% 8%,rgba(127,168,201,.10),transparent 62%),
+    radial-gradient(90% 70% at 50% 108%,rgba(11,11,12,.96),transparent 60%);
+  pointer-events:none;
+}
+
+.hero-top{
+  flex:1;
+  display:flex;align-items:center;
+  padding-top:clamp(5rem,12vh,9rem);
+}
+.hero-title{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--display);
+  line-height:.87;
+  letter-spacing:-.035em;
+  text-wrap:balance;
+}
+.hero-title .ln{
+  display:block;
+  overflow:hidden;
+}
+.hero-title .ln > span{
+  display:block;
+  transform:translateY(105%);
+  transition:transform 1.15s var(--ease);
+}
+.ready .hero-title .ln > span{transform:translateY(0)}
+.hero-title .ln:nth-child(2) > span{transition-delay:.09s}
+.hero-title .ln:nth-child(3) > span{transition-delay:.18s}
+.hero-title .sm{
+  font-size:.34em;
+  font-style:italic;
+  color:var(--paper-38);
+  letter-spacing:-.01em;
+  vertical-align:super;
+}
+
+.hero-foot{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(1.25rem,3vw,2rem);
+  align-items:end;
+}
+.hero-lead{
+  max-width:42ch;
+  font-size:var(--step-1);
+  line-height:1.45;
+  color:var(--paper-60);
+  opacity:0;transform:translateY(1.2rem);
+  transition:opacity .9s ease .5s,transform .9s var(--ease) .5s;
+}
+.ready .hero-lead{opacity:1;transform:none}
+
+/* invito a scorrere */
+.scroll-cue{
+  display:inline-flex;align-items:center;gap:.85rem;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper-38);
+  background:none;border:0;padding:.5rem 0;cursor:pointer;
+  opacity:0;transition:opacity .8s ease .8s,color .3s ease;
+}
+.ready .scroll-cue{opacity:1}
+.scroll-cue:hover{color:var(--paper)}
+.scroll-cue .track{
+  position:relative;display:block;
+  width:clamp(52px,7vw,86px);height:1px;
+  background:var(--paper-14);overflow:hidden;
+}
+.scroll-cue .track::after{
+  content:'';position:absolute;top:0;left:0;height:100%;width:40%;
+  background:var(--accent);
+  animation:cueRun 2.4s var(--ease-io) infinite;
+}
+@keyframes cueRun{
+  0%{transform:translateX(-100%)}
+  60%,100%{transform:translateX(260%)}
+}
+
+/* HUD tempo + storia */
+.hud{
+  display:flex;flex-wrap:wrap;gap:clamp(1rem,3vw,3rem);
+  padding-top:clamp(1.25rem,3vh,2rem);
+  border-top:1px solid var(--paper-08);
+  opacity:0;transition:opacity 1s ease 1s;
+}
+.ready .hud{opacity:1}
+.hud-cell{min-width:0;flex:1 1 200px}
+.hud-cell.wide{flex:2 1 380px}
+.hud-k{
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper-38);
+  display:block;margin-bottom:.4rem;
+}
+#tempo-terrestre{
+  font-family:var(--mono);
+  font-size:var(--step-1);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+#accadde-oggi{
+  font-family:var(--sans);
+  font-size:var(--step--1);
+  line-height:1.5;
+  color:var(--paper-60);
+  text-align:left;
+  background:none;border:0;padding:0;margin:0;width:100%;
+  cursor:pointer;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+  transition:color .3s ease;
+}
+#accadde-oggi:hover{color:var(--paper)}
+#accadde-oggi.expanded{-webkit-line-clamp:unset;display:block}
+
+/* ============================================================
+   5. CAPITOLI
+   ============================================================ */
+.chapter{
+  position:relative;
+  padding-block:var(--sec-y);
+  border-top:1px solid var(--paper-08);
+}
+.chapter.light{
+  background:var(--paper);
+  color:var(--ink);
+  border-top-color:rgba(11,11,12,.10);
+}
+.chapter.light .eyebrow{color:rgba(11,11,12,.42)}
+.chapter.light .rule{background:rgba(11,11,12,.12)}
+
+.ch-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5rem;
+  padding-bottom:clamp(2rem,5vh,4rem);
+}
+.ch-num{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.2em;
+  color:var(--accent);
+}
+
+/* titolo di sezione: rivelato per righe */
+.big{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--step-4);
+  line-height:.92;
+  letter-spacing:-.03em;
+  text-wrap:balance;
+}
+.mid{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--step-3);
+  line-height:1.02;
+  letter-spacing:-.02em;
+}
+
+/* ---------- reveal generico (attivato da IntersectionObserver) ---------- */
+.js .rv{
+  opacity:0;
+  transform:translateY(2rem);
+  transition:opacity 1s ease,transform 1.1s var(--ease);
+}
+.js .rv.in{opacity:1;transform:none}
+.js .rv.d1{transition-delay:.08s}
+.js .rv.d2{transition-delay:.16s}
+.js .rv.d3{transition-delay:.24s}
+.js .rv.d4{transition-delay:.32s}
+
+/* maschera per righe di testo */
+.js .mask{overflow:hidden;display:block}
+.js .mask > *{
+  display:block;
+  transform:translateY(105%);
+  transition:transform 1.1s var(--ease);
+}
+.js .mask.in > *{transform:translateY(0)}
+
+/* ---------- testo che si accende parola per parola sullo scroll ---------- */
+.reader{
+  font-family:var(--serif);
+  font-size:var(--step-2);
+  line-height:1.34;
+  letter-spacing:-.015em;
+  max-width:34ch;
+}
+.reader.wide{max-width:52ch}
+.reader w{
+  display:inline-block;
+  color:var(--paper);
+  opacity:.16;
+  transition:opacity .28s linear;
+}
+.chapter.light .reader w{color:var(--ink)}
+.reader w.on{opacity:1}
+.no-js .reader w,.reduced .reader w{opacity:1}
+
+/* ---------- capitolo sticky: intestazione ferma, colonna che scorre ---------- */
+.split{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(2.5rem,6vw,5rem);
+  align-items:start;
+}
+.split .col-sticky{position:relative}
+.split .col-flow > * + *{margin-top:clamp(2rem,5vh,3.5rem)}
+
+/* ---------- griglia dei fatti ---------- */
+.facts{
+  display:grid;
+  grid-template-columns:1fr;
+  border-top:1px solid var(--paper-08);
+}
+.fact{
+  display:grid;
+  grid-template-columns:2.5rem 1fr;
+  gap:clamp(.75rem,2vw,1.5rem);
+  align-items:start;
+  padding-block:clamp(1.1rem,2.6vh,1.7rem);
+  border-bottom:1px solid var(--paper-08);
+}
+.fact dt{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  padding-top:.45em;
+}
+.fact dd{
+  margin:0;
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1.25;
+  letter-spacing:-.01em;
+}
+.fact dd em{font-style:italic;color:var(--accent)}
+
+/* ---------- marquee orizzontale ---------- */
+.marquee{
+  position:relative;
+  padding-block:clamp(2.5rem,7vh,5rem);
+  border-block:1px solid var(--paper-08);
+  overflow:hidden;
+  --mq-dur:34s;
+}
+.mq-row{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:mqRun var(--mq-dur) linear infinite;
+}
+.mq-row.rev{animation-direction:reverse;--mq-dur:44s}
+.marquee:hover .mq-row{animation-play-state:paused}
+@keyframes mqRun{to{transform:translateX(-50%)}}
+.mq-item{
+  display:inline-flex;align-items:center;gap:clamp(1.5rem,4vw,3.5rem);
+  padding-inline:clamp(.75rem,2vw,1.75rem);
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+  color:var(--paper-38);
+  transition:color .4s ease;
+}
+.marquee:hover .mq-item{color:var(--paper-60)}
+.mq-item .sep{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);flex:0 0 auto;
+}
+.mq-item .out{
+  -webkit-text-stroke:1px var(--paper-38);
+  color:transparent;
+}
+
+/* ---------- porta: blocco d'ingresso a chat / gioco ---------- */
+.door{
+  position:relative;
+  display:block;width:100%;
+  text-align:left;
+  background:none;border:0;padding:0;
+  cursor:pointer;
+  color:inherit;
+}
+.door-in{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:end;
+  padding:clamp(1.75rem,4vw,3rem) 0;
+  border-top:1px solid var(--paper-14);
+  border-bottom:1px solid var(--paper-14);
+  overflow:hidden;
+}
+.door-in::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:var(--paper);
+  transform:scaleY(0);transform-origin:50% 100%;
+  transition:transform .7s var(--ease);
+}
+.door:hover .door-in::before,.door:focus-visible .door-in::before{transform:scaleY(1)}
+.door-in > *{position:relative;z-index:1;transition:color .5s var(--ease)}
+.door:hover .door-in > *,.door:focus-visible .door-in > *{color:var(--ink)}
+.door:hover .door-in .eyebrow,.door:focus-visible .door-in .eyebrow{color:rgba(11,11,12,.5)}
+.door-title{
+  font-family:var(--serif);
+  font-size:var(--step-4);
+  line-height:.94;
+  letter-spacing:-.03em;
+}
+.door-meta{
+  display:flex;align-items:center;gap:1rem;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--paper-38);
+}
+.door-arrow{
+  width:2.5rem;height:2.5rem;flex:0 0 auto;
+  border:1px solid currentColor;border-radius:50%;
+  display:grid;place-items:center;
+  transition:transform .6s var(--ease);
+}
+.door:hover .door-arrow,.door:focus-visible .door-arrow{transform:translateX(.6rem) rotate(45deg)}
+.door-arrow svg{width:.9rem;height:.9rem;display:block}
+
+/* ---------- contatti ---------- */
+.contact-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5rem;
+  padding-block:clamp(1.1rem,3vh,2rem);
+  border-bottom:1px solid var(--paper-08);
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  position:relative;
+  overflow:hidden;
+}
+.contact-row .lbl{position:relative;display:inline-block;transition:transform .55s var(--ease)}
+.contact-row .hnd{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  transition:color .4s ease,transform .55s var(--ease);
+}
+.contact-row:hover .lbl{transform:translateX(clamp(.5rem,1.5vw,1.25rem))}
+.contact-row:hover .hnd{color:var(--accent);transform:translateX(calc(-1 * clamp(.25rem,.8vw,.75rem)))}
+
+/* ---------- footer ---------- */
+#foot{
+  padding:clamp(3rem,8vh,6rem) 0 clamp(1.5rem,4vh,2.5rem);
+  border-top:1px solid var(--paper-08);
+}
+.foot-grid{
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;
+  align-items:baseline;justify-content:space-between;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--paper-38);
+}
+.to-top{
+  background:none;border:0;padding:.4rem 0;cursor:pointer;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;
+  color:var(--paper-60);transition:color .3s ease;
+}
+.to-top:hover{color:var(--accent)}
+
+/* ============================================================
+   6. OVERLAY (chat e gioco)
+   .view-active = aperto: la classe è letta anche dal codice del gioco
+   ============================================================ */
+.overlay{
+  position:fixed;inset:0;z-index:7500;
+  display:flex;flex-direction:column;
+  background:var(--void);
+  visibility:hidden;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .85s var(--ease-io),visibility .85s step-end;
+}
+.overlay.view-active{
+  visibility:visible;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .85s var(--ease-io),visibility 0s;
+}
+
+.ov-bar{
+  flex:0 0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  padding:clamp(.9rem,2.2vw,1.3rem) var(--rail);
+  border-bottom:1px solid var(--paper-08);
+  background:rgba(7,7,10,.9);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.ov-title{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1;
+  letter-spacing:-.01em;
+}
+.ov-title small{
+  display:block;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  margin-top:.35rem;
+}
+.ov-close{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:none;border:1px solid var(--paper-14);
+  border-radius:999px;
+  padding:.55rem 1.1rem;
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper-60);
+  transition:color .35s ease,border-color .35s ease,background-color .35s ease;
+}
+.ov-close:hover{color:var(--ink);background:var(--paper);border-color:var(--paper)}
+.ov-close svg{width:.7rem;height:.7rem}
+
+/* ---------- chat ---------- */
+#chatContainer{
+  flex:1 1 auto;
+  display:flex;flex-direction:column;
+  min-height:0;
+  width:100%;
+  max-width:900px;
+  margin-inline:auto;
+  padding-inline:var(--gut);
+}
+#chatBox{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  display:flex;flex-direction:column;
+  gap:clamp(1.25rem,3vh,2rem);
+  padding-block:clamp(1.5rem,4vh,2.75rem);
+}
+#chatBox p{
+  margin:0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.9rem;
+  max-width:100%;
+  animation:msgIn .7s var(--ease) both;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(.8rem)}to{opacity:1;transform:none}}
+#chatBox p.user{
+  grid-template-columns:1fr auto;
+  justify-items:end;
+  text-align:right;
+}
+#chatBox p .avatar{
+  width:30px;height:30px;border-radius:50%;
+  object-fit:cover;
+  filter:grayscale(1) contrast(1.05);
+  opacity:.85;
+}
+#chatBox p.user .avatar{order:2}
+#chatBox p span{min-width:0}
+#chatBox p.bot span{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1.36;
+  letter-spacing:-.01em;
+  color:var(--paper);
+  max-width:46ch;
+}
+#chatBox p.user span{
+  font-family:var(--sans);
+  font-size:var(--step-0);
+  line-height:1.5;
+  color:var(--paper-60);
+  max-width:40ch;
+  padding-bottom:.15rem;
+  border-bottom:1px solid var(--paper-14);
+}
+.sys-note{
+  align-self:center;
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+}
+#chatBox p.typing span.dots{
+  display:inline-flex;gap:5px;align-items:center;height:1.4em;
+}
+#chatBox p.typing span.dots i{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);display:block;
+  animation:dotRise 1.15s ease-in-out infinite;
+}
+#chatBox p.typing span.dots i:nth-child(2){animation-delay:.14s}
+#chatBox p.typing span.dots i:nth-child(3){animation-delay:.28s}
+@keyframes dotRise{0%,65%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+
+#inputContainer{
+  flex:0 0 auto;
+  padding-block:clamp(.9rem,2.5vh,1.4rem);
+  padding-bottom:max(clamp(.9rem,2.5vh,1.4rem),env(safe-area-inset-bottom));
+  border-top:1px solid var(--paper-08);
+}
+.input-wrapper{
+  display:flex;align-items:center;gap:.6rem;
+}
+#userInput{
+  flex:1 1 auto;min-width:0;
+  background:transparent;
+  border:0;border-bottom:1px solid var(--paper-14);
+  padding:.7rem .2rem;
+  color:var(--paper);
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  letter-spacing:-.01em;
+  outline:none;
+  transition:border-color .35s ease;
+}
+#userInput::placeholder{color:var(--paper-38);font-style:italic}
+#userInput:focus{border-color:var(--accent)}
+#micBtn,#sendBtn{
+  flex:0 0 auto;
+  display:inline-grid;place-items:center;
+  background:none;cursor:pointer;
+  transition:color .3s ease,border-color .3s ease,background-color .3s ease,opacity .3s ease;
+}
+#micBtn{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--paper-14);
+  color:var(--paper-60);
+}
+#micBtn:hover{color:var(--paper);border-color:var(--paper-38)}
+#micBtn.listening{color:var(--accent);border-color:var(--accent);animation:pulse 1.4s ease-in-out infinite}
+#sendBtn{
+  height:42px;padding-inline:1.25rem;border-radius:999px;
+  border:1px solid var(--paper);
+  color:var(--paper);
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  gap:.5rem;
+}
+#sendBtn:hover{background:var(--paper);color:var(--ink)}
+#micBtn svg,#sendBtn svg{width:1rem;height:1rem;display:block}
+.send-icon{display:none}
+#sendBtn[disabled],#micBtn[disabled]{opacity:.35;cursor:not-allowed}
+#chatFooter{
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+  margin-top:.9rem;
+}
+#clearBtn,#ttsBtn{
+  background:none;border:1px solid var(--paper-08);
+  border-radius:999px;padding:.4rem .9rem;cursor:pointer;
+  font-family:var(--mono);font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper-38);
+  transition:color .3s ease,border-color .3s ease,background-color .3s ease;
+}
+#clearBtn:hover,#ttsBtn:hover{color:var(--paper);border-color:var(--paper-38)}
+#ttsBtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+
+#system-log{
+  position:fixed;right:var(--rail);bottom:clamp(5rem,12vh,7rem);
+  z-index:7600;
+  width:190px;height:64px;overflow:hidden;
+  padding:.7rem .8rem;
+  border:1px solid rgba(198,161,91,.25);
+  background:rgba(7,7,10,.82);
+  font-family:var(--mono);font-size:9px;line-height:1.5;
+  color:var(--accent);
+  pointer-events:none;display:none;
+}
+
+/* ---------- gioco ---------- */
+#section-flappy{background:#07030F}
+#flappyGameArea{
+  flex:1 1 auto;min-height:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.75rem;padding:.5rem;
+}
+#flappyGameArea canvas{
+  display:block;
+  image-rendering:pixelated;
+  touch-action:none;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9);
+}
+#flappyAutoBtn{
+  flex:0 0 auto;
+  background:none;border:1px solid var(--accent);border-radius:999px;
+  padding:.5rem 1.1rem;cursor:pointer;
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);
+  transition:background-color .3s ease,color .3s ease;
+}
+#flappyAutoBtn:hover,#flappyAutoBtn.active{background:var(--accent);color:#07030F}
+
+/* ============================================================
+   6b. LINGUAGGIO COMUNE DEI PULSANTI
+   Stessa forma, stessa reazione, bersagli grandi al dito.
+   ============================================================ */
+#menuBtn,#sendBtn,#micBtn,.ov-close,#clearBtn,#ttsBtn,#flappyAutoBtn,.to-top,.scroll-cue,.door{
+  -webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;user-select:none;
+  touch-action:manipulation;
+}
+/* la pressione si sente: tutti cedono di poco */
+#menuBtn:active,#sendBtn:active,#micBtn:active,.ov-close:active,
+#clearBtn:active,#ttsBtn:active,#flappyAutoBtn:active{
+  transform:scale(.96);
+}
+#menuBtn,#sendBtn,#micBtn,.ov-close,#clearBtn,#ttsBtn,#flappyAutoBtn{
+  transition:transform .18s var(--ease),color .3s ease,
+             border-color .3s ease,background-color .3s ease,opacity .3s ease;
+}
+.to-top:active,.scroll-cue:active{opacity:.6}
+
+/* i due bottoni discreti della chat: pieni al passaggio, non solo bordati */
+#clearBtn,#ttsBtn{border-color:var(--paper-14)}
+
+/* ---------- bersagli da dito: minimo 44px ---------- */
+@media (hover:none),(pointer:coarse){
+  #menuBtn{min-height:44px;padding-inline:1.15rem}
+  .ov-close{min-height:44px;padding-inline:1.25rem}
+  #micBtn{width:46px;height:46px}
+  #sendBtn{height:46px;padding-inline:1.35rem}
+  #clearBtn,#ttsBtn{min-height:44px;padding-inline:1.15rem;font-size:.6rem}
+  #flappyAutoBtn{min-height:44px;padding-inline:1.35rem}
+  .scroll-cue{min-height:44px}
+  .to-top{min-height:44px;display:inline-flex;align-items:center}
+  .contact-row{min-height:56px;align-items:center}
+  .mp-list a{min-height:64px;align-content:center}
+  #accadde-oggi{min-height:2.6em}
+
+  /* Senza hover le porte sembrerebbero testo morto: qui restano
+     visibilmente interattive anche a riposo. */
+  .door-in{border-color:rgba(198,161,91,.32)}
+  .door-arrow{
+    width:44px;height:44px;
+    border-color:var(--accent);color:var(--accent);
+  }
+  .door-meta{color:var(--accent)}
+}
+
+/* ============================================================
+   7. RESPONSIVE — mobile first, si espande verso l'alto
+   ============================================================ */
+@media (min-width:600px){
+  .hero-foot{grid-template-columns:1fr auto;align-items:end}
+  .facts{grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4rem)}
+  .door-in{grid-template-columns:1fr auto;align-items:end}
+  .send-label{display:inline}
+  .fact{grid-template-columns:3rem 1fr}
+}
+
+@media (min-width:900px){
+  .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+  .split .col-sticky{position:sticky;top:clamp(6rem,18vh,10rem)}
+  .nav-links{display:flex}
+  #menuBtn{display:none}
+  #menuPanel{display:none}
+  #chatBox p{gap:1.1rem}
+  #chatBox p .avatar{width:34px;height:34px}
+}
+
+/* sotto i 900px comanda il bottone dell'indice */
+@media (max-width:899px){
+  #menuBtn{display:inline-flex}
+}
+
+@media (min-width:1280px){
+  .facts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .reader{max-width:36ch}
+}
+
+/* schermi molto bassi: comprimo il verticale */
+@media (max-height:620px) and (min-width:600px){
+  :root{--sec-y:clamp(3.5rem,9vh,6rem)}
+  #hero{min-height:640px}
+}
+
+/* ---------- touch: niente cursore finto, niente hover-only ---------- */
+@media (hover:none),(pointer:coarse){
+  #cursor,#cursor-dot{display:none}
+  .marquee:hover .mq-row{animation-play-state:running}
+  .door:hover .door-in::before{transform:scaleY(0)}
+  .door:hover .door-in > *{color:inherit}
+  .door:active .door-in::before{transform:scaleY(1)}
+  .door:active .door-in > *{color:var(--ink)}
+  .contact-row:hover .lbl,.contact-row:hover .hnd{transform:none}
+  #system-log{display:none !important}
+  #nav{mix-blend-mode:normal;background:linear-gradient(180deg,rgba(11,11,12,.92),rgba(11,11,12,0))}
+  .chapter.light #nav{background:none}
+}
+
+/* ---------- schermi piccoli ---------- */
+@media (max-width:480px){
+  .nav-links{gap:.9rem;font-size:.6rem;letter-spacing:.1em}
+  .brand{font-size:1rem}
+  .hud{gap:1rem}
+  .hud-cell{flex:1 1 100%}
+  .mq-item{font-size:var(--step-2)}
+  .contact-row{flex-direction:column;align-items:flex-start;gap:.5rem}
+  #sendBtn{padding-inline:.85rem}
+  .send-label{display:none}
+  .send-icon{display:block}
+  #chatBox p.bot span{font-size:var(--step-0)}
+  .ov-bar{padding-inline:var(--gut)}
+  #system-log{display:none !important}
+}
+
+/* ============================================================
+   8. PREFERENZE UTENTE
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .grain{animation:none}
+  .js .rv{opacity:1;transform:none}
+  .js .mask > *{transform:none}
+  .hero-title .ln > span{transform:none}
+  .reader w{opacity:1}
+  .mq-row{animation:none;width:auto;flex-wrap:wrap}
+  #stars{display:none}
+}
+
+/* la classe .reduced è impostata da JS: spegne anche gli effetti su canvas */
+.reduced .grain{display:none}
+.reduced #stars{display:none}
+
+/* senza JS il contenuto resta leggibile */
+.no-js .rv,.no-js .mask > *{opacity:1;transform:none}
+.no-js #preloader{display:none}
+.no-js .hero-title .ln > span,.no-js .hero-lead,.no-js .scroll-cue,.no-js .hud{
+  transform:none;opacity:1;
+}
+.no-js .overlay{position:static;clip-path:none;visibility:visible;margin-top:4rem}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"><span></span></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pre-name">Coscienza<br>di Ismaele</div>
+  <div class="pre-count" id="pre-count">000</div>
+  <div id="pre-bar"></div>
 </div>
+
+<a class="skip" href="#main">Salta al contenuto</a>
+
+<!-- ============ NAV ============ -->
+<header id="nav">
+  <a class="brand" href="#hero" aria-label="Torna in cima">Ismaele<span class="dot" aria-hidden="true"></span></a>
+
+  <nav class="nav-links" aria-label="Capitoli">
+    <a href="#manifesto" data-nav>Manifesto</a>
+    <a href="#coscienza" data-nav>Coscienza<span class="nav-hint">la chat</span></a>
+    <a href="#anatomia" data-nav>Anatomia</a>
+    <a href="#gioco" data-nav>Intermezzo</a>
+    <a href="#contatti" data-nav>Contatti</a>
+  </nav>
+
+  <button id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel">
+    <span class="mb-word" data-open-label="Indice" data-close-label="Chiudi">Indice</span>
+    <span class="mb-bars" aria-hidden="true"><i></i><i></i></span>
+  </button>
+</header>
+
+<!-- ============ MENÙ A TUTTO SCHERMO (sotto i 900px) ============ -->
+<div id="menuPanel" role="dialog" aria-modal="true" aria-label="Indice dei capitoli">
+  <nav class="mp-inner" aria-label="Capitoli">
+    <ol class="mp-list">
+      <li><a href="#manifesto" data-nav-m><span class="mp-n">01</span><span class="mp-t">Manifesto</span></a></li>
+      <li><a href="#coscienza" data-nav-m><span class="mp-n">02</span><span class="mp-t">Coscienza<em>la chat</em></span></a></li>
+      <li><a href="#anatomia" data-nav-m><span class="mp-n">03</span><span class="mp-t">Anatomia</span></a></li>
+      <li><a href="#gioco" data-nav-m><span class="mp-n">04</span><span class="mp-t">Intermezzo<em>Flappy Isma</em></span></a></li>
+      <li><a href="#contatti" data-nav-m><span class="mp-n">05</span><span class="mp-t">Contatti</span></a></li>
+    </ol>
+    <p class="mp-foot eyebrow">Ismaele Maione — 2026</p>
+  </nav>
 </div>
+
+<main id="main">
+
+  <!-- ============ 00 — HERO ============ -->
+  <section id="hero" aria-labelledby="hero-title">
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <div class="shell hero-top">
+      <h1 class="hero-title" id="hero-title">
+        <span class="ln"><span>Coscienza</span></span>
+        <span class="ln"><span>di Ismaele<span class="sm" aria-hidden="true">beta</span></span></span>
+      </h1>
+    </div>
+
+    <div class="shell">
+      <div class="hero-foot">
+        <p class="hero-lead">
+          Un'estensione digitale del pensiero. Non un assistente: la parte
+          che continua a ragionare quando io smetto.
+        </p>
+        <button class="scroll-cue" type="button" data-scroll-to="#manifesto">
+          Scorri per scoprire
+          <span class="track" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="hud">
+        <div class="hud-cell">
+          <span class="hud-k">Tempo terrestre</span>
+          <div id="tempo-terrestre">00:00:00</div>
+        </div>
+        <div class="hud-cell wide">
+          <span class="hud-k" id="hud-right-label">Accadde oggi</span>
+          <button type="button" id="accadde-oggi" aria-expanded="false" aria-describedby="hud-right-label">Sincronizzazione...</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 — MANIFESTO ============ -->
+  <section class="chapter" id="manifesto" aria-labelledby="h-manifesto">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Il manifesto</span>
+        <span class="ch-num rv">01</span>
+      </div>
+
+      <h2 class="big mask" id="h-manifesto"><span>Cosa resta<br>di una scelta</span></h2>
+
+      <div class="split" style="margin-top:clamp(3rem,8vh,6rem)">
+        <div class="col-sticky">
+          <p class="eyebrow rv" style="margin-bottom:1rem">Premessa</p>
+          <p class="rv d1" style="color:var(--paper-60);max-width:30ch">
+            Scritto ad aprile 2026, rivisto a settembre. Il progetto avanza
+            piano, come deve.
+          </p>
+        </div>
+
+        <div class="col-flow">
+          <p class="reader" data-reader>
+            La coscienza non è solo un processo biologico, è il riflesso di ogni
+            scelta, di ogni libro letto e di ogni secondo passato a guardare
+            l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".
+          </p>
+
+          <p class="rv" style="color:var(--paper-60);max-width:52ch">
+            Questo spazio è un'estensione digitale del mio pensiero. Nessun dato
+            viene tracciato ed è un piccolo progetto che sto portando avanti
+            piano piano. La coscienza è sviluppata con LLM, Groq e Vercel;
+            seguiranno sviluppi per renderla più fedele alla mia persona.
+          </p>
+
+          <p class="eyebrow rv d1">— Ismaele, aprile 2026 · rev. settembre 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 — LA COSCIENZA ============ -->
+  <section class="chapter" id="coscienza" aria-labelledby="h-coscienza">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">La coscienza</span>
+        <span class="ch-num rv">02</span>
+      </div>
+
+      <p class="reader wide" data-reader style="margin-bottom:clamp(3rem,8vh,5rem)">
+        Parla al plurale perché non è un'altra persona. Sa che ora è, sa cosa è
+        accaduto oggi in questa data, e ricorda chi le ha già parlato. Se non
+        hai niente da dire, non finge interesse.
+      </p>
+
+      <button class="door" type="button" data-open="section-chat" aria-haspopup="dialog">
+        <span class="door-in">
+          <span>
+            <span class="eyebrow" style="display:block;margin-bottom:.9rem">Conversazione · beta</span>
+            <span class="door-title" id="h-coscienza">Parla con<br>la coscienza</span>
+          </span>
+          <span class="door-meta">
+            <span>Entra</span>
+            <span class="door-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+            </span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 03 — ANATOMIA ============ -->
+  <section class="chapter" id="anatomia" aria-labelledby="h-anatomia">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Anatomia</span>
+        <span class="ch-num rv">03</span>
+      </div>
+
+      <div class="split">
+        <div class="col-sticky">
+          <h2 class="mid mask" id="h-anatomia"><span>Le coordinate<br>che la tengono<br><span class="it amber">ferma</span></span></h2>
+          <p class="rv d2" style="color:var(--paper-60);max-width:32ch;margin-top:clamp(1.5rem,4vh,2.5rem)">
+            Nove fatti verificati. La coscienza può ragionare su tutto,
+            ma non può inventarsi questi.
+          </p>
+        </div>
+
+        <div class="col-flow">
+          <dl class="facts three rv">
+            <div class="fact">
+              <dt>01</dt>
+              <dd>Shift Manager. <em>Turni, persone da coordinare, numeri da far tornare.</em></dd>
+            </div>
+            <div class="fact">
+              <dt>02</dt>
+              <dd>Segue la Formula 1. <em>Il calcio lo trova insopportabile.</em></dd>
+            </div>
+            <div class="fact">
+              <dt>03</dt>
+              <dd>Elettronica. <em>Ascoltata per pensare, non per ballare.</em></dd>
+            </div>
+            <div class="fact">
+              <dt>04</dt>
+              <dd>Storia, spazio, tecnologia. <em>E l'automazione del lavoro.</em></dd>
+            </div>
+            <div class="fact">
+              <dt>05</dt>
+              <dd>Accesa ad aprile 2026. <em>Ultima revisione a settembre.</em></dd>
+            </div>
+            <div class="fact">
+              <dt>06</dt>
+              <dd>Un'ossessione sola. <em>Essere ricordato.</em></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESPIRO — MARQUEE ============ -->
+  <section class="marquee" aria-label="Riferimenti ricorrenti">
+    <div class="mq-row" aria-hidden="true">
+      <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
+      <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
+    </div>
+    <div class="mq-row rev" aria-hidden="true" style="margin-top:clamp(.5rem,2vh,1.25rem)">
+      <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
+      <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
+    </div>
+    <p class="sr">Film di riferimento: Arrival, Dune Parte Due, Blade Runner 2049. Temi ricorrenti: storia, spazio, memoria, eredità.</p>
+  </section>
+
+  <!-- ============ 04 — INTERMEZZO / FLAPPY ============ -->
+  <section class="chapter" id="gioco" aria-labelledby="h-gioco">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Intermezzo</span>
+        <span class="ch-num rv">04</span>
+      </div>
+
+      <div class="split">
+        <div class="col-sticky">
+          <h2 class="mid mask" id="h-gioco"><span>Flappy Isma</span></h2>
+        </div>
+        <div class="col-flow">
+          <p class="rv" style="color:var(--paper-60);max-width:44ch">
+            Tre fasi del giorno, un ticker di notizie vere che scorre a terra e
+            un pilota automatico che gioca da solo. Nato per noia, rimasto per
+            affetto.
+          </p>
+          <button class="door" type="button" data-open="section-flappy" aria-haspopup="dialog">
+            <span class="door-in">
+              <span>
+                <span class="eyebrow" style="display:block;margin-bottom:.9rem">Gioco · canvas</span>
+                <span class="door-title">Gioca</span>
+              </span>
+              <span class="door-meta">
+                <span>Avvia</span>
+                <span class="door-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+                </span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 — CONTATTI ============ -->
+  <section class="chapter" id="contatti" aria-labelledby="h-contatti">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Contatti</span>
+        <span class="ch-num rv">05</span>
+      </div>
+
+      <h2 class="big mask" id="h-contatti"><span>Dove trovarmi<br>davvero</span></h2>
+
+      <div style="margin-top:clamp(2.5rem,7vh,4.5rem)">
+        <a class="contact-row rv" href="https://www.instagram.com/ismaelemaione" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">Instagram</span><span class="hnd">@ismaelemaione</span>
+        </a>
+        <a class="contact-row rv d1" href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">LinkedIn</span><span class="hnd">ismaele-maione</span>
+        </a>
+        <a class="contact-row rv d2" href="https://x.com/ismaele_maione" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">Twitter / X</span><span class="hnd">@ismaele_maione</span>
+        </a>
+        <a class="contact-row rv d3" href="mailto:maioneismaele@gmail.com">
+          <span class="lbl">Email</span><span class="hnd">maioneismaele@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <span>Ismaele Maione — 2026</span>
+        <span id="foot-clock">—</span>
+        <button class="to-top" type="button" data-scroll-to="#hero">Torna in cima ↑</button>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ============ OVERLAY: CHAT ============ -->
+<section id="section-chat" class="overlay" role="dialog" aria-modal="true" aria-label="Conversazione con la coscienza di Ismaele">
+  <div class="ov-bar">
+    <div class="ov-title">Coscienza di Ismaele<small>beta · risponde in tempo reale</small></div>
+    <button class="ov-close" type="button" data-close aria-label="Chiudi la conversazione">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      Chiudi
+    </button>
+  </div>
+
+  <div id="chatContainer">
+    <div id="chatBox" role="log" aria-live="polite" aria-relevant="additions" aria-label="Messaggi della conversazione"></div>
+    <div id="inputContainer">
+      <div class="input-wrapper">
+        <button id="micBtn" type="button" aria-label="Dettatura vocale" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/>
+          </svg>
+        </button>
+        <input type="text" id="userInput" placeholder="Scrivi qualcosa che valga il tempo..." aria-label="Scrivi un messaggio" autocomplete="off" maxlength="1200" />
+        <button id="sendBtn" type="button" onclick="sendMessage()" aria-label="Invia messaggio">
+          <span class="send-label">Invia</span>
+          <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12l18-8-8 18-2-8-8-2z"/></svg>
+        </button>
+      </div>
+      <div id="chatFooter">
+        <button id="clearBtn" type="button" onclick="clearHistory()">Cancella memoria</button>
+        <button id="ttsBtn" type="button" aria-pressed="false">Voce: OFF</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVERLAY: FLAPPY ============ -->
+<section id="section-flappy" class="overlay" role="dialog" aria-modal="true" aria-label="Flappy Isma">
+  <div class="ov-bar">
+    <div class="ov-title">Flappy Isma<small>tocca o barra spaziatrice</small></div>
+    <button class="ov-close" type="button" data-close aria-label="Chiudi il gioco">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      Chiudi
+    </button>
+  </div>
+  <div id="flappyGameArea">
+    <canvas id="gameCanvas" tabindex="0" aria-label="Flappy Isma: tocca lo schermo o premi la barra spaziatrice per volare."></canvas>
+    <button id="flappyAutoBtn" type="button" aria-pressed="false">Autoplay: OFF</button>
+  </div>
+</section>
+
+<div id="system-log" aria-hidden="true"></div>
 
 <script>
+/* ============================================================
+   A. STATO INIZIALE
+   ============================================================ */
+document.documentElement.classList.remove('no-js');
+document.documentElement.classList.add('js');
+
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COARSE = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+if (REDUCED) document.body.classList.add('reduced');
+
+/* ============================================================
+   B. NAVIGAZIONE A OVERLAY
+   Top-level: 'view-active' è la classe che anche il codice del
+   gioco e il fix della tastiera virtuale leggono per sapere se
+   il pannello è aperto.
+   ============================================================ */
+let flappyStarted = false;
+let flappyPause = null, flappyResume = null;
+let lastFocused = null;
+
+function overlayAperti() {
+  return document.querySelectorAll('.overlay.view-active').length;
+}
+
+function openOverlay(id) {
+  const el = document.getElementById(id);
+  if (!el || el.classList.contains('view-active')) return;
+  if (menuAperto()) chiudiMenu(false);
+  lastFocused = document.activeElement;
+  el.classList.add('view-active');
+  document.body.classList.add('locked');
+  document.getElementById('nav').classList.add('hidden');
+
+  if (id === 'section-flappy') {
+    if (!flappyStarted) { flappyStarted = true; initFlappy(); }
+    else if (flappyResume) flappyResume();
+    const cv = document.getElementById('gameCanvas');
+    if (cv) setTimeout(() => { try { cv.focus({ preventScroll: true }); } catch (e) {} }, 320);
+  } else if (id === 'section-chat') {
+    ensureOpening();
+    // Su touch non porto il focus sull'input: farebbe salire la tastiera da sola.
+    const t = COARSE ? el.querySelector('[data-close]') : document.getElementById('userInput');
+    if (t) setTimeout(() => { try { t.focus({ preventScroll: true }); } catch (e) {} }, 320);
+  }
+}
+
+function closeOverlay(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('view-active');
+  // Il gioco si congela: senza questo continuerebbe a girare a 60fps dietro al sito.
+  if (id === 'section-flappy' && flappyPause) flappyPause();
+  if (!overlayAperti()) {
+    document.body.classList.remove('locked');
+    document.getElementById('nav').classList.remove('hidden');
+  }
+  if (lastFocused && lastFocused.focus) { try { lastFocused.focus({ preventScroll: true }); } catch (e) {} }
+}
+
+/* ---------- indice a tutto schermo (sotto i 900px) ---------- */
+const menuBtn = document.getElementById('menuBtn');
+const menuPanel = document.getElementById('menuPanel');
+const menuWord = menuBtn ? menuBtn.querySelector('.mb-word') : null;
+let menuFocusPrec = null;
+
+function menuAperto() { return document.body.classList.contains('menu-open'); }
+
+function apriMenu() {
+  menuFocusPrec = document.activeElement;
+  document.body.classList.add('menu-open');
+  document.body.classList.add('locked');
+  menuBtn.setAttribute('aria-expanded', 'true');
+  if (menuWord) menuWord.textContent = menuWord.getAttribute('data-close-label');
+  const primo = menuPanel.querySelector('a[href]');
+  if (primo) setTimeout(() => { try { primo.focus({ preventScroll: true }); } catch (e) {} }, 420);
+}
+
+function chiudiMenu(tornaAlFocus) {
+  document.body.classList.remove('menu-open');
+  if (!overlayAperti()) document.body.classList.remove('locked');
+  menuBtn.setAttribute('aria-expanded', 'false');
+  if (menuWord) menuWord.textContent = menuWord.getAttribute('data-open-label');
+  if (tornaAlFocus !== false && menuFocusPrec && menuFocusPrec.focus) {
+    try { menuFocusPrec.focus({ preventScroll: true }); } catch (e) {}
+  }
+}
+
+if (menuBtn && menuPanel) {
+  menuBtn.addEventListener('click', () => { menuAperto() ? chiudiMenu() : apriMenu(); });
+  menuPanel.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      chiudiMenu(false);
+      // Lo scorrimento parte a pannello chiuso, altrimenti si scorre dietro una tenda.
+      setTimeout(() => { if (t) t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }); },
+        REDUCED ? 0 : 380);
+    });
+  });
+}
+
+// Compatibilità con il codice precedente: navigateTo('section-chat') continua a funzionare.
+function navigateTo(id) {
+  if (id === 'section-chat' || id === 'section-flappy') { openOverlay(id); return; }
+  document.querySelectorAll('.overlay.view-active').forEach(o => closeOverlay(o.id));
+  const target = document.getElementById(id === 'section-menu' ? 'hero' : id);
+  if (target) target.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+}
+
+document.addEventListener('click', e => {
+  const apri = e.target.closest('[data-open]');
+  if (apri) { e.preventDefault(); openOverlay(apri.getAttribute('data-open')); return; }
+  const chiudi = e.target.closest('[data-close]');
+  if (chiudi) {
+    e.preventDefault();
+    const ov = chiudi.closest('.overlay');
+    if (ov) closeOverlay(ov.id);
+    return;
+  }
+  const vai = e.target.closest('[data-scroll-to]');
+  if (vai) {
+    e.preventDefault();
+    const t = document.querySelector(vai.getAttribute('data-scroll-to'));
+    if (t) t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  }
+});
+
+// Tab non deve uscire da ciò che è aperto sopra la pagina.
+function trattieniFocus(contenitore, e) {
+  const f = contenitore.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), canvas[tabindex]');
+  if (!f.length) return;
+  const primo = f[0], ultimo = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === primo) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primo.focus(); }
+}
+
+document.addEventListener('keydown', e => {
+  const ov = document.querySelector('.overlay.view-active');
+  if (ov) {
+    if (e.key === 'Escape') { e.preventDefault(); closeOverlay(ov.id); return; }
+    if (e.key === 'Tab') trattieniFocus(ov, e);
+    return;
+  }
+  if (menuAperto()) {
+    if (e.key === 'Escape') { e.preventDefault(); chiudiMenu(); return; }
+    if (e.key === 'Tab') trattieniFocus(menuPanel, e);
+  }
+});
+
+// ===================== TEMPO E STORIA DEL GIORNO =====================
 // ===================== HOME LOGIC =====================
 const accaddeEl = document.getElementById('accadde-oggi');
 
@@ -197,48 +1720,260 @@ accaddeEl.addEventListener('click', () => {
   accaddeEl.setAttribute('aria-expanded', aperto ? 'true' : 'false');
 });
 
-// ===================== NAVIGAZIONE =====================
-let flappyStarted = false;
-// Assegnate da initFlappy: servono a mettere in pausa il gioco quando esci dalla sezione.
-let flappyPause = null, flappyResume = null;
+/* ============================================================
+   D. DESIGN: preloader, stelle, rivelazioni, progresso
+   Isolato in una funzione per non collidere con i nomi
+   della logica di chat che segue.
+   ============================================================ */
+(function design() {
 
-function focusFirst(section, id){
-  // Dopo il cambio sezione il focus restava su un bottone ormai display:none.
-  const coarse = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-  let target = null;
-  if (id === 'section-chat') {
-    target = coarse ? section.querySelector('.header-back-btn') : document.getElementById('userInput');
-  } else if (id === 'section-flappy') {
-    // Il focus va sul canvas, non sul bottone INDIETRO: con il focus su un <button>
-    // la barra spaziatrice lo attiverebbe invece di far volare l'uccello.
-    target = document.getElementById('gameCanvas');
+  /* ---------- D1. preloader ---------- */
+  const pre = document.getElementById('preloader');
+  const preCount = document.getElementById('pre-count');
+  const preBar = document.getElementById('pre-bar');
+
+  let avvioImmediato = false;
+
+  function avvia() {
+    document.body.classList.add('ready');
+    if (pre) pre.classList.add('done');
+  }
+
+  if (REDUCED || !pre) {
+    // L'avvio è rimandato alla fine di questa funzione: qui le variabili
+    // di misura non esistono ancora e chiamarle darebbe un errore.
+    if (pre) pre.style.display = 'none';
+    avvioImmediato = true;
   } else {
-    target = section.querySelector('button:not([disabled]), a[href], input:not([disabled])');
-  }
-  if (target) { try { target.focus({ preventScroll: true }); } catch (e) { target.focus(); } }
-}
-
-function navigateTo(id){
-  const section = document.getElementById(id);
-  if (!section) return;
-  document.querySelectorAll('.view-section').forEach(s => s.classList.remove('view-active'));
-  section.classList.add('view-active');
-
-  // visibility invece di sola opacity: il box "Accadde Oggi" restava cliccabile da invisibile.
-  const nascondiHud = (id === 'section-chat' || id === 'section-flappy');
-  document.querySelectorAll('.hud-box').forEach(h => h.classList.toggle('hud-hidden', nascondiHud));
-
-  if (id === 'section-flappy') {
-    if (!flappyStarted) { flappyStarted = true; initFlappy(); }
-    else if (flappyResume) flappyResume();
-  } else if (flappyPause) {
-    // Il game loop girava a 60fps anche dal menù e la partita in corso moriva da sola.
-    flappyPause();
+    let n = 0;
+    const t0 = performance.now();
+    (function conta(now) {
+      const p = Math.min((now - t0) / 1100, 1);
+      n = Math.round(p * 100);
+      preCount.textContent = String(n).padStart(3, '0');
+      preBar.style.width = n + '%';
+      if (p < 1) requestAnimationFrame(conta);
+      else setTimeout(avvia, 160);
+    })(t0);
   }
 
-  if (id === 'section-chat') ensureOpening();
-  focusFirst(section, id);
-}
+  /* ---------- D2. campo stellare ---------- */
+  const cv = document.getElementById('stars');
+  let ctx = null, stelle = [], dpr = 1, cw = 0, cht = 0, heroVisibile = true, tick = 0;
+
+  function dimensionaStelle() {
+    if (!cv) return;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect();
+    cw = Math.max(1, r.width); cht = Math.max(1, r.height);
+    cv.width = Math.round(cw * dpr);
+    cv.height = Math.round(cht * dpr);
+    ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Meno stelle su mobile: è il disegno più frequente della pagina.
+    const densita = COARSE ? 9000 : 5200;
+    const quante = Math.min(220, Math.round((cw * cht) / densita));
+    stelle = [];
+    for (let i = 0; i < quante; i++) {
+      stelle.push({
+        x: Math.random() * cw,
+        y: Math.random() * cht,
+        r: Math.random() * 1.1 + 0.25,
+        z: Math.random() * 0.7 + 0.3,
+        f: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function disegnaStelle(offset) {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, cw, cht);
+    for (let i = 0; i < stelle.length; i++) {
+      const s = stelle[i];
+      const y = s.y + offset * s.z * 0.35;
+      if (y < -4 || y > cht + 4) continue;
+      const lum = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(tick * 0.012 + s.f));
+      ctx.globalAlpha = lum * s.z;
+      ctx.fillStyle = s.z > 0.85 ? '#DCE6F2' : '#F2EFE9';
+      ctx.beginPath();
+      ctx.arc(s.x, y, s.r * s.z, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  if (cv && !REDUCED) {
+    dimensionaStelle();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => { heroVisibile = es[0].isIntersecting; }, { threshold: 0 })
+        .observe(document.getElementById('hero'));
+    }
+    (function loopStelle() {
+      if (!document.hidden && heroVisibile && !overlayAperti()) {
+        tick++;
+        disegnaStelle(window.scrollY || 0);
+      }
+      requestAnimationFrame(loopStelle);
+    })();
+  } else if (cv) {
+    cv.style.display = 'none';
+  }
+
+  /* ---------- D3. rivelazioni all'ingresso ---------- */
+  const daRivelare = document.querySelectorAll('.rv, .mask');
+  if ('IntersectionObserver' in window && !REDUCED) {
+    const io = new IntersectionObserver((es, obs) => {
+      es.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        obs.unobserve(en.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    daRivelare.forEach(el => io.observe(el));
+  } else {
+    daRivelare.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---------- D4. testo che si accende parola per parola ---------- */
+  const lettori = [];
+  document.querySelectorAll('[data-reader]').forEach(p => {
+    const parole = p.textContent.trim().split(/\s+/);
+    p.textContent = '';
+    const nodi = [];
+    parole.forEach((parola, i) => {
+      const w = document.createElement('w');
+      w.textContent = parola;
+      p.appendChild(w);
+      if (i < parole.length - 1) p.appendChild(document.createTextNode(' '));
+      nodi.push(w);
+    });
+    lettori.push({ el: p, nodi, acceso: -1 });
+  });
+
+  function aggiornaLettori(vh) {
+    for (let i = 0; i < lettori.length; i++) {
+      const L = lettori[i];
+      const r = L.el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) continue;
+      const p = (vh * 0.82 - r.top) / (r.height + vh * 0.18);
+      const q = p < 0 ? 0 : (p > 1 ? 1 : p);
+      const quante = Math.round(q * L.nodi.length);
+      if (quante === L.acceso) continue;
+      if (quante > L.acceso) for (let k = L.acceso + 1; k < quante; k++) { if (L.nodi[k]) L.nodi[k].classList.add('on'); }
+      else for (let k = L.acceso; k >= quante; k--) { if (L.nodi[k]) L.nodi[k].classList.remove('on'); }
+      L.acceso = quante;
+    }
+  }
+
+  /* ---------- D5. progresso, nav, orologio del footer ---------- */
+  const barra = document.querySelector('#progress span');
+  const nav = document.getElementById('nav');
+  const footClock = document.getElementById('foot-clock');
+  let ultimoY = 0, vh = window.innerHeight, hMax = 1;
+
+  function misura() {
+    vh = window.innerHeight;
+    hMax = Math.max(1, document.documentElement.scrollHeight - vh);
+  }
+
+  function aggiorna() {
+    const y = window.scrollY || window.pageYOffset || 0;
+    if (barra) barra.style.width = Math.min(100, (y / hMax) * 100).toFixed(2) + '%';
+
+    // La nav si ritira scorrendo in giù e ricompare scorrendo in su.
+    if (nav && !overlayAperti() && !menuAperto()) {
+      if (y > vh * 0.6 && y > ultimoY + 4) nav.classList.add('hidden');
+      else if (y < ultimoY - 4 || y < vh * 0.3) nav.classList.remove('hidden');
+    }
+    ultimoY = y;
+    if (!REDUCED) aggiornaLettori(vh);
+  }
+
+  let inCoda = false;
+  window.addEventListener('scroll', () => {
+    if (inCoda) return;
+    inCoda = true;
+    requestAnimationFrame(() => { aggiorna(); inCoda = false; });
+  }, { passive: true });
+
+  let debounce;
+  window.addEventListener('resize', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => { misura(); dimensionaStelle(); aggiorna(); }, 180);
+  });
+
+  // Capitolo corrente evidenziato sia nella barra sia nell'indice.
+  const CAPITOLI = ['manifesto', 'coscienza', 'anatomia', 'gioco', 'contatti'];
+  if ('IntersectionObserver' in window) {
+    const voci = document.querySelectorAll('.nav-links a[data-nav], .mp-list a[data-nav-m]');
+    const perId = {};
+    voci.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      (perId[id] = perId[id] || []).push(a);
+    });
+    const ioNav = new IntersectionObserver(es => {
+      es.forEach(en => {
+        if (!en.isIntersecting) return;
+        const gruppo = perId[en.target.id];
+        if (!gruppo) return;
+        voci.forEach(v => v.classList.remove('current'));
+        gruppo.forEach(v => v.classList.add('current'));
+      });
+    }, { threshold: 0.35 });
+    CAPITOLI.forEach(id => {
+      const s = document.getElementById(id);
+      if (s) ioNav.observe(s);
+    });
+  }
+
+  function orologioFooter() {
+    if (!footClock) return;
+    const d = new Date();
+    footClock.textContent = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' — Brescia';
+  }
+  orologioFooter();
+  setInterval(orologioFooter, 30000);
+
+  /* ---------- D6. cursore (solo puntatore fine) ---------- */
+  if (!COARSE && !REDUCED) {
+    const anello = document.getElementById('cursor');
+    const punto = document.getElementById('cursor-dot');
+    let mx = -100, my = -100, ax = -100, ay = -100, attivo = false;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      punto.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      if (!attivo) { attivo = true; document.body.classList.add('has-cursor'); }
+    }, { passive: true });
+
+    (function seguiCursore() {
+      ax += (mx - ax) * 0.16;
+      ay += (my - ay) * 0.16;
+      anello.style.transform = 'translate(' + ax.toFixed(2) + 'px,' + ay.toFixed(2) + 'px)';
+      requestAnimationFrame(seguiCursore);
+    })();
+
+    const interattivi = 'a[href], button, input, [data-open], [data-close], [data-scroll-to]';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(interattivi)) anello.classList.add('grow');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(interattivi)) anello.classList.remove('grow');
+    });
+  }
+
+  /* ---------- D7. avvio, ora che tutto è dichiarato ---------- */
+  misura();
+  aggiorna();
+  if (avvioImmediato) avvia();
+
+  // I font arrivano dopo il primo layout: rimisuro quando sono pronti.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { misura(); aggiorna(); }).catch(() => {});
+  }
+  window.addEventListener('load', () => { misura(); aggiorna(); });
+
+})();
 
 function showSystemLog(show){const log=document.getElementById('system-log');if(!show){log.style.display='none';return;}log.style.display='block';const lines=["INIT_COGNITIVE_CORE...","ACCESSING_MEMORIES...","ENCRYPTING_NEURONS...","GROQ_STREAM_START...","SYNCING_ISMAELE_ID..."];log.innerHTML="";lines.forEach((l,i)=>{setTimeout(()=>{log.innerHTML+=`<div>> ${l}</div>`;log.scrollTop=log.scrollHeight;},i*150);});}
 // ===================== ELEMENTI CHAT =====================
@@ -717,10 +2452,15 @@ const autoBtn=document.getElementById('flappyAutoBtn');
 const BASE_W=288,BASE_H=512;
 let scale=1;
 function resize(){
+// Misuro il contenitore invece del viewport: dentro l'overlay c'è anche
+// la barra col titolo, e usando innerHeight il canvas sfondava in basso.
 const area=document.getElementById('flappyGameArea');
-const btnH=window.innerHeight<600?44:56;
-const s=Math.min(window.innerWidth/BASE_W,(window.innerHeight-btnH)/BASE_H,2.5);
-scale=s;canvas.width=BASE_W*s;canvas.height=BASE_H*s;
+const btnH=window.innerHeight<600?52:64;
+const dispW=(area&&area.clientWidth)?area.clientWidth:window.innerWidth;
+const dispH=(area&&area.clientHeight)?area.clientHeight:window.innerHeight;
+const s=Math.min(dispW/BASE_W,(dispH-btnH)/BASE_H,2.5);
+scale=Math.max(s,0.35);
+canvas.width=BASE_W*scale;canvas.height=BASE_H*scale;
 canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
 }
 resize();window.addEventListener('resize',resize);
@@ -798,7 +2538,7 @@ let groundOffset,bgOffset,frameCount,pipeSpeed,deathTimer,particles;
 let autoplay=false,phaseChangeCount=0;
 
 autoBtn.addEventListener('click',()=>{
-autoplay=!autoplay;autoBtn.textContent='🤖 AUTOPLAY: '+(autoplay?'ON':'OFF');
+autoplay=!autoplay;autoBtn.textContent='Autoplay: '+(autoplay?'ON':'OFF');
 autoBtn.classList.toggle('active',autoplay);
 autoBtn.setAttribute('aria-pressed',autoplay?'true':'false');
 if(autoplay&&(state==='idle'||state==='dead')){initGame();state='playing';}
@@ -1059,4 +2799,6 @@ initGame();
 startLoop();
 } // end initFlappy
 </script>
-</body></html>
+
+</body>
+</html>
