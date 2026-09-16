@@ -1,21 +1,74 @@
 <!DOCTYPE html>
-<html lang="it" class="no-js">
+<html lang="it" class="no-js">a
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Coscienza di Ismaele</title>
-<meta name="description" content="Un'estensione digitale del pensiero di Ismaele Maione. Coscienza, manifesto e Flappy Isma." />
+<title>Coscienza di Ismaele Maione</title>
+<meta name="description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
 <meta name="theme-color" content="#0B0B0C" />
 
-<meta property="og:title" content="Coscienza di Ismaele" />
-<meta property="og:description" content="Un'estensione digitale del pensiero di Ismaele. Coscienza, manifesto e Flappy Isma." />
+<!-- Indirizzo di produzione: se un giorno passi a un dominio tuo,
+     cerca  coscienza-ismaele-chat.vercel.app  e sostituiscilo qui,
+     in robots.txt e in sitemap.xml. -->
+<link rel="canonical" href="https://coscienza-ismaele-chat.vercel.app/" />
+
+<meta property="og:title" content="Coscienza di Ismaele Maione" />
+<meta property="og:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <meta property="og:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
+<meta property="og:image:alt" content="Ritratto di Ismaele Maione" />
 <meta property="og:type" content="website" />
+<meta property="og:url" content="https://coscienza-ismaele-chat.vercel.app/" />
+<meta property="og:site_name" content="Coscienza di Ismaele" />
+<meta property="og:locale" content="it_IT" />
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:title" content="Coscienza di Ismaele" />
-<meta name="twitter:description" content="Un'estensione digitale del pensiero di Ismaele." />
+<meta name="twitter:title" content="Coscienza di Ismaele Maione" />
+<meta name="twitter:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
+<meta name="twitter:creator" content="@ismaele_maione" />
+
+<!-- Dati strutturati: dicono a Google che il sito è di questa persona
+     e che è la stessa dei profili elencati in sameAs. È il pezzo che
+     lega fra loro le identità sparse invece di trattarle da omonimi. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele",
+      "name": "Ismaele Maione",
+      "alternateName": ["Maione Ismaele", "Isma", "maione", "immaione"],
+      "description": "Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione.",
+      "url": "https://coscienza-ismaele-chat.vercel.app/",
+      "image": "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brescia",
+        "addressRegion": "Lombardia",
+        "addressCountry": "IT"
+      },
+      "knowsAbout": ["Intelligenza artificiale", "Storia", "Spazio", "Automazione del lavoro", "Formula 1"],
+      "sameAs": [
+        "https://www.instagram.com/ismaelemaione",
+        "https://www.linkedin.com/in/ismaele-maione",
+        "https://x.com/ismaele_maione"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://coscienza-ismaele-chat.vercel.app/#sito",
+      "name": "Coscienza di Ismaele",
+      "alternateName": "Coscienza di Ismaele Maione",
+      "url": "https://coscienza-ismaele-chat.vercel.app/",
+      "inLanguage": "it-IT",
+      "author": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" },
+      "publisher": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" },
+      "about": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" }
+    }
+  ]
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -224,6 +277,8 @@ body.menu-open #nav{transform:none;opacity:1;mix-blend-mode:normal}
   line-height:1;
   letter-spacing:-.01em;
   display:inline-flex;align-items:baseline;gap:.5rem;
+  /* nome e cognome restano su una riga anche accanto al bottone dell'indice */
+  white-space:nowrap;
 }
 .brand .dot{
   width:6px;height:6px;border-radius:50%;
@@ -664,6 +719,27 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   letter-spacing:-.01em;
 }
 .fact dd em{font-style:italic;color:var(--accent)}
+
+/* La precisazione in ottone non arriva insieme all'affermazione: compare
+   mentre continui a scorrere, così ogni riga si apre in due tempi. */
+.js .fact dd em{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.45rem);
+  transition:opacity .85s ease .42s,transform .95s var(--ease) .42s;
+}
+.js .fact.in dd em{opacity:1;transform:none}
+.js .facts .fact:nth-child(2){transition-delay:.05s}
+.js .facts .fact:nth-child(3){transition-delay:.10s}
+.js .facts .fact:nth-child(4){transition-delay:.15s}
+.js .facts .fact:nth-child(5){transition-delay:.20s}
+.no-js .fact dd em,.reduced .fact dd em{opacity:1;transform:none}
+
+/* ---------- spaziature riutilizzabili (si comprimono su telefono) ---------- */
+.sp-lg-t{margin-top:clamp(3rem,8vh,6rem)}
+.sp-lg-b{margin-bottom:clamp(3rem,8vh,5rem)}
+.sp-md{margin-top:clamp(1.5rem,4vh,2.5rem)}
+.sp-xs-t{margin-top:clamp(.5rem,2vh,1.25rem)}
 
 /* ---------- marquee orizzontale ---------- */
 .marquee{
@@ -1134,6 +1210,31 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   .chapter.light #nav{background:none}
 }
 
+/* ---------- telefono: il ritmo verticale del desktop, qui, è vuoto da scorrere ---------- */
+@media (max-width:599px){
+  :root{--sec-y:clamp(3.25rem,8vh,5rem)}
+  .ch-head{padding-bottom:clamp(1.35rem,4vh,2rem)}
+  .sp-lg-t{margin-top:clamp(1.75rem,5vh,2.75rem)}
+  .sp-lg-b{margin-bottom:clamp(1.75rem,5vh,2.75rem)}
+  .sp-md{margin-top:clamp(1rem,3vh,1.5rem)}
+  .split{gap:clamp(1.5rem,5vh,2.25rem)}
+  .split .col-flow > * + *{margin-top:clamp(1.25rem,4vh,2rem)}
+  .marquee{padding-block:clamp(1.5rem,5vh,2.5rem)}
+  .fact{padding-block:clamp(.85rem,2.2vh,1.2rem)}
+  .contact-row{padding-block:clamp(.85rem,2.5vh,1.25rem)}
+  #foot{padding:clamp(2rem,6vh,3rem) 0 clamp(1.1rem,3vh,1.75rem)}
+  #hero{padding-bottom:clamp(1rem,3vh,1.75rem)}
+  .hero-top{padding-top:clamp(4rem,10vh,6rem)}
+  .hud{padding-top:clamp(.9rem,2.5vh,1.4rem)}
+}
+
+/* ---------- telefoni molto stretti: nome intero + bottone indice ---------- */
+@media (max-width:380px){
+  .brand{font-size:.92rem;gap:.4rem}
+  #menuBtn{padding-inline:.85rem;gap:.55rem}
+  .mb-word{min-width:3.6em}
+}
+
 /* ---------- schermi piccoli ---------- */
 @media (max-width:480px){
   .nav-links{gap:.9rem;font-size:.6rem;letter-spacing:.1em}
@@ -1165,6 +1266,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   .js .mask > *{transform:none}
   .hero-title .ln > span{transform:none}
   .reader w{opacity:1}
+  .js .fact dd em{opacity:1;transform:none}
   .mq-row{animation:none;width:auto;flex-wrap:wrap}
   #stars{display:none}
 }
@@ -1200,7 +1302,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 
 <!-- ============ NAV ============ -->
 <header id="nav">
-  <a class="brand" href="#hero" aria-label="Torna in cima">Ismaele<span class="dot" aria-hidden="true"></span></a>
+  <a class="brand" href="#hero" aria-label="Torna in cima">Ismaele Maione<span class="dot" aria-hidden="true"></span></a>
 
   <nav class="nav-links" aria-label="Capitoli">
     <a href="#manifesto" data-nav>Manifesto</a>
@@ -1278,7 +1380,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 
       <h2 class="big mask" id="h-manifesto"><span>Cosa resta<br>di una scelta</span></h2>
 
-      <div class="split" style="margin-top:clamp(3rem,8vh,6rem)">
+      <div class="split sp-lg-t">
         <div class="col-sticky">
           <p class="eyebrow rv" style="margin-bottom:1rem">Premessa</p>
           <p class="rv d1" style="color:var(--paper-60);max-width:30ch">
@@ -1297,8 +1399,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
           <p class="rv" style="color:var(--paper-60);max-width:52ch">
             Questo spazio è un'estensione digitale del mio pensiero. Nessun dato
             viene tracciato ed è un piccolo progetto che sto portando avanti
-            piano piano. La coscienza è sviluppata con LLM, Groq e Vercel;
-            seguiranno sviluppi per renderla più fedele alla mia persona.
+            piano piano. La coscienza è sviluppata con LLM, Groq e Vercel.
           </p>
 
           <p class="eyebrow rv d1">— Ismaele, aprile 2026 · rev. settembre 2026</p>
@@ -1315,7 +1416,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
         <span class="ch-num rv">02</span>
       </div>
 
-      <p class="reader wide" data-reader style="margin-bottom:clamp(3rem,8vh,5rem)">
+      <p class="reader wide sp-lg-b" data-reader>
         Parla al plurale perché non è un'altra persona. Sa che ora è, sa cosa è
         accaduto oggi in questa data, e ricorda chi le ha già parlato. Se non
         hai niente da dire, non finge interesse.
@@ -1349,36 +1450,33 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
       <div class="split">
         <div class="col-sticky">
           <h2 class="mid mask" id="h-anatomia"><span>Le coordinate<br>che la tengono<br><span class="it amber">ferma</span></span></h2>
-          <p class="rv d2" style="color:var(--paper-60);max-width:32ch;margin-top:clamp(1.5rem,4vh,2.5rem)">
-            Nove fatti verificati. La coscienza può ragionare su tutto,
-            ma non può inventarsi questi.
+          <p class="rv d2 sp-md" style="color:var(--paper-60);max-width:34ch">
+            I pilastri su cui poggia tutto il resto. Può ragionare su qualunque
+            cosa e contraddirti su quasi tutto, ma questi non li piega e non li
+            inventa: sono il punto fermo da cui parte ogni pensiero.
           </p>
         </div>
 
         <div class="col-flow">
-          <dl class="facts three rv">
-            <div class="fact">
+          <dl class="facts three">
+            <div class="fact rv">
               <dt>01</dt>
-              <dd>Shift Manager. <em>Turni, persone da coordinare, numeri da far tornare.</em></dd>
-            </div>
-            <div class="fact">
-              <dt>02</dt>
               <dd>Segue la Formula 1. <em>Il calcio lo trova insopportabile.</em></dd>
             </div>
-            <div class="fact">
-              <dt>03</dt>
+            <div class="fact rv">
+              <dt>02</dt>
               <dd>Elettronica. <em>Ascoltata per pensare, non per ballare.</em></dd>
             </div>
-            <div class="fact">
-              <dt>04</dt>
+            <div class="fact rv">
+              <dt>03</dt>
               <dd>Storia, spazio, tecnologia. <em>E l'automazione del lavoro.</em></dd>
             </div>
-            <div class="fact">
-              <dt>05</dt>
+            <div class="fact rv">
+              <dt>04</dt>
               <dd>Accesa ad aprile 2026. <em>Ultima revisione a settembre.</em></dd>
             </div>
-            <div class="fact">
-              <dt>06</dt>
+            <div class="fact rv">
+              <dt>05</dt>
               <dd>Un'ossessione sola. <em>Essere ricordato.</em></dd>
             </div>
           </dl>
@@ -1393,7 +1491,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
       <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
       <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
     </div>
-    <div class="mq-row rev" aria-hidden="true" style="margin-top:clamp(.5rem,2vh,1.25rem)">
+    <div class="mq-row rev sp-xs-t" aria-hidden="true">
       <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
       <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
     </div>
@@ -1445,9 +1543,9 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
         <span class="ch-num rv">05</span>
       </div>
 
-      <h2 class="big mask" id="h-contatti"><span>Dove trovarmi<br>davvero</span></h2>
+      <h2 class="big mask" id="h-contatti"><span>Dove trovarmi</span></h2>
 
-      <div style="margin-top:clamp(2.5rem,7vh,4.5rem)">
+      <div class="sp-lg-t">
         <a class="contact-row rv" href="https://www.instagram.com/ismaelemaione" target="_blank" rel="noopener noreferrer">
           <span class="lbl">Instagram</span><span class="hnd">@ismaelemaione</span>
         </a>
@@ -1534,6 +1632,11 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 document.documentElement.classList.remove('no-js');
 document.documentElement.classList.add('js');
 
+/* Nota: il canonical è scritto fisso nell'head e deve restare tale.
+   Se questa pagina viene servita da un URL di anteprima, il canonical
+   continua a indicare la produzione: è il comportamento corretto, dice
+   a Google quale sia la versione ufficiale. Non va corretto a runtime. */
+
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 if (REDUCED) document.body.classList.add('reduced');
@@ -1568,6 +1671,7 @@ function openOverlay(id) {
     if (cv) setTimeout(() => { try { cv.focus({ preventScroll: true }); } catch (e) {} }, 320);
   } else if (id === 'section-chat') {
     ensureOpening();
+    if (window.__adattaChat) setTimeout(window.__adattaChat, 60);
     // Su touch non porto il focus sull'input: farebbe salire la tastiera da sola.
     const t = COARSE ? el.querySelector('[data-close]') : document.getElementById('userInput');
     if (t) setTimeout(() => { try { t.focus({ preventScroll: true }); } catch (e) {} }, 320);
@@ -1580,6 +1684,8 @@ function closeOverlay(id) {
   el.classList.remove('view-active');
   // Il gioco si congela: senza questo continuerebbe a girare a 60fps dietro al sito.
   if (id === 'section-flappy' && flappyPause) flappyPause();
+  // Rimette a zero le misure imposte dalla tastiera virtuale.
+  if (id === 'section-chat' && window.__adattaChat) window.__adattaChat();
   if (!overlayAperti()) {
     document.body.classList.remove('locked');
     document.getElementById('nav').classList.remove('hidden');
@@ -2422,24 +2528,48 @@ inputEl.addEventListener("keydown", e => {
   sysNote("— memoria ripristinata —");
 })();
 
-// Fix: virtual keyboard resize on mobile
-if(window.visualViewport){
-const chatContainer=document.getElementById('chatContainer');
-function onViewportResize(){
-const section=document.getElementById('section-chat');
-if(!section.classList.contains('view-active')){
-// Uscendo dalla chat con la tastiera aperta, altezza e transform restavano inchiodate.
-chatContainer.style.height='';
-chatContainer.style.transform='';
-return;
-}
-const vvh=window.visualViewport.height;
-const offsetTop=window.visualViewport.offsetTop;
-chatContainer.style.height=vvh+'px';
-chatContainer.style.transform='translateY('+offsetTop+'px)';
-}
-window.visualViewport.addEventListener('resize',onViewportResize);
-window.visualViewport.addEventListener('scroll',onViewportResize);
+/* ===================== TASTIERA VIRTUALE =====================
+   Su telefono la tastiera copre la parte bassa dello schermo, ma il viewport
+   di layout non si accorcia: il campo di scrittura finiva sotto i tasti e non
+   si vedeva quello che si stava scrivendo.
+   Va ridimensionato l'overlay (#section-chat), non il contenitore interno:
+   sopra c'è la barra col titolo, quindi dare al contenitore l'altezza piena
+   del viewport visibile lo faceva sfondare in basso esattamente di quella barra. */
+if (window.visualViewport) {
+  const vv = window.visualViewport;
+  const secChat = document.getElementById('section-chat');
+  const boxChat = document.getElementById('chatBox');
+
+  function adattaAllaTastiera() {
+    if (!secChat.classList.contains('view-active')) {
+      // Uscendo con la tastiera aperta, le misure restavano inchiodate.
+      secChat.style.height = '';
+      secChat.style.bottom = '';
+      secChat.style.transform = '';
+      return;
+    }
+    secChat.style.height = vv.height + 'px';
+    secChat.style.bottom = 'auto';
+    secChat.style.transform = 'translateY(' + vv.offsetTop + 'px)';
+  }
+
+  function tieniInVista() {
+    adattaAllaTastiera();
+    if (boxChat) boxChat.scrollTop = boxChat.scrollHeight;
+  }
+
+  vv.addEventListener('resize', tieniInVista);
+  vv.addEventListener('scroll', adattaAllaTastiera);
+
+  const campo = document.getElementById('userInput');
+  if (campo) {
+    // Android apre la tastiera con un ritardo variabile dopo il focus:
+    // qualche ricalcolo scaglionato copre i casi lenti.
+    campo.addEventListener('focus', () => { [120, 320, 550].forEach(t => setTimeout(tieniInVista, t)); });
+  }
+
+  // Richiamabile da openOverlay/closeOverlay.
+  window.__adattaChat = tieniInVista;
 }
 </script>
 
