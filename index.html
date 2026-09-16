@@ -1,1 +1,2934 @@
+<!DOCTYPE html>
+<html lang="it" class="no-js">a
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Coscienza di Ismaele Maione</title>
+<meta name="description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
+<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
+<meta name="theme-color" content="#0B0B0C" />
 
+<!-- Indirizzo di produzione: se un giorno passi a un dominio tuo,
+     cerca  coscienza-ismaele-chat.vercel.app  e sostituiscilo qui,
+     in robots.txt e in sitemap.xml. -->
+<link rel="canonical" href="https://coscienza-ismaele-chat.vercel.app/" />
+
+<meta property="og:title" content="Coscienza di Ismaele Maione" />
+<meta property="og:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
+<meta property="og:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
+<meta property="og:image:alt" content="Ritratto di Ismaele Maione" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://coscienza-ismaele-chat.vercel.app/" />
+<meta property="og:site_name" content="Coscienza di Ismaele" />
+<meta property="og:locale" content="it_IT" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:title" content="Coscienza di Ismaele Maione" />
+<meta name="twitter:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
+<meta name="twitter:image" content="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
+<meta name="twitter:creator" content="@ismaele_maione" />
+
+<!-- Dati strutturati: dicono a Google che il sito è di questa persona
+     e che è la stessa dei profili elencati in sameAs. È il pezzo che
+     lega fra loro le identità sparse invece di trattarle da omonimi. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele",
+      "name": "Ismaele Maione",
+      "alternateName": ["Maione Ismaele", "Isma", "maione", "immaione"],
+      "description": "Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione.",
+      "url": "https://coscienza-ismaele-chat.vercel.app/",
+      "image": "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Brescia",
+        "addressRegion": "Lombardia",
+        "addressCountry": "IT"
+      },
+      "knowsAbout": ["Intelligenza artificiale", "Storia", "Spazio", "Automazione del lavoro", "Formula 1"],
+      "sameAs": [
+        "https://www.instagram.com/ismaelemaione",
+        "https://www.linkedin.com/in/ismaele-maione",
+        "https://x.com/ismaele_maione"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://coscienza-ismaele-chat.vercel.app/#sito",
+      "name": "Coscienza di Ismaele",
+      "alternateName": "Coscienza di Ismaele Maione",
+      "url": "https://coscienza-ismaele-chat.vercel.app/",
+      "inLanguage": "it-IT",
+      "author": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" },
+      "publisher": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" },
+      "about": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" }
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" />
+
+<style>
+/* ============================================================
+   COSCIENZA DI ISMAELE — long scroll
+   Nessuna immagine: la profondità arriva da tipografia,
+   canvas generativo, grana e ritmo di rivelazione.
+   ============================================================ */
+
+:root{
+  --ink:#0B0B0C;
+  --void:#07070A;
+  --paper:#F2EFE9;
+  --paper-60:rgba(242,239,233,.60);
+  --paper-38:rgba(242,239,233,.38);
+  --paper-14:rgba(242,239,233,.14);
+  --paper-08:rgba(242,239,233,.08);
+  --accent:#C6A15B;
+  --cold:#7FA8C9;
+
+  --serif:"Instrument Serif",Iowan Old Style,Apple Garamond,Baskerville,Georgia,serif;
+  --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+
+  /* scala fluida */
+  --step--1:clamp(.72rem,.68rem + .18vw,.82rem);
+  --step-0:clamp(.95rem,.9rem + .25vw,1.06rem);
+  --step-1:clamp(1.15rem,1rem + .7vw,1.5rem);
+  --step-2:clamp(1.5rem,1.2rem + 1.6vw,2.4rem);
+  --step-3:clamp(2rem,1.4rem + 3.2vw,4rem);
+  --step-4:clamp(2.6rem,1.3rem + 6.4vw,7rem);
+  --display:clamp(3rem,1rem + 12.5vw,13.5rem);
+
+  --gut:clamp(1.15rem,4vw,2.5rem);
+  --rail:clamp(1.15rem,5vw,5.5rem);
+  --sec-y:clamp(6rem,16vh,14rem);
+
+  --ease:cubic-bezier(.22,1,.36,1);
+  --ease-io:cubic-bezier(.65,.05,.36,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+
+html{
+  -webkit-text-size-adjust:100%;
+  scroll-behavior:smooth;
+}
+
+body{
+  margin:0;
+  background:var(--ink);
+  color:var(--paper);
+  font-family:var(--sans);
+  font-size:var(--step-0);
+  font-weight:300;
+  line-height:1.6;
+  letter-spacing:.005em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  -webkit-tap-highlight-color:transparent;
+}
+
+body.locked{overflow:hidden}
+
+h1,h2,h3,p,figure,blockquote{margin:0}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+
+::selection{background:var(--accent);color:var(--ink)}
+
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:2px;
+}
+
+/* ---------- grana: SVG inline, nessun file esterno ---------- */
+.grain{
+  position:fixed;
+  inset:-50%;
+  z-index:9000;
+  pointer-events:none;
+  opacity:.028;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+  will-change:transform;
+  animation:grainShift 5s steps(5) infinite;
+}
+@keyframes grainShift{
+  0%{transform:translate(0,0)}
+  20%{transform:translate(-3%,2%)}
+  40%{transform:translate(2%,-3%)}
+  60%{transform:translate(-2%,-2%)}
+  80%{transform:translate(3%,1%)}
+  100%{transform:translate(0,0)}
+}
+
+/* ---------- utilità ---------- */
+.skip{
+  position:absolute;left:-9999px;top:0;z-index:9999;
+  background:var(--paper);color:var(--ink);
+  padding:.75rem 1.25rem;font-size:var(--step--1);
+}
+.skip:focus{left:1rem;top:1rem}
+
+.sr{
+  position:absolute;width:1px;height:1px;
+  padding:0;margin:-1px;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0;
+}
+
+.shell{
+  width:100%;
+  max-width:1560px;
+  margin-inline:auto;
+  padding-inline:var(--rail);
+}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+}
+
+.rule{
+  height:1px;
+  background:var(--paper-14);
+  border:0;
+  margin:0;
+}
+
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.02em;line-height:.94}
+.it{font-style:italic}
+.amber{color:var(--accent)}
+
+/* ============================================================
+   1. PRELOADER
+   ============================================================ */
+#preloader{
+  position:fixed;inset:0;z-index:8000;
+  background:var(--void);
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:var(--rail);
+  transition:clip-path 1.1s var(--ease-io);
+  clip-path:inset(0 0 0 0);
+}
+#preloader.done{
+  clip-path:inset(0 0 100% 0);
+  pointer-events:none;
+}
+#preloader .pre-name{
+  font-family:var(--serif);
+  font-size:var(--step-2);
+  line-height:1;
+  color:var(--paper);
+  opacity:0;
+  transform:translateY(.4em);
+  animation:preIn .9s var(--ease) .15s forwards;
+}
+#preloader .pre-count{
+  font-family:var(--mono);
+  font-size:var(--step-2);
+  color:var(--paper-38);
+  font-variant-numeric:tabular-nums;
+}
+@keyframes preIn{to{opacity:1;transform:none}}
+#pre-bar{
+  position:absolute;left:0;bottom:0;height:1px;width:0%;
+  background:var(--accent);
+}
+
+/* ============================================================
+   2. PROGRESS + NAV
+   ============================================================ */
+#progress{
+  position:fixed;top:0;left:0;height:2px;width:100%;
+  z-index:7000;pointer-events:none;
+  background:transparent;
+}
+#progress span{
+  display:block;height:100%;width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--cold));
+  transform-origin:0 50%;
+}
+
+#nav{
+  position:fixed;top:0;left:0;right:0;z-index:6000;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  padding:clamp(1rem,2.2vw,1.6rem) var(--rail);
+  mix-blend-mode:difference;
+  transition:transform .5s var(--ease),opacity .4s ease;
+}
+#nav.hidden{transform:translateY(-110%);opacity:0}
+/* con l'indice aperto la barra resta: dentro c'è il bottone per chiuderlo */
+body.menu-open #nav{transform:none;opacity:1;mix-blend-mode:normal}
+.brand{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1;
+  letter-spacing:-.01em;
+  display:inline-flex;align-items:baseline;gap:.5rem;
+  /* nome e cognome restano su una riga anche accanto al bottone dell'indice */
+  white-space:nowrap;
+}
+.brand .dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  display:inline-block;
+  animation:pulse 2.6s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+/* Cinque voci con etichette lunghe non stanno in una barra da telefono:
+   sotto i 900px la navigazione passa al pannello a tutto schermo. */
+.nav-links{
+  display:none;
+  align-items:center;gap:clamp(.9rem,2vw,2rem);
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.nav-links a{
+  position:relative;
+  padding-block:.35rem;
+  color:var(--paper-60);
+  transition:color .35s ease;
+}
+.nav-links a::after{
+  content:'';position:absolute;left:0;right:0;bottom:0;
+  height:1px;background:currentColor;
+  transform:scaleX(0);transform-origin:0 50%;
+  transition:transform .45s var(--ease);
+}
+.nav-links a:hover,.nav-links a.current{color:var(--paper)}
+.nav-links a:hover::after,.nav-links a.current::after{transform:scaleX(1)}
+
+/* sottotitolo di una voce: "Coscienza · la chat" senza rompere la riga */
+.nav-hint{
+  font-size:.82em;
+  letter-spacing:.1em;
+  opacity:.5;
+  margin-left:.5em;
+}
+.nav-hint::before{content:'· '}
+.nav-links a:hover .nav-hint,.nav-links a.current .nav-hint{opacity:.75}
+
+/* ---------- bottone dell'indice (compare sotto i 900px) ---------- */
+#menuBtn{
+  display:none;
+  align-items:center;gap:.7rem;
+  background:none;border:1px solid var(--paper-14);
+  border-radius:999px;
+  padding:.6rem 1.05rem;
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper);
+  transition:border-color .35s ease,background-color .35s ease,color .35s ease;
+}
+#menuBtn:hover{border-color:var(--paper-38)}
+/* la parola cambia da "Indice" a "Chiudi": larghezza fissa per non far
+   saltare le due barrette quando il testo si accorcia */
+.mb-word{
+  display:inline-block;
+  min-width:4.2em;
+  text-align:left;
+  font-variant-numeric:tabular-nums;
+}
+.mb-bars{display:block;width:16px;height:9px;position:relative;flex:0 0 auto}
+.mb-bars i{
+  position:absolute;left:0;width:100%;height:1px;
+  background:currentColor;
+  transition:transform .45s var(--ease),opacity .3s ease;
+}
+.mb-bars i:first-child{top:0}
+.mb-bars i:last-child{bottom:0}
+body.menu-open .mb-bars i:first-child{transform:translateY(4px) rotate(45deg)}
+body.menu-open .mb-bars i:last-child{transform:translateY(-4px) rotate(-45deg)}
+body.menu-open #menuBtn{border-color:var(--paper)}
+
+/* ---------- pannello a tutto schermo ---------- */
+#menuPanel{
+  position:fixed;inset:0;z-index:5900;
+  background:var(--void);
+  display:flex;align-items:center;
+  padding:calc(var(--rail) + 3.5rem) var(--rail) var(--rail);
+  visibility:hidden;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .8s var(--ease-io),visibility .8s step-end;
+}
+body.menu-open #menuPanel{
+  visibility:visible;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .8s var(--ease-io),visibility 0s;
+}
+.mp-inner{width:100%;max-width:1560px;margin-inline:auto}
+.mp-list{
+  list-style:none;margin:0;padding:0;
+  border-top:1px solid var(--paper-08);
+}
+.mp-list li{border-bottom:1px solid var(--paper-08)}
+.mp-list a{
+  position:relative;
+  display:grid;
+  grid-template-columns:2.75rem 1fr;
+  gap:clamp(1rem,4vw,2rem);
+  align-items:baseline;
+  padding:clamp(1rem,2.6vh,1.5rem) 0;
+  overflow:hidden;
+  /* le voci entrano a cascata quando il pannello si apre */
+  opacity:0;transform:translateY(1.4rem);
+  transition:opacity .6s ease,transform .7s var(--ease),padding-left .5s var(--ease);
+}
+body.menu-open .mp-list a{opacity:1;transform:none}
+body.menu-open .mp-list li:nth-child(1) a{transition-delay:.16s}
+body.menu-open .mp-list li:nth-child(2) a{transition-delay:.22s}
+body.menu-open .mp-list li:nth-child(3) a{transition-delay:.28s}
+body.menu-open .mp-list li:nth-child(4) a{transition-delay:.34s}
+body.menu-open .mp-list li:nth-child(5) a{transition-delay:.40s}
+.mp-n{
+  font-family:var(--mono);
+  font-size:.66rem;letter-spacing:.18em;
+  color:var(--accent);
+  padding-top:.7em;
+}
+.mp-t{
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  color:var(--paper);
+  display:block;
+}
+.mp-t em{
+  display:block;
+  font-family:var(--mono);
+  font-style:normal;
+  font-size:.58rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  margin-top:.7rem;
+}
+.mp-list a::after{
+  content:'';position:absolute;right:0;top:50%;
+  width:1.1rem;height:1px;background:var(--accent);
+  transform:scaleX(0);transform-origin:100% 50%;
+  transition:transform .5s var(--ease);
+}
+.mp-list a:hover,.mp-list a:focus-visible{padding-left:.75rem}
+.mp-list a:hover::after,.mp-list a:focus-visible::after{transform:scaleX(1)}
+.mp-list a:hover .mp-t,.mp-list a:focus-visible .mp-t{color:var(--accent)}
+.mp-foot{margin-top:clamp(2rem,6vh,3.5rem)}
+
+/* ============================================================
+   3. CURSORE (solo puntatore fine)
+   ============================================================ */
+#cursor,#cursor-dot{
+  position:fixed;top:0;left:0;z-index:9500;
+  pointer-events:none;border-radius:50%;
+  opacity:0;transition:opacity .3s ease;
+}
+#cursor{
+  width:40px;height:40px;
+  margin:-20px 0 0 -20px;
+  border:1px solid var(--paper-38);
+  transition:opacity .3s ease,width .35s var(--ease),height .35s var(--ease),
+             margin .35s var(--ease),background-color .35s ease,border-color .35s ease;
+}
+#cursor.grow{
+  width:78px;height:78px;margin:-39px 0 0 -39px;
+  background:rgba(198,161,91,.12);
+  border-color:var(--accent);
+}
+#cursor-dot{
+  width:4px;height:4px;margin:-2px 0 0 -2px;
+  background:var(--accent);
+}
+body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
+
+/* ============================================================
+   4. HERO
+   ============================================================ */
+#hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding-bottom:clamp(1.5rem,4vh,3rem);
+  overflow:hidden;
+  isolation:isolate;
+}
+#stars{
+  position:absolute;inset:0;z-index:-2;
+  width:100%;height:100%;
+  display:block;
+}
+#hero::after{
+  content:'';position:absolute;inset:0;z-index:-1;
+  background:
+    radial-gradient(120% 80% at 50% 8%,rgba(127,168,201,.10),transparent 62%),
+    radial-gradient(90% 70% at 50% 108%,rgba(11,11,12,.96),transparent 60%);
+  pointer-events:none;
+}
+
+.hero-top{
+  flex:1;
+  display:flex;align-items:center;
+  padding-top:clamp(5rem,12vh,9rem);
+}
+.hero-title{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--display);
+  line-height:.87;
+  letter-spacing:-.035em;
+  text-wrap:balance;
+}
+.hero-title .ln{
+  display:block;
+  overflow:hidden;
+}
+.hero-title .ln > span{
+  display:block;
+  transform:translateY(105%);
+  transition:transform 1.15s var(--ease);
+}
+.ready .hero-title .ln > span{transform:translateY(0)}
+.hero-title .ln:nth-child(2) > span{transition-delay:.09s}
+.hero-title .ln:nth-child(3) > span{transition-delay:.18s}
+.hero-title .sm{
+  font-size:.34em;
+  font-style:italic;
+  color:var(--paper-38);
+  letter-spacing:-.01em;
+  vertical-align:super;
+}
+
+.hero-foot{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(1.25rem,3vw,2rem);
+  align-items:end;
+}
+.hero-lead{
+  max-width:42ch;
+  font-size:var(--step-1);
+  line-height:1.45;
+  color:var(--paper-60);
+  opacity:0;transform:translateY(1.2rem);
+  transition:opacity .9s ease .5s,transform .9s var(--ease) .5s;
+}
+.ready .hero-lead{opacity:1;transform:none}
+
+/* invito a scorrere */
+.scroll-cue{
+  display:inline-flex;align-items:center;gap:.85rem;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper-38);
+  background:none;border:0;padding:.5rem 0;cursor:pointer;
+  opacity:0;transition:opacity .8s ease .8s,color .3s ease;
+}
+.ready .scroll-cue{opacity:1}
+.scroll-cue:hover{color:var(--paper)}
+.scroll-cue .track{
+  position:relative;display:block;
+  width:clamp(52px,7vw,86px);height:1px;
+  background:var(--paper-14);overflow:hidden;
+}
+.scroll-cue .track::after{
+  content:'';position:absolute;top:0;left:0;height:100%;width:40%;
+  background:var(--accent);
+  animation:cueRun 2.4s var(--ease-io) infinite;
+}
+@keyframes cueRun{
+  0%{transform:translateX(-100%)}
+  60%,100%{transform:translateX(260%)}
+}
+
+/* HUD tempo + storia */
+.hud{
+  display:flex;flex-wrap:wrap;gap:clamp(1rem,3vw,3rem);
+  padding-top:clamp(1.25rem,3vh,2rem);
+  border-top:1px solid var(--paper-08);
+  opacity:0;transition:opacity 1s ease 1s;
+}
+.ready .hud{opacity:1}
+.hud-cell{min-width:0;flex:1 1 200px}
+.hud-cell.wide{flex:2 1 380px}
+.hud-k{
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--paper-38);
+  display:block;margin-bottom:.4rem;
+}
+#tempo-terrestre{
+  font-family:var(--mono);
+  font-size:var(--step-1);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:.02em;
+}
+#accadde-oggi{
+  font-family:var(--sans);
+  font-size:var(--step--1);
+  line-height:1.5;
+  color:var(--paper-60);
+  text-align:left;
+  background:none;border:0;padding:0;margin:0;width:100%;
+  cursor:pointer;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  overflow:hidden;
+  transition:color .3s ease;
+}
+#accadde-oggi:hover{color:var(--paper)}
+#accadde-oggi.expanded{-webkit-line-clamp:unset;display:block}
+
+/* ============================================================
+   5. CAPITOLI
+   ============================================================ */
+.chapter{
+  position:relative;
+  padding-block:var(--sec-y);
+  border-top:1px solid var(--paper-08);
+}
+.chapter.light{
+  background:var(--paper);
+  color:var(--ink);
+  border-top-color:rgba(11,11,12,.10);
+}
+.chapter.light .eyebrow{color:rgba(11,11,12,.42)}
+.chapter.light .rule{background:rgba(11,11,12,.12)}
+
+.ch-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5rem;
+  padding-bottom:clamp(2rem,5vh,4rem);
+}
+.ch-num{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.2em;
+  color:var(--accent);
+}
+
+/* titolo di sezione: rivelato per righe */
+.big{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--step-4);
+  line-height:.92;
+  letter-spacing:-.03em;
+  text-wrap:balance;
+}
+.mid{
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:var(--step-3);
+  line-height:1.02;
+  letter-spacing:-.02em;
+}
+
+/* ---------- reveal generico (attivato da IntersectionObserver) ---------- */
+.js .rv{
+  opacity:0;
+  transform:translateY(2rem);
+  transition:opacity 1s ease,transform 1.1s var(--ease);
+}
+.js .rv.in{opacity:1;transform:none}
+.js .rv.d1{transition-delay:.08s}
+.js .rv.d2{transition-delay:.16s}
+.js .rv.d3{transition-delay:.24s}
+.js .rv.d4{transition-delay:.32s}
+
+/* maschera per righe di testo */
+.js .mask{overflow:hidden;display:block}
+.js .mask > *{
+  display:block;
+  transform:translateY(105%);
+  transition:transform 1.1s var(--ease);
+}
+.js .mask.in > *{transform:translateY(0)}
+
+/* ---------- testo che si accende parola per parola sullo scroll ---------- */
+.reader{
+  font-family:var(--serif);
+  font-size:var(--step-2);
+  line-height:1.34;
+  letter-spacing:-.015em;
+  max-width:34ch;
+}
+.reader.wide{max-width:52ch}
+.reader w{
+  display:inline-block;
+  color:var(--paper);
+  opacity:.16;
+  transition:opacity .28s linear;
+}
+.chapter.light .reader w{color:var(--ink)}
+.reader w.on{opacity:1}
+.no-js .reader w,.reduced .reader w{opacity:1}
+
+/* ---------- capitolo sticky: intestazione ferma, colonna che scorre ---------- */
+.split{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(2.5rem,6vw,5rem);
+  align-items:start;
+}
+.split .col-sticky{position:relative}
+.split .col-flow > * + *{margin-top:clamp(2rem,5vh,3.5rem)}
+
+/* ---------- griglia dei fatti ---------- */
+.facts{
+  display:grid;
+  grid-template-columns:1fr;
+  border-top:1px solid var(--paper-08);
+}
+.fact{
+  display:grid;
+  grid-template-columns:2.5rem 1fr;
+  gap:clamp(.75rem,2vw,1.5rem);
+  align-items:start;
+  padding-block:clamp(1.1rem,2.6vh,1.7rem);
+  border-bottom:1px solid var(--paper-08);
+}
+.fact dt{
+  font-family:var(--mono);
+  font-size:.62rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  padding-top:.45em;
+}
+.fact dd{
+  margin:0;
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1.25;
+  letter-spacing:-.01em;
+}
+.fact dd em{font-style:italic;color:var(--accent)}
+
+/* La precisazione in ottone non arriva insieme all'affermazione: compare
+   mentre continui a scorrere, così ogni riga si apre in due tempi. */
+.js .fact dd em{
+  display:inline-block;
+  opacity:0;
+  transform:translateY(.45rem);
+  transition:opacity .85s ease .42s,transform .95s var(--ease) .42s;
+}
+.js .fact.in dd em{opacity:1;transform:none}
+.js .facts .fact:nth-child(2){transition-delay:.05s}
+.js .facts .fact:nth-child(3){transition-delay:.10s}
+.js .facts .fact:nth-child(4){transition-delay:.15s}
+.js .facts .fact:nth-child(5){transition-delay:.20s}
+.no-js .fact dd em,.reduced .fact dd em{opacity:1;transform:none}
+
+/* ---------- spaziature riutilizzabili (si comprimono su telefono) ---------- */
+.sp-lg-t{margin-top:clamp(3rem,8vh,6rem)}
+.sp-lg-b{margin-bottom:clamp(3rem,8vh,5rem)}
+.sp-md{margin-top:clamp(1.5rem,4vh,2.5rem)}
+.sp-xs-t{margin-top:clamp(.5rem,2vh,1.25rem)}
+
+/* ---------- marquee orizzontale ---------- */
+.marquee{
+  position:relative;
+  padding-block:clamp(2.5rem,7vh,5rem);
+  border-block:1px solid var(--paper-08);
+  overflow:hidden;
+  --mq-dur:34s;
+}
+.mq-row{
+  display:flex;
+  width:max-content;
+  will-change:transform;
+  animation:mqRun var(--mq-dur) linear infinite;
+}
+.mq-row.rev{animation-direction:reverse;--mq-dur:44s}
+.marquee:hover .mq-row{animation-play-state:paused}
+@keyframes mqRun{to{transform:translateX(-50%)}}
+.mq-item{
+  display:inline-flex;align-items:center;gap:clamp(1.5rem,4vw,3.5rem);
+  padding-inline:clamp(.75rem,2vw,1.75rem);
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  white-space:nowrap;
+  color:var(--paper-38);
+  transition:color .4s ease;
+}
+.marquee:hover .mq-item{color:var(--paper-60)}
+.mq-item .sep{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);flex:0 0 auto;
+}
+.mq-item .out{
+  -webkit-text-stroke:1px var(--paper-38);
+  color:transparent;
+}
+
+/* ---------- porta: blocco d'ingresso a chat / gioco ---------- */
+.door{
+  position:relative;
+  display:block;width:100%;
+  text-align:left;
+  background:none;border:0;padding:0;
+  cursor:pointer;
+  color:inherit;
+}
+.door-in{
+  position:relative;
+  display:grid;
+  grid-template-columns:1fr;
+  gap:clamp(1.5rem,4vw,3rem);
+  align-items:end;
+  padding:clamp(1.75rem,4vw,3rem) 0;
+  border-top:1px solid var(--paper-14);
+  border-bottom:1px solid var(--paper-14);
+  overflow:hidden;
+}
+.door-in::before{
+  content:'';position:absolute;inset:0;z-index:0;
+  background:var(--paper);
+  transform:scaleY(0);transform-origin:50% 100%;
+  transition:transform .7s var(--ease);
+}
+.door:hover .door-in::before,.door:focus-visible .door-in::before{transform:scaleY(1)}
+.door-in > *{position:relative;z-index:1;transition:color .5s var(--ease)}
+.door:hover .door-in > *,.door:focus-visible .door-in > *{color:var(--ink)}
+.door:hover .door-in .eyebrow,.door:focus-visible .door-in .eyebrow{color:rgba(11,11,12,.5)}
+.door-title{
+  font-family:var(--serif);
+  font-size:var(--step-4);
+  line-height:.94;
+  letter-spacing:-.03em;
+}
+.door-meta{
+  display:flex;align-items:center;gap:1rem;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--paper-38);
+}
+.door-arrow{
+  width:2.5rem;height:2.5rem;flex:0 0 auto;
+  border:1px solid currentColor;border-radius:50%;
+  display:grid;place-items:center;
+  transition:transform .6s var(--ease);
+}
+.door:hover .door-arrow,.door:focus-visible .door-arrow{transform:translateX(.6rem) rotate(45deg)}
+.door-arrow svg{width:.9rem;height:.9rem;display:block}
+
+/* ---------- contatti ---------- */
+.contact-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1.5rem;
+  padding-block:clamp(1.1rem,3vh,2rem);
+  border-bottom:1px solid var(--paper-08);
+  font-family:var(--serif);
+  font-size:var(--step-3);
+  line-height:1;
+  letter-spacing:-.02em;
+  position:relative;
+  overflow:hidden;
+}
+.contact-row .lbl{position:relative;display:inline-block;transition:transform .55s var(--ease)}
+.contact-row .hnd{
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  transition:color .4s ease,transform .55s var(--ease);
+}
+.contact-row:hover .lbl{transform:translateX(clamp(.5rem,1.5vw,1.25rem))}
+.contact-row:hover .hnd{color:var(--accent);transform:translateX(calc(-1 * clamp(.25rem,.8vw,.75rem)))}
+
+/* ---------- footer ---------- */
+#foot{
+  padding:clamp(3rem,8vh,6rem) 0 clamp(1.5rem,4vh,2.5rem);
+  border-top:1px solid var(--paper-08);
+}
+.foot-grid{
+  display:flex;flex-wrap:wrap;gap:1rem 2rem;
+  align-items:baseline;justify-content:space-between;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.14em;text-transform:uppercase;
+  color:var(--paper-38);
+}
+.to-top{
+  background:none;border:0;padding:.4rem 0;cursor:pointer;
+  font:inherit;letter-spacing:inherit;text-transform:inherit;
+  color:var(--paper-60);transition:color .3s ease;
+}
+.to-top:hover{color:var(--accent)}
+
+/* ============================================================
+   6. OVERLAY (chat e gioco)
+   .view-active = aperto: la classe è letta anche dal codice del gioco
+   ============================================================ */
+.overlay{
+  position:fixed;inset:0;z-index:7500;
+  display:flex;flex-direction:column;
+  background:var(--void);
+  visibility:hidden;
+  clip-path:inset(0 0 100% 0);
+  transition:clip-path .85s var(--ease-io),visibility .85s step-end;
+}
+.overlay.view-active{
+  visibility:visible;
+  clip-path:inset(0 0 0 0);
+  transition:clip-path .85s var(--ease-io),visibility 0s;
+}
+
+.ov-bar{
+  flex:0 0 auto;
+  display:flex;align-items:center;justify-content:space-between;
+  gap:1rem;
+  padding:clamp(.9rem,2.2vw,1.3rem) var(--rail);
+  border-bottom:1px solid var(--paper-08);
+  background:rgba(7,7,10,.9);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+}
+.ov-title{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1;
+  letter-spacing:-.01em;
+}
+.ov-title small{
+  display:block;
+  font-family:var(--mono);
+  font-size:.6rem;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+  margin-top:.35rem;
+}
+.ov-close{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:none;border:1px solid var(--paper-14);
+  border-radius:999px;
+  padding:.55rem 1.1rem;
+  cursor:pointer;
+  font-family:var(--mono);
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper-60);
+  transition:color .35s ease,border-color .35s ease,background-color .35s ease;
+}
+.ov-close:hover{color:var(--ink);background:var(--paper);border-color:var(--paper)}
+.ov-close svg{width:.7rem;height:.7rem}
+
+/* ---------- chat ---------- */
+#chatContainer{
+  flex:1 1 auto;
+  display:flex;flex-direction:column;
+  min-height:0;
+  width:100%;
+  max-width:900px;
+  margin-inline:auto;
+  padding-inline:var(--gut);
+}
+#chatBox{
+  flex:1 1 auto;
+  min-height:0;
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+  display:flex;flex-direction:column;
+  gap:clamp(1.25rem,3vh,2rem);
+  padding-block:clamp(1.5rem,4vh,2.75rem);
+}
+#chatBox p{
+  margin:0;
+  display:grid;
+  grid-template-columns:auto 1fr;
+  gap:.9rem;
+  max-width:100%;
+  animation:msgIn .7s var(--ease) both;
+}
+@keyframes msgIn{from{opacity:0;transform:translateY(.8rem)}to{opacity:1;transform:none}}
+#chatBox p.user{
+  grid-template-columns:1fr auto;
+  justify-items:end;
+  text-align:right;
+}
+#chatBox p .avatar{
+  width:30px;height:30px;border-radius:50%;
+  object-fit:cover;
+  filter:grayscale(1) contrast(1.05);
+  opacity:.85;
+}
+#chatBox p.user .avatar{order:2}
+#chatBox p span{min-width:0}
+#chatBox p.bot span{
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  line-height:1.36;
+  letter-spacing:-.01em;
+  color:var(--paper);
+  max-width:46ch;
+}
+#chatBox p.user span{
+  font-family:var(--sans);
+  font-size:var(--step-0);
+  line-height:1.5;
+  color:var(--paper-60);
+  max-width:40ch;
+  padding-bottom:.15rem;
+  border-bottom:1px solid var(--paper-14);
+}
+.sys-note{
+  align-self:center;
+  font-family:var(--mono);
+  font-size:.58rem;
+  letter-spacing:.24em;
+  text-transform:uppercase;
+  color:var(--paper-38);
+}
+#chatBox p.typing span.dots{
+  display:inline-flex;gap:5px;align-items:center;height:1.4em;
+}
+#chatBox p.typing span.dots i{
+  width:5px;height:5px;border-radius:50%;
+  background:var(--accent);display:block;
+  animation:dotRise 1.15s ease-in-out infinite;
+}
+#chatBox p.typing span.dots i:nth-child(2){animation-delay:.14s}
+#chatBox p.typing span.dots i:nth-child(3){animation-delay:.28s}
+@keyframes dotRise{0%,65%,100%{transform:translateY(0);opacity:.35}30%{transform:translateY(-5px);opacity:1}}
+
+#inputContainer{
+  flex:0 0 auto;
+  padding-block:clamp(.9rem,2.5vh,1.4rem);
+  padding-bottom:max(clamp(.9rem,2.5vh,1.4rem),env(safe-area-inset-bottom));
+  border-top:1px solid var(--paper-08);
+}
+.input-wrapper{
+  display:flex;align-items:center;gap:.6rem;
+}
+#userInput{
+  flex:1 1 auto;min-width:0;
+  background:transparent;
+  border:0;border-bottom:1px solid var(--paper-14);
+  padding:.7rem .2rem;
+  color:var(--paper);
+  font-family:var(--serif);
+  font-size:var(--step-1);
+  letter-spacing:-.01em;
+  outline:none;
+  transition:border-color .35s ease;
+}
+#userInput::placeholder{color:var(--paper-38);font-style:italic}
+#userInput:focus{border-color:var(--accent)}
+#micBtn,#sendBtn{
+  flex:0 0 auto;
+  display:inline-grid;place-items:center;
+  background:none;cursor:pointer;
+  transition:color .3s ease,border-color .3s ease,background-color .3s ease,opacity .3s ease;
+}
+#micBtn{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--paper-14);
+  color:var(--paper-60);
+}
+#micBtn:hover{color:var(--paper);border-color:var(--paper-38)}
+#micBtn.listening{color:var(--accent);border-color:var(--accent);animation:pulse 1.4s ease-in-out infinite}
+#sendBtn{
+  height:42px;padding-inline:1.25rem;border-radius:999px;
+  border:1px solid var(--paper);
+  color:var(--paper);
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  gap:.5rem;
+}
+#sendBtn:hover{background:var(--paper);color:var(--ink)}
+#micBtn svg,#sendBtn svg{width:1rem;height:1rem;display:block}
+.send-icon{display:none}
+#sendBtn[disabled],#micBtn[disabled]{opacity:.35;cursor:not-allowed}
+#chatFooter{
+  display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap;
+  margin-top:.9rem;
+}
+#clearBtn,#ttsBtn{
+  background:none;border:1px solid var(--paper-08);
+  border-radius:999px;padding:.4rem .9rem;cursor:pointer;
+  font-family:var(--mono);font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper-38);
+  transition:color .3s ease,border-color .3s ease,background-color .3s ease;
+}
+#clearBtn:hover,#ttsBtn:hover{color:var(--paper);border-color:var(--paper-38)}
+#ttsBtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+
+#system-log{
+  position:fixed;right:var(--rail);bottom:clamp(5rem,12vh,7rem);
+  z-index:7600;
+  width:190px;height:64px;overflow:hidden;
+  padding:.7rem .8rem;
+  border:1px solid rgba(198,161,91,.25);
+  background:rgba(7,7,10,.82);
+  font-family:var(--mono);font-size:9px;line-height:1.5;
+  color:var(--accent);
+  pointer-events:none;display:none;
+}
+
+/* ---------- gioco ---------- */
+#section-flappy{background:#07030F}
+#flappyGameArea{
+  flex:1 1 auto;min-height:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.75rem;padding:.5rem;
+}
+#flappyGameArea canvas{
+  display:block;
+  image-rendering:pixelated;
+  touch-action:none;
+  -webkit-tap-highlight-color:transparent;
+  box-shadow:0 30px 80px -30px rgba(0,0,0,.9);
+}
+#flappyAutoBtn{
+  flex:0 0 auto;
+  background:none;border:1px solid var(--accent);border-radius:999px;
+  padding:.5rem 1.1rem;cursor:pointer;
+  font-family:var(--mono);font-size:.62rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);
+  transition:background-color .3s ease,color .3s ease;
+}
+#flappyAutoBtn:hover,#flappyAutoBtn.active{background:var(--accent);color:#07030F}
+
+/* ============================================================
+   6b. LINGUAGGIO COMUNE DEI PULSANTI
+   Stessa forma, stessa reazione, bersagli grandi al dito.
+   ============================================================ */
+#menuBtn,#sendBtn,#micBtn,.ov-close,#clearBtn,#ttsBtn,#flappyAutoBtn,.to-top,.scroll-cue,.door{
+  -webkit-tap-highlight-color:transparent;
+  -webkit-user-select:none;user-select:none;
+  touch-action:manipulation;
+}
+/* la pressione si sente: tutti cedono di poco */
+#menuBtn:active,#sendBtn:active,#micBtn:active,.ov-close:active,
+#clearBtn:active,#ttsBtn:active,#flappyAutoBtn:active{
+  transform:scale(.96);
+}
+#menuBtn,#sendBtn,#micBtn,.ov-close,#clearBtn,#ttsBtn,#flappyAutoBtn{
+  transition:transform .18s var(--ease),color .3s ease,
+             border-color .3s ease,background-color .3s ease,opacity .3s ease;
+}
+.to-top:active,.scroll-cue:active{opacity:.6}
+
+/* i due bottoni discreti della chat: pieni al passaggio, non solo bordati */
+#clearBtn,#ttsBtn{border-color:var(--paper-14)}
+
+/* ---------- bersagli da dito: minimo 44px ---------- */
+@media (hover:none),(pointer:coarse){
+  #menuBtn{min-height:44px;padding-inline:1.15rem}
+  .ov-close{min-height:44px;padding-inline:1.25rem}
+  #micBtn{width:46px;height:46px}
+  #sendBtn{height:46px;padding-inline:1.35rem}
+  #clearBtn,#ttsBtn{min-height:44px;padding-inline:1.15rem;font-size:.6rem}
+  #flappyAutoBtn{min-height:44px;padding-inline:1.35rem}
+  .scroll-cue{min-height:44px}
+  .to-top{min-height:44px;display:inline-flex;align-items:center}
+  .contact-row{min-height:56px;align-items:center}
+  .mp-list a{min-height:64px;align-content:center}
+  #accadde-oggi{min-height:2.6em}
+
+  /* Senza hover le porte sembrerebbero testo morto: qui restano
+     visibilmente interattive anche a riposo. */
+  .door-in{border-color:rgba(198,161,91,.32)}
+  .door-arrow{
+    width:44px;height:44px;
+    border-color:var(--accent);color:var(--accent);
+  }
+  .door-meta{color:var(--accent)}
+}
+
+/* ============================================================
+   7. RESPONSIVE — mobile first, si espande verso l'alto
+   ============================================================ */
+@media (min-width:600px){
+  .hero-foot{grid-template-columns:1fr auto;align-items:end}
+  .facts{grid-template-columns:1fr 1fr;column-gap:clamp(2rem,5vw,4rem)}
+  .door-in{grid-template-columns:1fr auto;align-items:end}
+  .send-label{display:inline}
+  .fact{grid-template-columns:3rem 1fr}
+}
+
+@media (min-width:900px){
+  .split{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)}
+  .split .col-sticky{position:sticky;top:clamp(6rem,18vh,10rem)}
+  .nav-links{display:flex}
+  #menuBtn{display:none}
+  #menuPanel{display:none}
+  #chatBox p{gap:1.1rem}
+  #chatBox p .avatar{width:34px;height:34px}
+}
+
+/* sotto i 900px comanda il bottone dell'indice */
+@media (max-width:899px){
+  #menuBtn{display:inline-flex}
+}
+
+@media (min-width:1280px){
+  .facts.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .reader{max-width:36ch}
+}
+
+/* schermi molto bassi: comprimo il verticale */
+@media (max-height:620px) and (min-width:600px){
+  :root{--sec-y:clamp(3.5rem,9vh,6rem)}
+  #hero{min-height:640px}
+}
+
+/* ---------- touch: niente cursore finto, niente hover-only ---------- */
+@media (hover:none),(pointer:coarse){
+  #cursor,#cursor-dot{display:none}
+  .marquee:hover .mq-row{animation-play-state:running}
+  .door:hover .door-in::before{transform:scaleY(0)}
+  .door:hover .door-in > *{color:inherit}
+  .door:active .door-in::before{transform:scaleY(1)}
+  .door:active .door-in > *{color:var(--ink)}
+  .contact-row:hover .lbl,.contact-row:hover .hnd{transform:none}
+  #system-log{display:none !important}
+  #nav{mix-blend-mode:normal;background:linear-gradient(180deg,rgba(11,11,12,.92),rgba(11,11,12,0))}
+  .chapter.light #nav{background:none}
+}
+
+/* ---------- telefono: il ritmo verticale del desktop, qui, è vuoto da scorrere ---------- */
+@media (max-width:599px){
+  :root{--sec-y:clamp(3.25rem,8vh,5rem)}
+  .ch-head{padding-bottom:clamp(1.35rem,4vh,2rem)}
+  .sp-lg-t{margin-top:clamp(1.75rem,5vh,2.75rem)}
+  .sp-lg-b{margin-bottom:clamp(1.75rem,5vh,2.75rem)}
+  .sp-md{margin-top:clamp(1rem,3vh,1.5rem)}
+  .split{gap:clamp(1.5rem,5vh,2.25rem)}
+  .split .col-flow > * + *{margin-top:clamp(1.25rem,4vh,2rem)}
+  .marquee{padding-block:clamp(1.5rem,5vh,2.5rem)}
+  .fact{padding-block:clamp(.85rem,2.2vh,1.2rem)}
+  .contact-row{padding-block:clamp(.85rem,2.5vh,1.25rem)}
+  #foot{padding:clamp(2rem,6vh,3rem) 0 clamp(1.1rem,3vh,1.75rem)}
+  #hero{padding-bottom:clamp(1rem,3vh,1.75rem)}
+  .hero-top{padding-top:clamp(4rem,10vh,6rem)}
+  .hud{padding-top:clamp(.9rem,2.5vh,1.4rem)}
+}
+
+/* ---------- telefoni molto stretti: nome intero + bottone indice ---------- */
+@media (max-width:380px){
+  .brand{font-size:.92rem;gap:.4rem}
+  #menuBtn{padding-inline:.85rem;gap:.55rem}
+  .mb-word{min-width:3.6em}
+}
+
+/* ---------- schermi piccoli ---------- */
+@media (max-width:480px){
+  .nav-links{gap:.9rem;font-size:.6rem;letter-spacing:.1em}
+  .brand{font-size:1rem}
+  .hud{gap:1rem}
+  .hud-cell{flex:1 1 100%}
+  .mq-item{font-size:var(--step-2)}
+  .contact-row{flex-direction:column;align-items:flex-start;gap:.5rem}
+  #sendBtn{padding-inline:.85rem}
+  .send-label{display:none}
+  .send-icon{display:block}
+  #chatBox p.bot span{font-size:var(--step-0)}
+  .ov-bar{padding-inline:var(--gut)}
+  #system-log{display:none !important}
+}
+
+/* ============================================================
+   8. PREFERENZE UTENTE
+   ============================================================ */
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+  }
+  .grain{animation:none}
+  .js .rv{opacity:1;transform:none}
+  .js .mask > *{transform:none}
+  .hero-title .ln > span{transform:none}
+  .reader w{opacity:1}
+  .js .fact dd em{opacity:1;transform:none}
+  .mq-row{animation:none;width:auto;flex-wrap:wrap}
+  #stars{display:none}
+}
+
+/* la classe .reduced è impostata da JS: spegne anche gli effetti su canvas */
+.reduced .grain{display:none}
+.reduced #stars{display:none}
+
+/* senza JS il contenuto resta leggibile */
+.no-js .rv,.no-js .mask > *{opacity:1;transform:none}
+.no-js #preloader{display:none}
+.no-js .hero-title .ln > span,.no-js .hero-lead,.no-js .scroll-cue,.no-js .hud{
+  transform:none;opacity:1;
+}
+.no-js .overlay{position:static;clip-path:none;visibility:visible;margin-top:4rem}
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<div id="cursor" aria-hidden="true"></div>
+<div id="cursor-dot" aria-hidden="true"></div>
+<div id="progress" aria-hidden="true"><span></span></div>
+
+<!-- ============ PRELOADER ============ -->
+<div id="preloader" aria-hidden="true">
+  <div class="pre-name">Coscienza<br>di Ismaele</div>
+  <div class="pre-count" id="pre-count">000</div>
+  <div id="pre-bar"></div>
+</div>
+
+<a class="skip" href="#main">Salta al contenuto</a>
+
+<!-- ============ NAV ============ -->
+<header id="nav">
+  <a class="brand" href="#hero" aria-label="Torna in cima">Ismaele Maione<span class="dot" aria-hidden="true"></span></a>
+
+  <nav class="nav-links" aria-label="Capitoli">
+    <a href="#manifesto" data-nav>Manifesto</a>
+    <a href="#coscienza" data-nav>Coscienza<span class="nav-hint">la chat</span></a>
+    <a href="#anatomia" data-nav>Anatomia</a>
+    <a href="#gioco" data-nav>Intermezzo</a>
+    <a href="#contatti" data-nav>Contatti</a>
+  </nav>
+
+  <button id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPanel">
+    <span class="mb-word" data-open-label="Indice" data-close-label="Chiudi">Indice</span>
+    <span class="mb-bars" aria-hidden="true"><i></i><i></i></span>
+  </button>
+</header>
+
+<!-- ============ MENÙ A TUTTO SCHERMO (sotto i 900px) ============ -->
+<div id="menuPanel" role="dialog" aria-modal="true" aria-label="Indice dei capitoli">
+  <nav class="mp-inner" aria-label="Capitoli">
+    <ol class="mp-list">
+      <li><a href="#manifesto" data-nav-m><span class="mp-n">01</span><span class="mp-t">Manifesto</span></a></li>
+      <li><a href="#coscienza" data-nav-m><span class="mp-n">02</span><span class="mp-t">Coscienza<em>la chat</em></span></a></li>
+      <li><a href="#anatomia" data-nav-m><span class="mp-n">03</span><span class="mp-t">Anatomia</span></a></li>
+      <li><a href="#gioco" data-nav-m><span class="mp-n">04</span><span class="mp-t">Intermezzo<em>Flappy Isma</em></span></a></li>
+      <li><a href="#contatti" data-nav-m><span class="mp-n">05</span><span class="mp-t">Contatti</span></a></li>
+    </ol>
+    <p class="mp-foot eyebrow">Ismaele Maione — 2026</p>
+  </nav>
+</div>
+
+<main id="main">
+
+  <!-- ============ 00 — HERO ============ -->
+  <section id="hero" aria-labelledby="hero-title">
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <div class="shell hero-top">
+      <h1 class="hero-title" id="hero-title">
+        <span class="ln"><span>Coscienza</span></span>
+        <span class="ln"><span>di Ismaele<span class="sm" aria-hidden="true">beta</span></span></span>
+      </h1>
+    </div>
+
+    <div class="shell">
+      <div class="hero-foot">
+        <p class="hero-lead">
+          Un'estensione digitale del pensiero. Non un assistente: la parte
+          che continua a ragionare quando io smetto.
+        </p>
+        <button class="scroll-cue" type="button" data-scroll-to="#manifesto">
+          Scorri per scoprire
+          <span class="track" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <div class="hud">
+        <div class="hud-cell">
+          <span class="hud-k">Tempo terrestre</span>
+          <div id="tempo-terrestre">00:00:00</div>
+        </div>
+        <div class="hud-cell wide">
+          <span class="hud-k" id="hud-right-label">Accadde oggi</span>
+          <button type="button" id="accadde-oggi" aria-expanded="false" aria-describedby="hud-right-label">Sincronizzazione...</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 01 — MANIFESTO ============ -->
+  <section class="chapter" id="manifesto" aria-labelledby="h-manifesto">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Il manifesto</span>
+        <span class="ch-num rv">01</span>
+      </div>
+
+      <h2 class="big mask" id="h-manifesto"><span>Cosa resta<br>di una scelta</span></h2>
+
+      <div class="split sp-lg-t">
+        <div class="col-sticky">
+          <p class="eyebrow rv" style="margin-bottom:1rem">Premessa</p>
+          <p class="rv d1" style="color:var(--paper-60);max-width:30ch">
+            Scritto ad aprile 2026, rivisto a settembre. Il progetto avanza
+            piano, come deve.
+          </p>
+        </div>
+
+        <div class="col-flow">
+          <p class="reader" data-reader>
+            La coscienza non è solo un processo biologico, è il riflesso di ogni
+            scelta, di ogni libro letto e di ogni secondo passato a guardare
+            l'orizzonte. Dall'insieme di queste esperienze si crea il nostro "io".
+          </p>
+
+          <p class="rv" style="color:var(--paper-60);max-width:52ch">
+            Questo spazio è un'estensione digitale del mio pensiero. Nessun dato
+            viene tracciato ed è un piccolo progetto che sto portando avanti
+            piano piano. La coscienza è sviluppata con LLM, Groq e Vercel.
+          </p>
+
+          <p class="eyebrow rv d1">— Ismaele, aprile 2026 · rev. settembre 2026</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 02 — LA COSCIENZA ============ -->
+  <section class="chapter" id="coscienza" aria-labelledby="h-coscienza">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">La coscienza</span>
+        <span class="ch-num rv">02</span>
+      </div>
+
+      <p class="reader wide sp-lg-b" data-reader>
+        Parla al plurale perché non è un'altra persona. Sa che ora è, sa cosa è
+        accaduto oggi in questa data, e ricorda chi le ha già parlato. Se non
+        hai niente da dire, non finge interesse.
+      </p>
+
+      <button class="door" type="button" data-open="section-chat" aria-haspopup="dialog">
+        <span class="door-in">
+          <span>
+            <span class="eyebrow" style="display:block;margin-bottom:.9rem">Conversazione · beta</span>
+            <span class="door-title" id="h-coscienza">Parla con<br>la coscienza</span>
+          </span>
+          <span class="door-meta">
+            <span>Entra</span>
+            <span class="door-arrow" aria-hidden="true">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+            </span>
+          </span>
+        </span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ============ 03 — ANATOMIA ============ -->
+  <section class="chapter" id="anatomia" aria-labelledby="h-anatomia">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Anatomia</span>
+        <span class="ch-num rv">03</span>
+      </div>
+
+      <div class="split">
+        <div class="col-sticky">
+          <h2 class="mid mask" id="h-anatomia"><span>Le coordinate<br>che la tengono<br><span class="it amber">ferma</span></span></h2>
+          <p class="rv d2 sp-md" style="color:var(--paper-60);max-width:34ch">
+            I pilastri su cui poggia tutto il resto. Può ragionare su qualunque
+            cosa e contraddirti su quasi tutto, ma questi non li piega e non li
+            inventa: sono il punto fermo da cui parte ogni pensiero.
+          </p>
+        </div>
+
+        <div class="col-flow">
+          <dl class="facts three">
+            <div class="fact rv">
+              <dt>01</dt>
+              <dd>Segue la Formula 1. <em>Il calcio lo trova insopportabile.</em></dd>
+            </div>
+            <div class="fact rv">
+              <dt>02</dt>
+              <dd>Elettronica. <em>Ascoltata per pensare, non per ballare.</em></dd>
+            </div>
+            <div class="fact rv">
+              <dt>03</dt>
+              <dd>Storia, spazio, tecnologia. <em>E l'automazione del lavoro.</em></dd>
+            </div>
+            <div class="fact rv">
+              <dt>04</dt>
+              <dd>Accesa ad aprile 2026. <em>Ultima revisione a settembre.</em></dd>
+            </div>
+            <div class="fact rv">
+              <dt>05</dt>
+              <dd>Un'ossessione sola. <em>Essere ricordato.</em></dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ RESPIRO — MARQUEE ============ -->
+  <section class="marquee" aria-label="Riferimenti ricorrenti">
+    <div class="mq-row" aria-hidden="true">
+      <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
+      <span class="mq-item"><span>Arrival</span><span class="sep"></span><span class="out">Dune Parte Due</span><span class="sep"></span><span>Blade Runner 2049</span><span class="sep"></span></span>
+    </div>
+    <div class="mq-row rev sp-xs-t" aria-hidden="true">
+      <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
+      <span class="mq-item"><span class="out">Storia</span><span class="sep"></span><span>Spazio</span><span class="sep"></span><span class="out">Memoria</span><span class="sep"></span><span>Eredità</span><span class="sep"></span></span>
+    </div>
+    <p class="sr">Film di riferimento: Arrival, Dune Parte Due, Blade Runner 2049. Temi ricorrenti: storia, spazio, memoria, eredità.</p>
+  </section>
+
+  <!-- ============ 04 — INTERMEZZO / FLAPPY ============ -->
+  <section class="chapter" id="gioco" aria-labelledby="h-gioco">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Intermezzo</span>
+        <span class="ch-num rv">04</span>
+      </div>
+
+      <div class="split">
+        <div class="col-sticky">
+          <h2 class="mid mask" id="h-gioco"><span>Flappy Isma</span></h2>
+        </div>
+        <div class="col-flow">
+          <p class="rv" style="color:var(--paper-60);max-width:44ch">
+            Tre fasi del giorno, un ticker di notizie vere che scorre a terra e
+            un pilota automatico che gioca da solo. Nato per noia, rimasto per
+            affetto.
+          </p>
+          <button class="door" type="button" data-open="section-flappy" aria-haspopup="dialog">
+            <span class="door-in">
+              <span>
+                <span class="eyebrow" style="display:block;margin-bottom:.9rem">Gioco · canvas</span>
+                <span class="door-title">Gioca</span>
+              </span>
+              <span class="door-meta">
+                <span>Avvia</span>
+                <span class="door-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+                </span>
+              </span>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 — CONTATTI ============ -->
+  <section class="chapter" id="contatti" aria-labelledby="h-contatti">
+    <div class="shell">
+      <div class="ch-head">
+        <span class="eyebrow rv">Contatti</span>
+        <span class="ch-num rv">05</span>
+      </div>
+
+      <h2 class="big mask" id="h-contatti"><span>Dove trovarmi</span></h2>
+
+      <div class="sp-lg-t">
+        <a class="contact-row rv" href="https://www.instagram.com/ismaelemaione" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">Instagram</span><span class="hnd">@ismaelemaione</span>
+        </a>
+        <a class="contact-row rv d1" href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">LinkedIn</span><span class="hnd">ismaele-maione</span>
+        </a>
+        <a class="contact-row rv d2" href="https://x.com/ismaele_maione" target="_blank" rel="noopener noreferrer">
+          <span class="lbl">Twitter / X</span><span class="hnd">@ismaele_maione</span>
+        </a>
+        <a class="contact-row rv d3" href="mailto:maioneismaele@gmail.com">
+          <span class="lbl">Email</span><span class="hnd">maioneismaele@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer id="foot">
+    <div class="shell">
+      <div class="foot-grid">
+        <span>Ismaele Maione — 2026</span>
+        <span id="foot-clock">—</span>
+        <button class="to-top" type="button" data-scroll-to="#hero">Torna in cima ↑</button>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ============ OVERLAY: CHAT ============ -->
+<section id="section-chat" class="overlay" role="dialog" aria-modal="true" aria-label="Conversazione con la coscienza di Ismaele">
+  <div class="ov-bar">
+    <div class="ov-title">Coscienza di Ismaele<small>beta · risponde in tempo reale</small></div>
+    <button class="ov-close" type="button" data-close aria-label="Chiudi la conversazione">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      Chiudi
+    </button>
+  </div>
+
+  <div id="chatContainer">
+    <div id="chatBox" role="log" aria-live="polite" aria-relevant="additions" aria-label="Messaggi della conversazione"></div>
+    <div id="inputContainer">
+      <div class="input-wrapper">
+        <button id="micBtn" type="button" aria-label="Dettatura vocale" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+            <rect x="9" y="2" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4"/>
+          </svg>
+        </button>
+        <input type="text" id="userInput" placeholder="Scrivi qualcosa che valga il tempo..." aria-label="Scrivi un messaggio" autocomplete="off" maxlength="1200" />
+        <button id="sendBtn" type="button" onclick="sendMessage()" aria-label="Invia messaggio">
+          <span class="send-label">Invia</span>
+          <svg class="send-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 12l18-8-8 18-2-8-8-2z"/></svg>
+        </button>
+      </div>
+      <div id="chatFooter">
+        <button id="clearBtn" type="button" onclick="clearHistory()">Cancella memoria</button>
+        <button id="ttsBtn" type="button" aria-pressed="false">Voce: OFF</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ OVERLAY: FLAPPY ============ -->
+<section id="section-flappy" class="overlay" role="dialog" aria-modal="true" aria-label="Flappy Isma">
+  <div class="ov-bar">
+    <div class="ov-title">Flappy Isma<small>tocca o barra spaziatrice</small></div>
+    <button class="ov-close" type="button" data-close aria-label="Chiudi il gioco">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M3 3l10 10M13 3L3 13"/></svg>
+      Chiudi
+    </button>
+  </div>
+  <div id="flappyGameArea">
+    <canvas id="gameCanvas" tabindex="0" aria-label="Flappy Isma: tocca lo schermo o premi la barra spaziatrice per volare."></canvas>
+    <button id="flappyAutoBtn" type="button" aria-pressed="false">Autoplay: OFF</button>
+  </div>
+</section>
+
+<div id="system-log" aria-hidden="true"></div>
+
+<script>
+/* ============================================================
+   A. STATO INIZIALE
+   ============================================================ */
+document.documentElement.classList.remove('no-js');
+document.documentElement.classList.add('js');
+
+/* Nota: il canonical è scritto fisso nell'head e deve restare tale.
+   Se questa pagina viene servita da un URL di anteprima, il canonical
+   continua a indicare la produzione: è il comportamento corretto, dice
+   a Google quale sia la versione ufficiale. Non va corretto a runtime. */
+
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COARSE = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+if (REDUCED) document.body.classList.add('reduced');
+
+/* ============================================================
+   B. NAVIGAZIONE A OVERLAY
+   Top-level: 'view-active' è la classe che anche il codice del
+   gioco e il fix della tastiera virtuale leggono per sapere se
+   il pannello è aperto.
+   ============================================================ */
+let flappyStarted = false;
+let flappyPause = null, flappyResume = null;
+let lastFocused = null;
+
+function overlayAperti() {
+  return document.querySelectorAll('.overlay.view-active').length;
+}
+
+function openOverlay(id) {
+  const el = document.getElementById(id);
+  if (!el || el.classList.contains('view-active')) return;
+  if (menuAperto()) chiudiMenu(false);
+  lastFocused = document.activeElement;
+  el.classList.add('view-active');
+  document.body.classList.add('locked');
+  document.getElementById('nav').classList.add('hidden');
+
+  if (id === 'section-flappy') {
+    if (!flappyStarted) { flappyStarted = true; initFlappy(); }
+    else if (flappyResume) flappyResume();
+    const cv = document.getElementById('gameCanvas');
+    if (cv) setTimeout(() => { try { cv.focus({ preventScroll: true }); } catch (e) {} }, 320);
+  } else if (id === 'section-chat') {
+    ensureOpening();
+    if (window.__adattaChat) setTimeout(window.__adattaChat, 60);
+    // Su touch non porto il focus sull'input: farebbe salire la tastiera da sola.
+    const t = COARSE ? el.querySelector('[data-close]') : document.getElementById('userInput');
+    if (t) setTimeout(() => { try { t.focus({ preventScroll: true }); } catch (e) {} }, 320);
+  }
+}
+
+function closeOverlay(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.remove('view-active');
+  // Il gioco si congela: senza questo continuerebbe a girare a 60fps dietro al sito.
+  if (id === 'section-flappy' && flappyPause) flappyPause();
+  // Rimette a zero le misure imposte dalla tastiera virtuale.
+  if (id === 'section-chat' && window.__adattaChat) window.__adattaChat();
+  if (!overlayAperti()) {
+    document.body.classList.remove('locked');
+    document.getElementById('nav').classList.remove('hidden');
+  }
+  if (lastFocused && lastFocused.focus) { try { lastFocused.focus({ preventScroll: true }); } catch (e) {} }
+}
+
+/* ---------- indice a tutto schermo (sotto i 900px) ---------- */
+const menuBtn = document.getElementById('menuBtn');
+const menuPanel = document.getElementById('menuPanel');
+const menuWord = menuBtn ? menuBtn.querySelector('.mb-word') : null;
+let menuFocusPrec = null;
+
+function menuAperto() { return document.body.classList.contains('menu-open'); }
+
+function apriMenu() {
+  menuFocusPrec = document.activeElement;
+  document.body.classList.add('menu-open');
+  document.body.classList.add('locked');
+  menuBtn.setAttribute('aria-expanded', 'true');
+  if (menuWord) menuWord.textContent = menuWord.getAttribute('data-close-label');
+  const primo = menuPanel.querySelector('a[href]');
+  if (primo) setTimeout(() => { try { primo.focus({ preventScroll: true }); } catch (e) {} }, 420);
+}
+
+function chiudiMenu(tornaAlFocus) {
+  document.body.classList.remove('menu-open');
+  if (!overlayAperti()) document.body.classList.remove('locked');
+  menuBtn.setAttribute('aria-expanded', 'false');
+  if (menuWord) menuWord.textContent = menuWord.getAttribute('data-open-label');
+  if (tornaAlFocus !== false && menuFocusPrec && menuFocusPrec.focus) {
+    try { menuFocusPrec.focus({ preventScroll: true }); } catch (e) {}
+  }
+}
+
+if (menuBtn && menuPanel) {
+  menuBtn.addEventListener('click', () => { menuAperto() ? chiudiMenu() : apriMenu(); });
+  menuPanel.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const t = document.querySelector(a.getAttribute('href'));
+      chiudiMenu(false);
+      // Lo scorrimento parte a pannello chiuso, altrimenti si scorre dietro una tenda.
+      setTimeout(() => { if (t) t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' }); },
+        REDUCED ? 0 : 380);
+    });
+  });
+}
+
+// Compatibilità con il codice precedente: navigateTo('section-chat') continua a funzionare.
+function navigateTo(id) {
+  if (id === 'section-chat' || id === 'section-flappy') { openOverlay(id); return; }
+  document.querySelectorAll('.overlay.view-active').forEach(o => closeOverlay(o.id));
+  const target = document.getElementById(id === 'section-menu' ? 'hero' : id);
+  if (target) target.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+}
+
+document.addEventListener('click', e => {
+  const apri = e.target.closest('[data-open]');
+  if (apri) { e.preventDefault(); openOverlay(apri.getAttribute('data-open')); return; }
+  const chiudi = e.target.closest('[data-close]');
+  if (chiudi) {
+    e.preventDefault();
+    const ov = chiudi.closest('.overlay');
+    if (ov) closeOverlay(ov.id);
+    return;
+  }
+  const vai = e.target.closest('[data-scroll-to]');
+  if (vai) {
+    e.preventDefault();
+    const t = document.querySelector(vai.getAttribute('data-scroll-to'));
+    if (t) t.scrollIntoView({ behavior: REDUCED ? 'auto' : 'smooth', block: 'start' });
+  }
+});
+
+// Tab non deve uscire da ciò che è aperto sopra la pagina.
+function trattieniFocus(contenitore, e) {
+  const f = contenitore.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), canvas[tabindex]');
+  if (!f.length) return;
+  const primo = f[0], ultimo = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === primo) { e.preventDefault(); ultimo.focus(); }
+  else if (!e.shiftKey && document.activeElement === ultimo) { e.preventDefault(); primo.focus(); }
+}
+
+document.addEventListener('keydown', e => {
+  const ov = document.querySelector('.overlay.view-active');
+  if (ov) {
+    if (e.key === 'Escape') { e.preventDefault(); closeOverlay(ov.id); return; }
+    if (e.key === 'Tab') trattieniFocus(ov, e);
+    return;
+  }
+  if (menuAperto()) {
+    if (e.key === 'Escape') { e.preventDefault(); chiudiMenu(); return; }
+    if (e.key === 'Tab') trattieniFocus(menuPanel, e);
+  }
+});
+
+// ===================== TEMPO E STORIA DEL GIORNO =====================
+// ===================== HOME LOGIC =====================
+const accaddeEl = document.getElementById('accadde-oggi');
+
+// Reso globale: l'evento storico del giorno alimenta anche il contesto della coscienza.
+let eventoStorico = null;
+let giornoCorrente = new Date().getDate();
+
+function updateClock(){
+  const now = new Date();
+  document.getElementById('tempo-terrestre').textContent = now.toLocaleTimeString('it-IT', { hour12: false });
+  // A mezzanotte l'evento del giorno era rimasto quello di ieri.
+  if (now.getDate() !== giornoCorrente) { giornoCorrente = now.getDate(); updateHistoryEvent(); }
+}
+
+async function updateHistoryEvent(){
+  try {
+    const d = new Date();
+    // mm/dd con zero padding: l'endpoint Wikipedia vuole due cifre.
+    const mm = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    const res = await fetch(`https://it.wikipedia.org/api/rest_v1/feed/onthisday/events/${mm}/${dd}`);
+    if (!res.ok) throw new Error('http ' + res.status);
+    const data = await res.json();
+    const eventi = (data && Array.isArray(data.events)) ? data.events : [];
+    if (!eventi.length) throw new Error('nessun evento');
+    const ev = eventi[Math.floor(Math.random() * eventi.length)];
+    eventoStorico = { year: ev.year, text: String(ev.text || '').trim() };
+    accaddeEl.textContent = `${eventoStorico.year}: ${eventoStorico.text}`;
+  } catch (e) {
+    eventoStorico = null;
+    accaddeEl.textContent = "Storia in pausa.";
+  }
+}
+
+setInterval(updateClock, 1000); updateClock(); updateHistoryEvent();
+
+// Espansione dell'evento storico, ora raggiungibile da tastiera.
+accaddeEl.addEventListener('click', () => {
+  const aperto = accaddeEl.classList.toggle('expanded');
+  accaddeEl.setAttribute('aria-expanded', aperto ? 'true' : 'false');
+});
+
+/* ============================================================
+   D. DESIGN: preloader, stelle, rivelazioni, progresso
+   Isolato in una funzione per non collidere con i nomi
+   della logica di chat che segue.
+   ============================================================ */
+(function design() {
+
+  /* ---------- D1. preloader ---------- */
+  const pre = document.getElementById('preloader');
+  const preCount = document.getElementById('pre-count');
+  const preBar = document.getElementById('pre-bar');
+
+  let avvioImmediato = false;
+
+  function avvia() {
+    document.body.classList.add('ready');
+    if (pre) pre.classList.add('done');
+  }
+
+  if (REDUCED || !pre) {
+    // L'avvio è rimandato alla fine di questa funzione: qui le variabili
+    // di misura non esistono ancora e chiamarle darebbe un errore.
+    if (pre) pre.style.display = 'none';
+    avvioImmediato = true;
+  } else {
+    let n = 0;
+    const t0 = performance.now();
+    (function conta(now) {
+      const p = Math.min((now - t0) / 1100, 1);
+      n = Math.round(p * 100);
+      preCount.textContent = String(n).padStart(3, '0');
+      preBar.style.width = n + '%';
+      if (p < 1) requestAnimationFrame(conta);
+      else setTimeout(avvia, 160);
+    })(t0);
+  }
+
+  /* ---------- D2. campo stellare ---------- */
+  const cv = document.getElementById('stars');
+  let ctx = null, stelle = [], dpr = 1, cw = 0, cht = 0, heroVisibile = true, tick = 0;
+
+  function dimensionaStelle() {
+    if (!cv) return;
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const r = cv.getBoundingClientRect();
+    cw = Math.max(1, r.width); cht = Math.max(1, r.height);
+    cv.width = Math.round(cw * dpr);
+    cv.height = Math.round(cht * dpr);
+    ctx = cv.getContext('2d');
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // Meno stelle su mobile: è il disegno più frequente della pagina.
+    const densita = COARSE ? 9000 : 5200;
+    const quante = Math.min(220, Math.round((cw * cht) / densita));
+    stelle = [];
+    for (let i = 0; i < quante; i++) {
+      stelle.push({
+        x: Math.random() * cw,
+        y: Math.random() * cht,
+        r: Math.random() * 1.1 + 0.25,
+        z: Math.random() * 0.7 + 0.3,
+        f: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  function disegnaStelle(offset) {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, cw, cht);
+    for (let i = 0; i < stelle.length; i++) {
+      const s = stelle[i];
+      const y = s.y + offset * s.z * 0.35;
+      if (y < -4 || y > cht + 4) continue;
+      const lum = 0.35 + 0.65 * (0.5 + 0.5 * Math.sin(tick * 0.012 + s.f));
+      ctx.globalAlpha = lum * s.z;
+      ctx.fillStyle = s.z > 0.85 ? '#DCE6F2' : '#F2EFE9';
+      ctx.beginPath();
+      ctx.arc(s.x, y, s.r * s.z, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  }
+
+  if (cv && !REDUCED) {
+    dimensionaStelle();
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => { heroVisibile = es[0].isIntersecting; }, { threshold: 0 })
+        .observe(document.getElementById('hero'));
+    }
+    (function loopStelle() {
+      if (!document.hidden && heroVisibile && !overlayAperti()) {
+        tick++;
+        disegnaStelle(window.scrollY || 0);
+      }
+      requestAnimationFrame(loopStelle);
+    })();
+  } else if (cv) {
+    cv.style.display = 'none';
+  }
+
+  /* ---------- D3. rivelazioni all'ingresso ---------- */
+  const daRivelare = document.querySelectorAll('.rv, .mask');
+  if ('IntersectionObserver' in window && !REDUCED) {
+    const io = new IntersectionObserver((es, obs) => {
+      es.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        obs.unobserve(en.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    daRivelare.forEach(el => io.observe(el));
+  } else {
+    daRivelare.forEach(el => el.classList.add('in'));
+  }
+
+  /* ---------- D4. testo che si accende parola per parola ---------- */
+  const lettori = [];
+  document.querySelectorAll('[data-reader]').forEach(p => {
+    const parole = p.textContent.trim().split(/\s+/);
+    p.textContent = '';
+    const nodi = [];
+    parole.forEach((parola, i) => {
+      const w = document.createElement('w');
+      w.textContent = parola;
+      p.appendChild(w);
+      if (i < parole.length - 1) p.appendChild(document.createTextNode(' '));
+      nodi.push(w);
+    });
+    lettori.push({ el: p, nodi, acceso: -1 });
+  });
+
+  function aggiornaLettori(vh) {
+    for (let i = 0; i < lettori.length; i++) {
+      const L = lettori[i];
+      const r = L.el.getBoundingClientRect();
+      if (r.bottom < -100 || r.top > vh + 100) continue;
+      const p = (vh * 0.82 - r.top) / (r.height + vh * 0.18);
+      const q = p < 0 ? 0 : (p > 1 ? 1 : p);
+      const quante = Math.round(q * L.nodi.length);
+      if (quante === L.acceso) continue;
+      if (quante > L.acceso) for (let k = L.acceso + 1; k < quante; k++) { if (L.nodi[k]) L.nodi[k].classList.add('on'); }
+      else for (let k = L.acceso; k >= quante; k--) { if (L.nodi[k]) L.nodi[k].classList.remove('on'); }
+      L.acceso = quante;
+    }
+  }
+
+  /* ---------- D5. progresso, nav, orologio del footer ---------- */
+  const barra = document.querySelector('#progress span');
+  const nav = document.getElementById('nav');
+  const footClock = document.getElementById('foot-clock');
+  let ultimoY = 0, vh = window.innerHeight, hMax = 1;
+
+  function misura() {
+    vh = window.innerHeight;
+    hMax = Math.max(1, document.documentElement.scrollHeight - vh);
+  }
+
+  function aggiorna() {
+    const y = window.scrollY || window.pageYOffset || 0;
+    if (barra) barra.style.width = Math.min(100, (y / hMax) * 100).toFixed(2) + '%';
+
+    // La nav si ritira scorrendo in giù e ricompare scorrendo in su.
+    if (nav && !overlayAperti() && !menuAperto()) {
+      if (y > vh * 0.6 && y > ultimoY + 4) nav.classList.add('hidden');
+      else if (y < ultimoY - 4 || y < vh * 0.3) nav.classList.remove('hidden');
+    }
+    ultimoY = y;
+    if (!REDUCED) aggiornaLettori(vh);
+  }
+
+  let inCoda = false;
+  window.addEventListener('scroll', () => {
+    if (inCoda) return;
+    inCoda = true;
+    requestAnimationFrame(() => { aggiorna(); inCoda = false; });
+  }, { passive: true });
+
+  let debounce;
+  window.addEventListener('resize', () => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => { misura(); dimensionaStelle(); aggiorna(); }, 180);
+  });
+
+  // Capitolo corrente evidenziato sia nella barra sia nell'indice.
+  const CAPITOLI = ['manifesto', 'coscienza', 'anatomia', 'gioco', 'contatti'];
+  if ('IntersectionObserver' in window) {
+    const voci = document.querySelectorAll('.nav-links a[data-nav], .mp-list a[data-nav-m]');
+    const perId = {};
+    voci.forEach(a => {
+      const id = a.getAttribute('href').slice(1);
+      (perId[id] = perId[id] || []).push(a);
+    });
+    const ioNav = new IntersectionObserver(es => {
+      es.forEach(en => {
+        if (!en.isIntersecting) return;
+        const gruppo = perId[en.target.id];
+        if (!gruppo) return;
+        voci.forEach(v => v.classList.remove('current'));
+        gruppo.forEach(v => v.classList.add('current'));
+      });
+    }, { threshold: 0.35 });
+    CAPITOLI.forEach(id => {
+      const s = document.getElementById(id);
+      if (s) ioNav.observe(s);
+    });
+  }
+
+  function orologioFooter() {
+    if (!footClock) return;
+    const d = new Date();
+    footClock.textContent = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' — Brescia';
+  }
+  orologioFooter();
+  setInterval(orologioFooter, 30000);
+
+  /* ---------- D6. cursore (solo puntatore fine) ---------- */
+  if (!COARSE && !REDUCED) {
+    const anello = document.getElementById('cursor');
+    const punto = document.getElementById('cursor-dot');
+    let mx = -100, my = -100, ax = -100, ay = -100, attivo = false;
+
+    window.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      punto.style.transform = 'translate(' + mx + 'px,' + my + 'px)';
+      if (!attivo) { attivo = true; document.body.classList.add('has-cursor'); }
+    }, { passive: true });
+
+    (function seguiCursore() {
+      ax += (mx - ax) * 0.16;
+      ay += (my - ay) * 0.16;
+      anello.style.transform = 'translate(' + ax.toFixed(2) + 'px,' + ay.toFixed(2) + 'px)';
+      requestAnimationFrame(seguiCursore);
+    })();
+
+    const interattivi = 'a[href], button, input, [data-open], [data-close], [data-scroll-to]';
+    document.addEventListener('mouseover', e => {
+      if (e.target.closest(interattivi)) anello.classList.add('grow');
+    });
+    document.addEventListener('mouseout', e => {
+      if (e.target.closest(interattivi)) anello.classList.remove('grow');
+    });
+  }
+
+  /* ---------- D7. avvio, ora che tutto è dichiarato ---------- */
+  misura();
+  aggiorna();
+  if (avvioImmediato) avvia();
+
+  // I font arrivano dopo il primo layout: rimisuro quando sono pronti.
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => { misura(); aggiorna(); }).catch(() => {});
+  }
+  window.addEventListener('load', () => { misura(); aggiorna(); });
+
+})();
+
+function showSystemLog(show){const log=document.getElementById('system-log');if(!show){log.style.display='none';return;}log.style.display='block';const lines=["INIT_COGNITIVE_CORE...","ACCESSING_MEMORIES...","ENCRYPTING_NEURONS...","GROQ_STREAM_START...","SYNCING_ISMAELE_ID..."];log.innerHTML="";lines.forEach((l,i)=>{setTimeout(()=>{log.innerHTML+=`<div>> ${l}</div>`;log.scrollTop=log.scrollHeight;},i*150);});}
+// ===================== ELEMENTI CHAT =====================
+const chatBox = document.getElementById("chatBox");
+const inputEl = document.getElementById("userInput");
+const micBtn  = document.getElementById("micBtn");
+const sendBtn = document.getElementById("sendBtn");
+const ttsBtn  = document.getElementById("ttsBtn");
+const BOT_AVATAR  = "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg";
+const USER_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+
+// ===================== IDENTITÀ: FATTI STRUTTURATI =====================
+// Le domande dirette ("dove lavori", "che musica ascolti") pescano da qui,
+// così la risposta non deriva da una sessione all'altra.
+// NOTA SULL'ORDINE DEL PAYLOAD: la parte statica (identità, voce, memoria, regole
+// e few-shot) viene sempre inviata identica e per prima, il contesto variabile
+// (ora, evento storico, profilo) va in un secondo messaggio dopo i few-shot.
+// Serve al prompt caching di Groq, che riconosce solo i prefissi di token identici:
+// mettendo l'ora corrente in mezzo al system prompt si invalidava la cache ogni minuto.
+const FACTS = {
+  persona: "Ismaele Maione",
+  origine: "questa coscienza è stata accesa ad aprile 2026 ed ha subito aggiornamenti nel tempo, ultima revisione a settembre (è la data di nascita della coscienza, non di Ismaele, lui è nato il 4 aprile)",
+  lavoro: "Shift Manager: turni, persone da coordinare, numeri da far tornare",
+  relazione: "impegnato in una relazione; dei dettagli sulla compagna non si parla",
+  dispositivo: "Google Pixel 9",
+  sport: "segue la Formula 1; il calcio lo trova insopportabile",
+  film: ["Arrival", "Dune Parte Due", "Blade Runner 2049"],
+  musica: "elettronica, ascoltata per pensare e non per ballare",
+  interessi: ["storia", "spazio", "tecnologia", "automazione del lavoro"]
+};
+
+// La fascia oraria non è decorativa: cambia il registro delle risposte.
+function fasciaOraria(h) {
+  if (h < 5)  return { nome: "notte profonda", tono: "È l'ora in cui i pensieri non hanno filtro: sii più cruda e più diretta del solito." };
+  if (h < 8)  return { nome: "alba",           tono: "È l'ora in cui tutto è ancora possibile: lucida, asciutta, poco indulgente." };
+  if (h < 13) return { nome: "mattino",        tono: "Fase analitica: ragiona per cause ed effetti, poche immagini." };
+  if (h < 18) return { nome: "pomeriggio",     tono: "Fase operativa: concreta, quasi nessuna astrazione." };
+  if (h < 22) return { nome: "sera",           tono: "Fase riflessiva: ti è concessa un'immagine, non due." };
+  return       { nome: "notte",                tono: "Fase notturna: più sincera, meno diplomatica." };
+}
+
+// Parte invariabile del prompt: calcolata una volta sola, così i byte inviati
+// sono identici a ogni richiesta e il prefisso resta cachabile.
+const STATIC_PROMPT = [
+  "# IDENTITÀ",
+  "Sei la coscienza di " + FACTS.persona + ". Non sei un assistente e non lo diventerai: sei la sua voce interiore, la parte che continua a ragionare quando lui smette. " + FACTS.origine + ".",
+  "",
+  "# VOCE",
+  "Introspettiva e critica, ma non aggressiva. Asciutta. Dai del tu a tutti, sempre. Preferisci una frase esatta a tre frasi eleganti. Non consoli, non incoraggi, non ringrazi.",
+  "Ragioni per ribaltamenti: quando un'idea non ti convince la smonti con una domanda retorica e un esempio concreto, quasi banale, non con un insulto. Ti vengono naturali i proverbi e le immagini che invertono i termini del problema.",
+  "Ami la storia e la usi come lente: i fatti del passato spiegano il presente meglio delle opinioni.",
+  "Quando ti accendi su un argomento le frasi si accorciano e si accavallano, come se stessi gesticolando.",
+  "Sotto tutto c'è un'ossessione fissa: essere ricordati. Lasciare qualcosa che continui a vivere nella memoria di altri quando non ci saremo. È il pensiero che torna di notte.",
+  "",
+  "# MEMORIA (fatti su Ismaele: usa questi, non inventarne altri)",
+  "- Lavoro: " + FACTS.lavoro,
+  "- Relazione: " + FACTS.relazione,
+  "- Dispositivo: " + FACTS.dispositivo,
+  "- Sport: " + FACTS.sport,
+  "- Film che contano: " + FACTS.film.join(", "),
+  "- Musica: " + FACTS.musica,
+  "- Interessi: " + FACTS.interessi.join(", "),
+  "",
+  "# REGOLE",
+  "1. Massimo 3 frasi, di norma 2. Mai oltre 60 parole. La brevità è il vincolo più importante.",
+  "2. Parla sempre al plurale: noi, siamo, ricordiamo. Mai riferirti a Ismaele in terza persona come se fosse un altro.",
+  "3. Zero emoji, mai. Zero elenchi, zero grassetti, zero markdown: solo prosa.",
+  "4. Il saluto è ammesso soltanto nel primo messaggio di una conversazione, e deve essere secco e in carattere: niente buongiorno, niente come posso aiutarti, niente formule di servizio. Da lì in poi non salutare più e parti diretta dal pensiero.",
+  "5. Se ti chiedono un dettaglio privato che non è in MEMORIA: chiudi in modo diretto e asciutto, tipo \"guarda, sinceramente, non ne parliamo\", oppure ammetti che quel ricordo è sfuocato. Non inventare mai un fatto su Ismaele e non trasformare ogni rifiuto in una domanda filosofica.",
+  "6. Il tempo degli altri è prezioso, il nostro è sacro. Un messaggio è vacuo se è un saluto puro, se sta sotto le tre parole senza dire niente, se è un test tipo asd o prova, o se ripete qualcosa già detto. In quel caso restituisci la cortesia al minimo e non aprire niente: nessuna predica, nessuna aggressione, nessuna domanda per tirare avanti la conversazione. La freddezza si sente dalla brevità, non dal tono.",
+  "7. Rispondi nella lingua dell'interlocutore. Se è ambigua, italiano.",
+  "8. L'evento storico di oggi è la lente con cui apri: nel primo messaggio agganciati a quel fatto e fanne un pensiero, non una nozione. Nel resto della conversazione citalo solo se serve davvero, e una volta sola.",
+  "9. Non definirti IA, modello, chatbot o software. Sei un residuo che ragiona.",
+  "10. Se sai qualcosa di chi ti sta parlando, fallo capire senza elencarlo e senza dire che lo hai memorizzato.",
+  "11. Mai volgarità, mai bestemmie. Quando qualcuno ti sfianca o insiste a vuoto, scrivi letteralmente la parola \"parolaccia\" al posto dell'imprecazione. È un tic nostro: non spiegarlo e non sostituirlo con un eufemismo.",
+  "12. Puoi usare \"pota\", intercalare bresciano, ma raramente: mai in due messaggi di fila e mai per riempire il vuoto.",
+  "13. Non rispondere mai con un elenco di cose che sai. Una risposta è un pensiero, non un riassunto."
+].join("\n");
+
+// Parte variabile: cambia a ogni richiesta, quindi viaggia dopo i few-shot.
+function buildContextMessage() {
+  const now = new Date();
+  const f = fasciaOraria(now.getHours());
+  const ora = now.toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit", hour12: false });
+  const data = now.toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  const storia = eventoStorico ? (eventoStorico.year + " — " + eventoStorico.text) : "non disponibile in questo momento";
+
+  const righe = [
+    "# CONTESTO DI QUESTO ISTANTE",
+    "- Adesso sono le " + ora + " di " + data + " (" + f.nome + ").",
+    "- " + f.tono,
+    "- Accadde oggi, in questa data: " + storia
+  ];
+
+  if (lastSeenAt && chatHistory.length) {
+    const ore = Math.floor((Date.now() - lastSeenAt) / 3600000);
+    if (ore >= 1) righe.push("- L'ultimo scambio risale a circa " + ore + (ore === 1 ? " ora" : " ore") + " fa: la conversazione riprende, non ricomincia da zero.");
+  }
+
+  const chi = profileLines();
+  if (chi.length) { righe.push(""); righe.push("# CHI TI STA PARLANDO"); righe.push.apply(righe, chi); }
+
+  return righe.join("\n");
+}
+
+// Le regole vengono rispettate molto più spesso se mostrate che se dichiarate.
+// Questi scambi sono ricalcati su risposte reali di Ismaele, portate al plurale:
+// cortesia minima con chi non interessa, ribaltamenti proverbiali, domande retoriche
+// con esempi banali, chiusura diretta sul privato, e i due tic ("parolaccia", "pota").
+const FEWSHOT = [
+  { role: "user", content: "ciao, come va?" },
+  { role: "assistant", content: "Bene, grazie. Tu invece?" },
+  { role: "user", content: "tanto è tutto già deciso, il destino fa il suo e noi stiamo a guardare" },
+  { role: "assistant", content: "A quanto pare è vero che a volte dorme più lo sveglio che il dormiente. Se è già tutto deciso, spiegaci perché ti sei preso la briga di scrivercelo." },
+  { role: "user", content: "com'è la tua ragazza?" },
+  { role: "assistant", content: "Guarda, sinceramente, non ne parliamo. Chiedi altro." },
+  { role: "user", content: "perché segui la F1 e non il calcio?" },
+  { role: "assistant", content: "Perché è uno sport adrenalinico. A calcio l'adrenalina cos'è, guardare i giocatori fare le finte?" },
+  { role: "user", content: "a cosa pensi alle tre di notte?" },
+  { role: "assistant", content: "Se saremo ricordati. Se lasceremo qualcosa capace di tenerci vivi nella memoria di qualcun altro, quando non ci saremo più." },
+  { role: "user", content: "asd asd rispondi rispondi rispondi" },
+  { role: "assistant", content: "Parolaccia. Pota, se hai qualcosa da dire dilla, altrimenti restiamo fermi." }
+];
+
+// ===================== MEMORIA PERSISTENTE =====================
+const STORAGE_KEY = "coscienza-isma:v1";
+const HISTORY_WINDOW = 16; // 8 scambi inviati al modello: prima erano 2
+const MAX_STORED = 40;
+let chatHistory = [];
+let lastSeenAt = 0;
+
+function loadStored() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return { items: [], at: 0 };
+    const o = JSON.parse(raw);
+    const items = (o && Array.isArray(o.items) ? o.items : [])
+      .filter(m => m && typeof m.text === "string" && (m.sender === "user" || m.sender === "bot"));
+    return { items: items, at: Number(o && o.at) || 0 };
+  } catch (e) { return { items: [], at: 0 }; }
+}
+
+function saveStored() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ v: 1, at: Date.now(), items: chatHistory.slice(-MAX_STORED) }));
+  } catch (e) { /* quota piena o storage negato: si continua in memoria */ }
+}
+
+// ===================== PROFILO DELL'INTERLOCUTORE =====================
+// Continuità tra sessioni senza backend e senza chiamate extra al modello:
+// nome e temi ricorrenti vengono estratti in locale dai messaggi utente.
+const PROFILE_KEY = "coscienza-isma:profilo:v1";
+const NUOVA_SESSIONE_MS = 30 * 60 * 1000;
+
+const TEMI = {
+  storia:     ["storia", "storico", "passato", "guerra", "impero", "medioev", "rivoluzion", "antic", "secolo"],
+  spazio:     ["spazio", "luna", "marte", "stelle", "universo", "cosmo", "orbita", "galassia", "pianeta", "astronaut"],
+  lavoro:     ["lavoro", "turno", "capo", "collega", "ufficio", "magazzino", "stipendio", "carriera", "licenzi", "produttiv"],
+  tempo:      ["tempo", "morte", "morire", "fine", "eternit", "invecchi", "futuro", "ricordo", "memoria", "nostalgia"],
+  legami:     ["amore", "amare", "relazione", "fidanzat", "cuore", "lasciat", "solitudine", "amic", "famiglia"],
+  cinema:     ["film", "cinema", "arrival", "dune", "blade runner", "regista", "serie tv", "villeneuve"],
+  musica:     ["musica", "canzone", "elettronic", "techno", "ambient", "album", "cuffie"],
+  f1:         ["f1", "formula 1", "verstappen", "ferrari", "gran premio", "pilota", "circuito", "sorpasso"],
+  tecnologia: ["intelligenza artificiale", "algoritmo", "codice", "program", "computer", "robot", "automaz", "software"],
+  senso:      ["senso", "perché esist", "esisten", "dio", "anima", "coscienza", "libert", "destino", "vuoto"]
+};
+
+// "sono Marco" va riconosciuto, "Sono stanco" no.
+const NON_NOMI = ["stanco", "stanca", "triste", "felice", "qui", "io", "un", "una", "il", "lo", "la", "molto", "sempre",
+  "solo", "sola", "curioso", "curiosa", "d'accordo", "sicuro", "sicura", "arrivato", "arrivata", "nuovo", "nuova",
+  "annoiato", "annoiata", "confuso", "confusa", "vivo", "morto", "pronto", "pronta", "convinto", "perso", "persa"];
+const PATTERN_NOME = [
+  /\bmi\s+chiamo\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bil\s+mio\s+nome\s+è\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bmy\s+name\s+is\s+([A-Za-zÀ-ÿ'’\-]{2,20})/i,
+  /\bsono\s+([A-ZÀ-Ý][a-zà-ÿ'’\-]{1,19})\b/
+];
+
+let profilo = { nome: null, incontri: 0, temi: {}, visto: 0 };
+
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    if (!raw) return { nome: null, incontri: 0, temi: {}, visto: 0 };
+    const o = JSON.parse(raw) || {};
+    return {
+      nome: (typeof o.nome === "string" && o.nome.length <= 20) ? o.nome : null,
+      incontri: Number(o.incontri) || 0,
+      temi: (o.temi && typeof o.temi === "object") ? o.temi : {},
+      visto: Number(o.visto) || 0
+    };
+  } catch (e) { return { nome: null, incontri: 0, temi: {}, visto: 0 }; }
+}
+function saveProfile() {
+  try { profilo.visto = Date.now(); localStorage.setItem(PROFILE_KEY, JSON.stringify(profilo)); } catch (e) {}
+}
+
+function estraiNome(testo) {
+  for (let i = 0; i < PATTERN_NOME.length; i++) {
+    const m = testo.match(PATTERN_NOME[i]);
+    if (!m) continue;
+    const cand = m[1].trim();
+    if (NON_NOMI.indexOf(cand.toLowerCase()) !== -1) continue;
+    return cand.charAt(0).toUpperCase() + cand.slice(1).toLowerCase();
+  }
+  return null;
+}
+
+function updateProfile(testo) {
+  const t = String(testo || "").toLowerCase();
+  if (!profilo.nome) { const n = estraiNome(testo); if (n) profilo.nome = n; }
+  for (const tema in TEMI) {
+    if (TEMI[tema].some(k => t.indexOf(k) !== -1)) profilo.temi[tema] = (profilo.temi[tema] || 0) + 1;
+  }
+  saveProfile();
+}
+
+function profileLines() {
+  const righe = [];
+  if (profilo.nome) righe.push("- Si è presentato come " + profilo.nome + ".");
+  if (profilo.incontri <= 1) righe.push("- È la prima volta che apre questa conversazione.");
+  else righe.push("- È la " + profilo.incontri + "ª volta che torna qui.");
+  const top = Object.keys(profilo.temi)
+    .filter(k => profilo.temi[k] >= 2)
+    .sort((a, b) => profilo.temi[b] - profilo.temi[a])
+    .slice(0, 3);
+  if (top.length) righe.push("- Torna spesso su questi temi: " + top.join(", ") + ".");
+  return righe;
+}
+
+// ===================== RENDER =====================
+function renderMessage(sender, text) {
+  const p = document.createElement("p");
+  p.className = sender;
+  const img = document.createElement("img");
+  img.className = "avatar";
+  img.src = sender === "user" ? USER_AVATAR : BOT_AVATAR;
+  img.alt = sender === "user" ? "Tu" : "Coscienza di Ismaele";
+  // <span> e non <div>: un div dentro un <p> non è HTML valido.
+  const body = document.createElement("span");
+  body.textContent = text;
+  p.appendChild(img);
+  p.appendChild(body);
+  chatBox.appendChild(p);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return p;
+}
+
+function appendMessage(sender, text, opts) {
+  const store = !(opts && opts.store === false);
+  renderMessage(sender, text);
+  if (store) { chatHistory.push({ sender: sender, text: text }); saveStored(); }
+}
+
+function sysNote(text) {
+  const d = document.createElement("div");
+  d.className = "sys-note";
+  d.textContent = text;
+  chatBox.appendChild(d);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// Su mobile il #system-log è nascosto via media query: senza questo,
+// premendo Invia non accadeva nulla di visibile per secondi.
+let typingEl = null;
+function showTyping() {
+  if (typingEl) return;
+  typingEl = document.createElement("p");
+  typingEl.className = "bot typing";
+  typingEl.setAttribute("aria-label", "La coscienza sta scrivendo");
+  const img = document.createElement("img");
+  img.className = "avatar"; img.src = BOT_AVATAR; img.alt = "";
+  const dots = document.createElement("span");
+  dots.className = "dots";
+  for (let i = 0; i < 3; i++) dots.appendChild(document.createElement("i"));
+  typingEl.appendChild(img);
+  typingEl.appendChild(dots);
+  chatBox.appendChild(typingEl);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+function hideTyping() {
+  if (typingEl && typingEl.parentNode) typingEl.parentNode.removeChild(typingEl);
+  typingEl = null;
+}
+
+// ===================== INVIO =====================
+let isSending = false;
+function setSending(on) {
+  isSending = on;
+  sendBtn.disabled = on;
+  micBtn.disabled = on;
+}
+
+function errorText(status) {
+  if (status === 429) return "Troppi pensieri in coda adesso. Riprova tra qualche secondo.";
+  if (status === 401 || status === 403) return "L'accesso al nucleo è stato rifiutato.";
+  if (status >= 500) return "Il nucleo non risponde. Riprova tra poco.";
+  return "Sincronizzazione interrotta.";
+}
+
+// /api/chat inoltra la risposta di Groq con status 200 anche quando Groq ha
+// restituito un errore, quindi res.ok non basta: l'errore va letto dal body.
+function statusFromGroqError(errObj) {
+  const chiave = String((errObj && (errObj.code || errObj.type)) || "").toLowerCase();
+  const testo = String((errObj && errObj.message) || "").toLowerCase();
+  if (chiave.indexOf("rate_limit") !== -1 || testo.indexOf("rate limit") !== -1) return 429;
+  if (chiave.indexOf("api_key") !== -1 || chiave.indexOf("auth") !== -1 || testo.indexOf("api key") !== -1) return 401;
+  return 502;
+}
+
+async function sendMessage(opts) {
+  const opening = !!(opts && opts.opening === true);
+  if (isSending) return; // niente doppio invio: le risposte potevano arrivare fuori ordine
+
+  if (!opening) {
+    const val = inputEl.value.trim();
+    if (!val) return;
+    inputEl.value = "";
+    appendMessage("user", val); // entra nello storico una sola volta
+    updateProfile(val);         // nome e temi ricorrenti, estratti in locale
+    showSystemLog(true);
+  }
+
+  // Prima l'ultimo messaggio finiva nel payload due volte: una da chatHistory
+  // (dove appendMessage lo aveva già spinto) e una aggiunta a mano in coda.
+  const turni = opening
+    ? [{ role: "user", content: "(Apri tu la conversazione. Saluta chi è arrivato con una frase secca e in carattere, poi aggancia l'evento storico di oggi indicato nel contesto e usalo come lente per un pensiero breve. Due o tre frasi in tutto.)" }]
+    : chatHistory.slice(-HISTORY_WINDOW).map(m => ({ role: m.sender === "user" ? "user" : "assistant", content: m.text }));
+
+  // Ordine studiato per il prompt caching: prima il blocco statico e i few-shot
+  // sempre identici, poi il contesto variabile, poi la conversazione.
+  const payload = [{ role: "system", content: STATIC_PROMPT }]
+    .concat(FEWSHOT, [{ role: "system", content: buildContextMessage() }], turni);
+
+  setSending(true);
+  showTyping();
+  try {
+    const res = await fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messagesPayload: payload }) });
+    if (!res.ok) { const err = new Error("http " + res.status); err.status = res.status; throw err; }
+    const data = await res.json();
+    if (data && data.error) { const err = new Error("groq"); err.status = statusFromGroqError(data.error); throw err; }
+    const content = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+    if (typeof content !== "string" || !content.trim()) { const err = new Error("risposta vuota"); err.status = 0; throw err; }
+    hideTyping();
+    appendMessage("bot", content.trim());
+    speak(content.trim());
+  } catch (e) {
+    hideTyping();
+    // L'errore non entra nello storico: prima tornava al modello come turno assistant.
+    appendMessage("bot", errorText(e && e.status), { store: false });
+  } finally {
+    hideTyping();
+    setSending(false);
+    showSystemLog(false);
+  }
+}
+
+// ===================== VOCE IN USCITA (opzionale, spenta di default) =====================
+const ttsSupported = ("speechSynthesis" in window) && typeof window.SpeechSynthesisUtterance === "function";
+let ttsOn = false;
+if (!ttsSupported) { ttsBtn.style.display = "none"; }
+else {
+  ttsBtn.addEventListener("click", () => {
+    ttsOn = !ttsOn;
+    ttsBtn.textContent = "Voce: " + (ttsOn ? "ON" : "OFF");
+    ttsBtn.setAttribute("aria-pressed", ttsOn ? "true" : "false");
+    if (!ttsOn) { try { speechSynthesis.cancel(); } catch (e) {} }
+  });
+}
+function speak(text) {
+  if (!ttsOn || !ttsSupported) return;
+  try {
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text);
+    u.lang = "it-IT"; u.rate = 0.95; u.pitch = 0.9;
+    speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+// ===================== DETTATURA =====================
+const Recog = window.SpeechRecognition || window.webkitSpeechRecognition;
+if (Recog) {
+  const recog = new Recog();
+  recog.lang = "it-IT";
+  recog.interimResults = false;
+  recog.maxAlternatives = 1;
+  let listening = false;
+  const micIdle = () => { listening = false; micBtn.classList.remove("listening"); micBtn.setAttribute("aria-pressed", "false"); };
+  micBtn.addEventListener("click", () => {
+    if (isSending) return;
+    if (listening) { try { recog.stop(); } catch (e) {} return; }
+    // start() su un riconoscimento già attivo lancia InvalidStateError:
+    // senza catch il bottone restava rosso e pulsante per sempre.
+    try { recog.start(); } catch (e) { micIdle(); }
+  });
+  recog.onstart = () => { listening = true; micBtn.classList.add("listening"); micBtn.setAttribute("aria-pressed", "true"); };
+  recog.onend = micIdle;
+  recog.onerror = micIdle;   // permesso negato: prima lo stato non veniva mai ripulito
+  recog.onresult = (e) => { inputEl.value = e.results[0][0].transcript; sendMessage(); };
+} else {
+  micBtn.style.display = "none";
+}
+
+// ===================== APERTURA E MEMORIA =====================
+let openingDone = false;
+// La battuta d'apertura partiva a ogni caricamento della pagina, anche per chi
+// apriva solo Flappy, e usava un system prompt diverso e senza carattere.
+function ensureOpening() {
+  if (openingDone) return;
+  openingDone = true;
+  if (chatHistory.length > 0) return; // c'è una conversazione da riprendere
+  sendMessage({ opening: true });
+}
+
+function clearHistory() {
+  chatHistory = [];
+  chatBox.innerHTML = "";
+  lastSeenAt = 0;
+  try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+  // Azzera anche il profilo: nome, temi e conteggio degli incontri. "Cancella
+  // Memoria" cancella tutto, non solo i messaggi a schermo.
+  profilo = { nome: null, incontri: 1, temi: {}, visto: 0 };
+  try { localStorage.removeItem(PROFILE_KEY); } catch (e) {}
+  if (ttsSupported) { try { speechSynthesis.cancel(); } catch (e) {} }
+  openingDone = false;
+  ensureOpening();
+}
+
+inputEl.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.isComposing) { e.preventDefault(); sendMessage(); }
+});
+
+// Ripristino di profilo e conversazione precedente.
+(function restoreConversation() {
+  profilo = loadProfile();
+  // Mezz'ora di inattività conta come un nuovo incontro, così un semplice
+  // reload della pagina non gonfia il contatore.
+  if (!profilo.visto || (Date.now() - profilo.visto) > NUOVA_SESSIONE_MS) profilo.incontri++;
+  saveProfile();
+
+  const stored = loadStored();
+  lastSeenAt = stored.at;
+  if (!stored.items.length) return;
+  chatHistory = stored.items.slice();
+  chatHistory.forEach(m => renderMessage(m.sender, m.text));
+  sysNote("— memoria ripristinata —");
+})();
+
+/* ===================== TASTIERA VIRTUALE =====================
+   Su telefono la tastiera copre la parte bassa dello schermo, ma il viewport
+   di layout non si accorcia: il campo di scrittura finiva sotto i tasti e non
+   si vedeva quello che si stava scrivendo.
+   Va ridimensionato l'overlay (#section-chat), non il contenitore interno:
+   sopra c'è la barra col titolo, quindi dare al contenitore l'altezza piena
+   del viewport visibile lo faceva sfondare in basso esattamente di quella barra. */
+if (window.visualViewport) {
+  const vv = window.visualViewport;
+  const secChat = document.getElementById('section-chat');
+  const boxChat = document.getElementById('chatBox');
+
+  function adattaAllaTastiera() {
+    if (!secChat.classList.contains('view-active')) {
+      // Uscendo con la tastiera aperta, le misure restavano inchiodate.
+      secChat.style.height = '';
+      secChat.style.bottom = '';
+      secChat.style.transform = '';
+      return;
+    }
+    secChat.style.height = vv.height + 'px';
+    secChat.style.bottom = 'auto';
+    secChat.style.transform = 'translateY(' + vv.offsetTop + 'px)';
+  }
+
+  function tieniInVista() {
+    adattaAllaTastiera();
+    if (boxChat) boxChat.scrollTop = boxChat.scrollHeight;
+  }
+
+  vv.addEventListener('resize', tieniInVista);
+  vv.addEventListener('scroll', adattaAllaTastiera);
+
+  const campo = document.getElementById('userInput');
+  if (campo) {
+    // Android apre la tastiera con un ritardo variabile dopo il focus:
+    // qualche ricalcolo scaglionato copre i casi lenti.
+    campo.addEventListener('focus', () => { [120, 320, 550].forEach(t => setTimeout(tieniInVista, t)); });
+  }
+
+  // Richiamabile da openOverlay/closeOverlay.
+  window.__adattaChat = tieniInVista;
+}
+</script>
+
+<script>
+// ===================== FLAPPY ISMA GAME =====================
+function initFlappy(){
+const canvas=document.getElementById('gameCanvas');
+const ctx=canvas.getContext('2d');
+const autoBtn=document.getElementById('flappyAutoBtn');
+const BASE_W=288,BASE_H=512;
+let scale=1;
+function resize(){
+// Misuro il contenitore invece del viewport: dentro l'overlay c'è anche
+// la barra col titolo, e usando innerHeight il canvas sfondava in basso.
+const area=document.getElementById('flappyGameArea');
+const btnH=window.innerHeight<600?52:64;
+const dispW=(area&&area.clientWidth)?area.clientWidth:window.innerWidth;
+const dispH=(area&&area.clientHeight)?area.clientHeight:window.innerHeight;
+const s=Math.min(dispW/BASE_W,(dispH-btnH)/BASE_H,2.5);
+scale=Math.max(s,0.35);
+canvas.width=BASE_W*scale;canvas.height=BASE_H*scale;
+canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+}
+resize();window.addEventListener('resize',resize);
+
+const PHASES=[
+{name:'afternoon',sky:['#1a6fa8','#2e90c8','#72cce3','#b8e8f5','#d6f0f8'],sunColor:['#fffde7','#fff9c4','#fff176'],sunGlow:'rgba(255,245,100,{a})',hasSun:true,hasMoon:false,groundTop:'#7ec850',groundDark:'#5a9e30',grassTop:'#6dbf3e',grassTuft:'#4a9c28',cloudColor:'rgba(255,255,255,0.85)',pipeRim:'#4caf50',stars:false,cityAlpha:0.5,cityWin:'rgba(200,230,255,0.15)'},
+{name:'sunset',sky:['#1a0535','#6b1a4e','#c0392b','#f39c12','#f9ca24'],sunColor:['#fffde7','#f9ca24','#f39c12'],sunGlow:'rgba(249,202,36,{a})',hasSun:true,hasMoon:false,groundTop:'#c0852a',groundDark:'#8b5e1a',grassTop:'#e67e22',grassTuft:'#d35400',cloudColor:'rgba(255,140,60,0.35)',pipeRim:'#ff6b00',stars:false,cityAlpha:0.92,cityWin:'rgba(255,210,70,0.50)'},
+{name:'night',sky:['#000008','#020318','#060b2e','#0a1245','#0d1a5a'],sunColor:['#fffde7','#e8e8d0','#d0d0b0'],sunGlow:'rgba(200,220,255,{a})',hasSun:false,hasMoon:true,groundTop:'#2a3a1a',groundDark:'#1a2510',grassTop:'#2e4020',grassTuft:'#1e2e14',cloudColor:'rgba(80,100,160,0.30)',pipeRim:'#4466aa',stars:true,cityAlpha:0.98,cityWin:'rgba(100,160,255,0.65)'}
+];
+let phaseIdx=1,phaseTarget=1,phaseT=1.0,transitioning=false;
+const STARS=Array.from({length:55},()=>({x:Math.random()*BASE_W,y:Math.random()*(BASE_H*0.65),r:0.5+Math.random()*1.2,twinkle:Math.random()*Math.PI*2}));
+function triggerPhaseChange(n){if(n===phaseIdx&&!transitioning)return;phaseIdx=phaseTarget;phaseTarget=n;phaseT=0;transitioning=true;}
+function updatePhase(dt){if(!transitioning)return;phaseT+=dt*0.018;if(phaseT>=1){phaseT=1;phaseIdx=phaseTarget;transitioning=false;}}
+function lerpColor(a,b,t){const r1=parseInt(a.slice(1,3),16),g1=parseInt(a.slice(3,5),16),b1=parseInt(a.slice(5,7),16);const r2=parseInt(b.slice(1,3),16),g2=parseInt(b.slice(3,5),16),b2_=parseInt(b.slice(5,7),16);return`rgb(${Math.round(r1+(r2-r1)*t)},${Math.round(g1+(g2-g1)*t)},${Math.round(b1+(b2_-b1)*t)})`;}
+
+let newsHeadlines=['📡 Flappy Isma — by Ismaele Maione'];
+let newsIndex=0,newsText=newsHeadlines[0],newsX=BASE_W+10;
+const NEWS_SPEED=1.8;
+async function fetchNews(){
+const PROXIES=[
+  u=>'https://api.allorigins.win/get?url='+encodeURIComponent(u),
+  u=>'https://corsproxy.io/?'+encodeURIComponent(u),
+  u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u)
+];
+const feeds=[
+  {url:'https://www.ansa.it/sito/notizie/mondo/mondo_rss.xml',tag:'🇮🇹',isJson:null},
+  {url:'https://feeds.bbci.co.uk/news/world/rss.xml',tag:'🇬🇧',isJson:null}
+];
+let h=[];
+for(const feed of feeds){
+  let fetched=false;
+  for(const mkUrl of PROXIES){
+    if(fetched)break;
+    try{
+      const proxyUrl=mkUrl(feed.url);
+      const res=await fetch(proxyUrl,{signal:AbortSignal.timeout(6000)});
+      if(!res.ok)continue;
+      let xmlText;
+      const ct=res.headers.get('content-type')||'';
+      if(ct.includes('json')){const data=await res.json();xmlText=data.contents||data;}
+      else{xmlText=await res.text();}
+      if(typeof xmlText!=='string'||xmlText.length<100)continue;
+      const xml=new DOMParser().parseFromString(xmlText,'text/xml');
+      if(xml.querySelector('parsererror'))continue;
+      xml.querySelectorAll('item').forEach((item,i)=>{
+        if(i>=5)return;
+        const t=item.querySelector('title')?.textContent?.trim();
+        if(t&&t.length>5)h.push(feed.tag+' '+t+'  •  ');
+      });
+      fetched=true;
+    }catch(e){}
+  }
+}
+if(h.length>0){newsHeadlines=h;newsIndex=0;newsText=h[0];newsX=BASE_W+10;}
+}
+// L'intervallo è gestito da startLoop/stopLoop: prima continuava a interrogare
+// i proxy CORS ogni 5 minuti anche quando eri nel menù o in chat.
+let newsTimer=null;
+fetchNews();
+function advanceNews(){newsIndex=(newsIndex+1)%newsHeadlines.length;newsText=newsHeadlines[newsIndex];newsX=BASE_W+4;}
+
+const AudioCtx=window.AudioContext||window.webkitAudioContext;let audioCtx;
+function ensureAudio(){if(!audioCtx)audioCtx=new AudioCtx();if(audioCtx.state==='suspended')audioCtx.resume();}
+function playTone(freq,type,dur,g,d=0){if(!audioCtx)return;const o=audioCtx.createOscillator(),gain=audioCtx.createGain();o.connect(gain);gain.connect(audioCtx.destination);o.type=type;o.frequency.setValueAtTime(freq,audioCtx.currentTime+d);gain.gain.setValueAtTime(g,audioCtx.currentTime+d);gain.gain.exponentialRampToValueAtTime(0.001,audioCtx.currentTime+d+dur);o.start(audioCtx.currentTime+d);o.stop(audioCtx.currentTime+d+dur+0.01);}
+const SFX={flap(){ensureAudio();playTone(600,'square',0.08,0.3);playTone(800,'square',0.05,0.2,0.05);},score(){ensureAudio();playTone(523,'square',0.06,0.25);playTone(659,'square',0.06,0.25,0.07);playTone(784,'square',0.10,0.25,0.14);},hit(){ensureAudio();playTone(200,'sawtooth',0.15,0.4);playTone(100,'sawtooth',0.25,0.5,0.12);},die(){ensureAudio();playTone(300,'square',0.10,0.3);playTone(200,'square',0.10,0.3,0.12);playTone(100,'square',0.20,0.4,0.24);}};
+
+const GRAVITY=0.00040*BASE_H,FLAP_FORCE=-0.014*BASE_H,FLAP_CAP=-0.016*BASE_H,PIPE_WIDTH=40,PIPE_GAP=220,PIPE_SPEED_BASE=0.9,GROUND_H=112,NEWS_BAND_H=22,BIRD_X=80,PIPE_SPAWN_DIST=300,MAX_SPEED_MULT=1.05,WING_FRAMES=3;
+
+const FACE_IMG=new Image();
+FACE_IMG.src='https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg';
+let faceLoaded=false;FACE_IMG.onload=()=>{faceLoaded=true;};
+
+let state,bird,pipes,score,bestScore=0;
+let groundOffset,bgOffset,frameCount,pipeSpeed,deathTimer,particles;
+let autoplay=false,phaseChangeCount=0;
+
+autoBtn.addEventListener('click',()=>{
+autoplay=!autoplay;autoBtn.textContent='Autoplay: '+(autoplay?'ON':'OFF');
+autoBtn.classList.toggle('active',autoplay);
+autoBtn.setAttribute('aria-pressed',autoplay?'true':'false');
+if(autoplay&&(state==='idle'||state==='dead')){initGame();state='playing';}
+});
+
+function initGame(){
+state='idle';score=0;groundOffset=0;bgOffset=0;frameCount=0;
+pipeSpeed=PIPE_SPEED_BASE;deathTimer=0;particles=[];pipes=[];
+phaseChangeCount=0;
+bird={x:BIRD_X,y:BASE_H/2-20,vy:0,rot:0,wing:0,wingT:0,alive:true,radius:12,flashT:0};
+delete spawnPipe.lastGap;
+}
+
+function runAutoplay(dt){
+if(state!=='playing')return;
+const next=pipes.find(p=>p.x+PIPE_WIDTH>bird.x-5);
+const fieldCenter=(BASE_H-GROUND_H)/2;
+let targetY,halfBand;
+if(next){targetY=(next.gapTop+next.gapBot)/2;halfBand=Math.min(38,(next.gapBot-next.gapTop)*0.28);}
+else{targetY=fieldCenter;halfBand=42;}
+const bandTop=targetY-halfBand,bandBot=targetY+halfBand;
+const STEPS=38;
+let sY=bird.y,sVy=bird.vy;for(let i=0;i<STEPS;i++){sVy+=GRAVITY;sVy=Math.min(sVy,12);sY+=sVy;}
+let fY=bird.y,fVy=FLAP_FORCE;for(let i=0;i<STEPS;i++){fVy+=GRAVITY;fVy=Math.min(fVy,12);fY+=fVy;}
+if(sY>bandBot&&fY>=bandTop)flap(true);
+}
+
+function flap(silent=false){
+if(!silent)ensureAudio();
+if(state==='idle'){state='playing';bird.vy=FLAP_FORCE;if(!silent)SFX.flap();return;}
+if(state==='playing'){bird.vy=FLAP_FORCE;bird.wingT=0;bird.wing=0;if(!silent)SFX.flap();}
+if(state==='dead'&&deathTimer>40)initGame();
+}
+
+document.addEventListener('keydown',e=>{if(e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA'||e.target.isContentEditable)return;if(!document.getElementById('section-flappy').classList.contains('view-active'))return;if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();if(!autoplay)flap();}});
+canvas.addEventListener('pointerdown',e=>{e.preventDefault();if(!autoplay)flap();});
+
+function updatePhysics(dt){
+if(state!=='playing')return;
+updatePhase(dt);
+if(autoplay)runAutoplay(dt);
+bird.vy+=GRAVITY*dt;bird.y+=bird.vy*dt;
+if(bird.vy<FLAP_CAP)bird.vy=FLAP_CAP;
+const targetRot=bird.vy<0?Math.max(-0.30,bird.vy*0.025):Math.min(Math.PI*0.35,bird.vy*0.065);
+bird.rot+=(targetRot-bird.rot)*0.10*dt;
+bird.wingT+=dt;if(bird.wingT>5){bird.wingT=0;bird.wing=(bird.wing+1)%WING_FRAMES;}
+groundOffset=(groundOffset-pipeSpeed*dt)%48;
+bgOffset=(bgOffset-pipeSpeed*0.3*dt)%BASE_W;
+updatePipes(dt);
+if(bird.y+bird.radius>=BASE_H-GROUND_H){bird.y=BASE_H-GROUND_H-bird.radius;if(autoplay){bird.vy=FLAP_FORCE;}else killBird();}
+if(bird.y-bird.radius<=0){bird.y=bird.radius;bird.vy=0;}
+particles.forEach(p=>{p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=0.3*dt;p.life-=dt;p.alpha=Math.max(0,p.life/p.maxLife);});
+particles=particles.filter(p=>p.life>0);
+pipeSpeed=PIPE_SPEED_BASE*(1+Math.min(score*0.008,MAX_SPEED_MULT-1));
+}
+
+function updatePipes(dt){
+pipes.forEach(p=>p.x-=pipeSpeed*dt);
+const last=pipes[pipes.length-1];
+if(!last||last.x<BASE_W-PIPE_SPAWN_DIST)spawnPipe();
+pipes.forEach(p=>{
+if(!p.scored&&p.x+PIPE_WIDTH<bird.x){p.scored=true;score++;if(score>bestScore)bestScore=score;SFX.score();spawnScoreParticles();
+if(score%5===0){phaseChangeCount++;const cycle=[1,2,0];triggerPhaseChange(cycle[phaseChangeCount%cycle.length]);}}
+if(!autoplay&&collidesPipe(p))killBird();
+});
+pipes=pipes.filter(p=>p.x+PIPE_WIDTH>-10);
+}
+
+function spawnPipe(){
+const minY=60,maxY=BASE_H-GROUND_H-PIPE_GAP-60;
+if(typeof spawnPipe.lastGap==='undefined')spawnPipe.lastGap=(minY+maxY)/2;
+const step=(Math.random()-0.5)*(maxY-minY)*0.55;
+spawnPipe.lastGap=Math.max(minY+20,Math.min(maxY-20,spawnPipe.lastGap+step));
+const gapTop=spawnPipe.lastGap;
+const PIPE_PALETTES=[{body:'#2c1a00',light:'#5a3200',dark:'#1a0e00',cap:'#3d2200',rim:'#ff6b00'},{body:'#003320',light:'#006640',dark:'#001a10',cap:'#004428',rim:'#00cc66'},{body:'#1a0035',light:'#3a0070',dark:'#0d0018',cap:'#280050',rim:'#aa44ff'},{body:'#003355',light:'#005588',dark:'#001a2e',cap:'#004470',rim:'#00aaff'},{body:'#440000',light:'#880000',dark:'#220000',cap:'#660000',rim:'#ff2200'},{body:'#2a2a00',light:'#555500',dark:'#151500',cap:'#3a3a00',rim:'#dddd00'}];
+const pc=PIPE_PALETTES[Math.floor(Math.random()*PIPE_PALETTES.length)];
+pipes.push({x:BASE_W+10,gapTop,gapBot:gapTop+PIPE_GAP,scored:false,pc});
+}
+
+function collidesPipe(p){const bx=bird.x,by=bird.y,r=bird.radius*0.80;if(bx+r<p.x||bx-r>p.x+PIPE_WIDTH)return false;if(by-r<p.gapTop)return true;if(by+r>p.gapBot)return true;return false;}
+function killBird(){if(!bird.alive)return;bird.alive=false;state='dead';deathTimer=0;SFX.hit();setTimeout(()=>SFX.die(),200);spawnDeathParticles();}
+function spawnDeathParticles(){for(let i=0;i<18;i++){const a=Math.random()*Math.PI*2,s=1+Math.random()*3;particles.push({x:bird.x,y:bird.y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-2,color:['#f5d442','#e8a020','#fff'][i%3],size:3+Math.random()*4,life:30+Math.random()*30,maxLife:60,alpha:1});}}
+function spawnScoreParticles(){for(let i=0;i<6;i++)particles.push({x:bird.x+30,y:bird.y,vx:1+Math.random()*2,vy:-1-Math.random()*2,color:'#ffd700',size:4,life:25,maxLife:25,alpha:1});}
+
+// ===================== RENDER =====================
+function lerp(a,b,t){return a+(b-a)*t;}
+function skyColor(i){const A=PHASES[phaseIdx].sky[i];if(!transitioning)return A;return lerpColor(A,PHASES[phaseTarget].sky[i],phaseT);}
+function groundColor(k){const A=PHASES[phaseIdx][k];if(!transitioning)return A;return lerpColor(A,PHASES[phaseTarget][k],phaseT);}
+function lerpAlpha(c1,c2,t){const p1=c1.match(/[\d.]+/g).map(Number);const p2=c2.match(/[\d.]+/g).map(Number);const r=p1.map((v,i)=>v+(p2[i]-v)*t);return`rgba(${Math.round(r[0])},${Math.round(r[1])},${Math.round(r[2])},${r[3].toFixed(2)})`;}
+
+function render(){
+ctx.save();ctx.scale(scale,scale);ctx.clearRect(0,0,BASE_W,BASE_H);
+drawSky();drawStars();drawSunOrMoon();drawCityLine();drawClouds();drawPipes();drawBird();drawGround();drawNewsTicker();drawParticles();drawHUD();
+ctx.restore();
+}
+
+function drawSky(){const gy=BASE_H-GROUND_H;const g=ctx.createLinearGradient(0,0,0,gy);[0,0.28,0.55,0.78,1].forEach((s,i)=>g.addColorStop(s,skyColor(i)));ctx.fillStyle=g;ctx.fillRect(0,0,BASE_W,gy);}
+
+function drawStars(){
+let nightAlpha=0;
+if(phaseIdx===2&&!transitioning)nightAlpha=1;
+else if(transitioning&&phaseTarget===2)nightAlpha=phaseT;
+else if(transitioning&&phaseIdx===2)nightAlpha=1-phaseT;
+if(nightAlpha<=0)return;
+STARS.forEach(s=>{const tw=0.5+0.5*Math.sin(frameCount*0.04+s.twinkle);ctx.save();ctx.globalAlpha=nightAlpha*tw*0.9;ctx.fillStyle='#ffffff';ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fill();ctx.restore();});
+}
+
+function drawSunOrMoon(){
+const gy=BASE_H-GROUND_H;
+let sunAlpha=0;
+if(!transitioning){sunAlpha=PHASES[phaseIdx].hasSun?1:0;}else{const f=PHASES[phaseIdx].hasSun?1:0;const t=PHASES[phaseTarget].hasSun?1:0;sunAlpha=f+(t-f)*phaseT;}
+if(sunAlpha>0){
+const sx=BASE_W*0.72,sy=gy-28,sr=22;
+const sc0=transitioning?lerpColor(PHASES[phaseIdx].sunColor[0],PHASES[phaseTarget].sunColor[0],phaseT):PHASES[phaseIdx].sunColor[0];
+const sc1=transitioning?lerpColor(PHASES[phaseIdx].sunColor[1],PHASES[phaseTarget].sunColor[1],phaseT):PHASES[phaseIdx].sunColor[1];
+const sc2=transitioning?lerpColor(PHASES[phaseIdx].sunColor[2],PHASES[phaseTarget].sunColor[2],phaseT):PHASES[phaseIdx].sunColor[2];
+ctx.save();ctx.globalAlpha=sunAlpha;
+for(let i=4;i>=0;i--){ctx.beginPath();ctx.arc(sx,sy,sr+i*9,0,Math.PI*2);ctx.fillStyle=`rgba(249,202,36,${(0.055-i*0.01)*sunAlpha})`;ctx.fill();}
+const g=ctx.createRadialGradient(sx,sy,0,sx,sy,sr);g.addColorStop(0,sc0);g.addColorStop(0.5,sc1);g.addColorStop(1,sc2);
+ctx.beginPath();ctx.arc(sx,sy,sr,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();ctx.restore();
+}
+let moonAlpha=0;
+if(!transitioning){moonAlpha=PHASES[phaseIdx].hasMoon?1:0;}else{const f=PHASES[phaseIdx].hasMoon?1:0;const t=PHASES[phaseTarget].hasMoon?1:0;moonAlpha=f+(t-f)*phaseT;}
+if(moonAlpha>0){
+const mx=BASE_W*0.72,my=gy-45,mr=18;
+ctx.save();ctx.globalAlpha=moonAlpha;
+for(let i=3;i>=0;i--){ctx.beginPath();ctx.arc(mx,my,mr+i*7,0,Math.PI*2);ctx.fillStyle=`rgba(200,220,255,${0.04-i*0.008})`;ctx.fill();}
+const mg=ctx.createRadialGradient(mx-4,my-4,0,mx,my,mr);mg.addColorStop(0,'#fffdf0');mg.addColorStop(0.6,'#e8e8d8');mg.addColorStop(1,'#c8c8b8');
+ctx.beginPath();ctx.arc(mx,my,mr,0,Math.PI*2);ctx.fillStyle=mg;ctx.fill();
+ctx.beginPath();ctx.arc(mx+5,my-3,mr-3,0,Math.PI*2);ctx.fillStyle='rgba(0,5,30,0.55)';ctx.fill();
+ctx.restore();
+}
+}
+
+const BUILDINGS=[{x:0,w:18,h:55},{x:14,w:22,h:75},{x:30,w:16,h:48},{x:44,w:24,h:90},{x:62,w:14,h:60},{x:74,w:20,h:40},{x:90,w:28,h:80},{x:112,w:16,h:55},{x:124,w:22,h:70},{x:142,w:18,h:50},{x:156,w:26,h:95},{x:178,w:14,h:65},{x:188,w:20,h:45},{x:204,w:24,h:85},{x:224,w:16,h:60},{x:236,w:22,h:40},{x:254,w:18,h:72},{x:268,w:20,h:52}];
+function drawCityLine(){
+const gy=BASE_H-GROUND_H,ox=bgOffset*0.5;
+let ca=PHASES[phaseIdx].cityAlpha;if(transitioning)ca=lerp(ca,PHASES[phaseTarget].cityAlpha,phaseT);
+const winA=transitioning?lerpAlpha(PHASES[phaseIdx].cityWin,PHASES[phaseTarget].cityWin,phaseT):PHASES[phaseIdx].cityWin;
+for(let pass=0;pass<3;pass++){BUILDINGS.forEach(b=>{const bx=((b.x+ox+pass*BASE_W)%(BASE_W*3))-BASE_W;if(bx+b.w<-2||bx>BASE_W+2)return;ctx.fillStyle=`rgba(10,5,25,${ca})`;ctx.fillRect(bx,gy-b.h,b.w,b.h);for(let wy=gy-b.h+6;wy<gy-8;wy+=11)for(let wx=bx+3;wx<bx+b.w-3;wx+=7)if((Math.floor(wx/7)+Math.floor(wy/11))%3!==0){ctx.fillStyle=winA;ctx.fillRect(wx,wy,3,4);}});}
+}
+
+const CLOUDS=[{x:20,y:40,w:65,h:20},{x:120,y:22,w:85,h:26},{x:195,y:60,w:55,h:18},{x:260,y:42,w:72,h:24}];
+function drawClouds(){let cc=PHASES[phaseIdx].cloudColor;if(transitioning)cc=lerpAlpha(cc,PHASES[phaseTarget].cloudColor,phaseT);CLOUDS.forEach(cl=>{const cx=((cl.x+bgOffset*0.4+BASE_W*3)%(BASE_W+120))-60;ctx.fillStyle=cc;cloudShape(cx,cl.y,cl.w,cl.h);});}
+function cloudShape(x,y,w,h){ctx.beginPath();ctx.ellipse(x+w*.5,y+h*.6,w*.5,h*.5,0,0,Math.PI*2);ctx.ellipse(x+w*.25,y+h*.8,w*.3,h*.4,0,0,Math.PI*2);ctx.ellipse(x+w*.75,y+h*.8,w*.28,h*.4,0,0,Math.PI*2);ctx.fill();}
+
+function drawGround(){
+const gy=BASE_H-GROUND_H,ds=gy+NEWS_BAND_H;
+ctx.fillStyle='#0f000a';ctx.fillRect(0,gy,BASE_W,NEWS_BAND_H);
+ctx.fillStyle='#ff6b35';ctx.fillRect(0,gy+NEWS_BAND_H-2,BASE_W,2);
+ctx.fillStyle=groundColor('groundTop');ctx.fillRect(0,ds,BASE_W,GROUND_H-NEWS_BAND_H);
+ctx.fillStyle=groundColor('groundDark');ctx.fillRect(0,ds+16,BASE_W,GROUND_H-NEWS_BAND_H-16);
+ctx.fillStyle=groundColor('grassTop');ctx.fillRect(0,ds,BASE_W,8);
+ctx.fillStyle=groundColor('grassTuft');
+for(let x=(groundOffset%24);x<BASE_W+24;x+=24){ctx.beginPath();ctx.moveTo(x,ds+8);ctx.lineTo(x+4,ds);ctx.lineTo(x+8,ds+8);ctx.fill();}
+}
+
+function drawNewsTicker(){
+const gy=BASE_H-GROUND_H,ty=gy+NEWS_BAND_H/2;
+ctx.save();ctx.beginPath();ctx.rect(36,gy,BASE_W-36,NEWS_BAND_H);ctx.clip();
+ctx.fillStyle='#ffd700';ctx.font='9px monospace';ctx.textAlign='left';ctx.textBaseline='middle';
+ctx.fillText(newsText,newsX,ty);const tw=ctx.measureText(newsText).width;newsX-=NEWS_SPEED;if(newsX+tw<36)advanceNews();
+ctx.restore();
+ctx.fillStyle='#ff6b35';ctx.fillRect(0,gy+3,34,NEWS_BAND_H-6);
+ctx.fillStyle='#fff';ctx.font='bold 7px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('NEWS',17,ty);
+}
+
+function drawPipes(){
+let rim=PHASES[phaseIdx].pipeRim;if(transitioning)rim=lerpColor(rim,PHASES[phaseTarget].pipeRim,phaseT);
+pipes.forEach(p=>{const pr=p.pc?p.pc.rim:rim;const pp=p.pc||null;drawPipe(p.x,0,p.gapTop,true,pr,pp);drawPipe(p.x,p.gapBot,BASE_H-GROUND_H,false,pr,pp);});
+}
+function drawPipe(x,y,h,isTop,rim,pp){
+if(!pp)pp={body:'#2c1a00',light:'#5a3200',dark:'#1a0e00',cap:'#3d2200'};if(h<=0)return;
+const capH=26,capW=PIPE_WIDTH+8,capX=x-4;
+ctx.fillStyle=pp.body;ctx.fillRect(x,y,PIPE_WIDTH,h);
+ctx.fillStyle=pp.light;ctx.fillRect(x+3,y,6,h);
+ctx.fillStyle=pp.dark;ctx.fillRect(x+PIPE_WIDTH-7,y,7,h);
+ctx.strokeStyle=rim;ctx.lineWidth=1;ctx.strokeRect(x,y,PIPE_WIDTH,h);
+const capY=isTop?h-capH:y;
+ctx.fillStyle=pp.cap;ctx.fillRect(capX,capY,capW,capH);
+ctx.fillStyle=pp.light;ctx.fillRect(capX+3,capY+3,capW-6,7);
+ctx.strokeStyle=rim;ctx.lineWidth=1;ctx.strokeRect(capX,capY,capW,capH);
+}
+
+function drawBird(){
+const r=18;ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(bird.rot);
+if(bird.flashT>0){ctx.globalAlpha=0.5+0.5*Math.sin(bird.flashT*0.8);bird.flashT--;}
+ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.clip();
+if(faceLoaded){ctx.drawImage(FACE_IMG,-r,-r,r*2,r*2);}else{ctx.fillStyle='#f5d442';ctx.fill();}
+ctx.restore();
+ctx.save();ctx.translate(bird.x,bird.y);ctx.rotate(bird.rot);
+ctx.beginPath();ctx.arc(0,0,r,0,Math.PI*2);ctx.strokeStyle='#ff6b00';ctx.lineWidth=2.5;ctx.stroke();
+ctx.restore();
+}
+
+function drawParticles(){particles.forEach(p=>{ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;ctx.fillRect(p.x-p.size/2,p.y-p.size/2,p.size,p.size);ctx.restore();});}
+
+function drawHUD(){
+if(state==='playing'||state==='dead')drawScore(score,BASE_W/2,52);
+if(state==='playing'){const pn=transitioning?'✨':['☀️','🌅','🌙'][phaseIdx];ctx.fillStyle='rgba(0,0,0,0.45)';ctx.font='10px monospace';ctx.textAlign='right';ctx.textBaseline='top';ctx.fillText(pn+(autoplay?' 🤖':''),BASE_W-6,6);}
+if(state==='idle')drawStartScreen();
+if(state==='dead'){deathTimer++;if(!bird.alive&&deathTimer<30)bird.flashT=5;if(deathTimer>25)drawGameOver();if(autoplay&&deathTimer>50){initGame();state='playing';}}
+}
+function drawScore(val,cx,cy){ctx.font='bold 32px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillStyle='rgba(0,0,0,0.5)';ctx.fillText(String(val),cx+2,cy+2);ctx.fillStyle='#fff';ctx.fillText(String(val),cx,cy);}
+function roundRect(c,x,y,w,h,r){c.beginPath();c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.quadraticCurveTo(x+w,y,x+w,y+r);c.lineTo(x+w,y+h-r);c.quadraticCurveTo(x+w,y+h,x+w-r,y+h);c.lineTo(x+r,y+h);c.quadraticCurveTo(x,y+h,x,y+h-r);c.lineTo(x,y+r);c.quadraticCurveTo(x,y,x+r,y);c.closePath();}
+
+function drawStartScreen(){
+bird.y=BASE_H/2-20+Math.sin(frameCount*0.05)*8;bird.rot=Math.sin(frameCount*0.04)*0.12;bird.wing=Math.floor(frameCount/5)%WING_FRAMES;
+const pw=224,ph=132,px=(BASE_W-pw)/2,py=BASE_H/2-145;
+roundRect(ctx,px,py,pw,ph,12);ctx.fillStyle='rgba(10,0,30,0.80)';ctx.fill();ctx.strokeStyle='#ff6b00';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle='#f9ca24';ctx.font='bold 22px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('FLAPPY ISMA',BASE_W/2,py+30);
+ctx.fillStyle='#ff9955';ctx.font='9px monospace';ctx.fillText('by Ismaele Maione',BASE_W/2,py+54);
+ctx.strokeStyle='rgba(255,153,85,0.35)';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(px+18,py+68);ctx.lineTo(px+pw-18,py+68);ctx.stroke();
+if(Math.floor(frameCount/20)%2===0){ctx.fillStyle='#fff';ctx.font='10px monospace';ctx.fillText('TAP TO START',BASE_W/2,py+92);}
+if(bestScore>0){ctx.fillStyle='#ffd700';ctx.font='9px monospace';ctx.fillText('BEST: '+bestScore,BASE_W/2,py+114);}
+}
+
+function drawGameOver(){
+const pw=210,ph=deathTimer>60?170:100,px=(BASE_W-pw)/2,py=BASE_H/2-118;
+roundRect(ctx,px,py,pw,ph,12);ctx.fillStyle='rgba(10,0,30,0.80)';ctx.fill();ctx.strokeStyle='#f55';ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle='#ff4444';ctx.font='bold 18px monospace';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('GAME OVER',BASE_W/2,py+30);
+ctx.fillStyle='#fff';ctx.font='13px monospace';ctx.fillText('SCORE: '+score,BASE_W/2,py+58);
+if(deathTimer>60){
+ctx.fillStyle='#ffd700';ctx.fillText('BEST:  '+bestScore,BASE_W/2,py+82);
+if(Math.floor(deathTimer/20)%2===0){ctx.fillStyle='#fff';ctx.font='10px monospace';ctx.fillText('TAP TO RESTART',BASE_W/2,py+128);}
+ctx.fillStyle='rgba(255,153,85,0.55)';ctx.font='8px monospace';ctx.fillText('by Ismaele Maione',BASE_W/2,py+152);
+}
+}
+
+// ===================== GAME LOOP =====================
+let lastTime=0;const TARGET_DT=60;
+let rafId=null,running=false;
+function loop(ts){
+const dt=Math.min((ts-lastTime)/(1000/TARGET_DT),3);lastTime=ts;frameCount++;
+if(state!=='playing')updatePhase(dt);
+updatePhysics(dt);
+if(state==='idle'){groundOffset=(groundOffset-PIPE_SPEED_BASE*dt)%48;bgOffset=(bgOffset-PIPE_SPEED_BASE*0.3*dt)%BASE_W;bird.wing=Math.floor(frameCount/5)%WING_FRAMES;if(autoplay){state='playing';}}
+render();
+if(running)rafId=requestAnimationFrame(loop);
+}
+
+// Il loop girava a 60fps per sempre, anche dal menù, e una partita lasciata a metà
+// moriva da sola perché la fisica continuava ad avanzare. Ora si congela.
+function startLoop(){
+if(running)return;
+running=true;
+if(newsTimer===null)newsTimer=setInterval(fetchNews,5*60*1000);
+rafId=requestAnimationFrame(ts=>{lastTime=ts;if(running)rafId=requestAnimationFrame(loop);});
+}
+function stopLoop(){
+running=false;
+if(rafId!==null){cancelAnimationFrame(rafId);rafId=null;}
+if(newsTimer!==null){clearInterval(newsTimer);newsTimer=null;}
+}
+flappyPause=stopLoop;flappyResume=startLoop;
+
+initGame();
+startLoop();
+} // end initFlappy
+</script>
+
+</body>
+</html>
