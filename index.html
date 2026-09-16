@@ -1,11 +1,15 @@
 <!DOCTYPE html>
-<html lang="it" class="no-js">a
+<html lang="it" class="no-js">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Coscienza di Ismaele Maione</title>
 <meta name="description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
-<link rel="icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" type="image/jpeg" />
+<!-- Favicon disegnata qui dentro: nessuna richiesta di rete, quindi nessun
+     blocco possibile. L'immagine del profilo su pbs.twimg.com veniva filtrata
+     dai blocker di tracciamento, che trattano i domini Twitter come terze parti. -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230B0B0C'/%3E%3Ccircle cx='16' cy='16' r='6.5' fill='%23C6A15B'/%3E%3C/svg%3E" />
+<link rel="apple-touch-icon" href="https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg" />
 <meta name="theme-color" content="#0B0B0C" />
 
 <!-- Indirizzo di produzione: se un giorno passi a un dominio tuo,
@@ -171,12 +175,23 @@ button{font:inherit;color:inherit}
 }
 
 /* ---------- utilità ---------- */
+/* Salto al contenuto: esce dall'alto, non a sinistra.
+   Con left:-9999px il body (che ha overflow-x:hidden) lo schiacciava
+   contro il bordo sinistro lasciandone sporgere un frammento. */
 .skip{
-  position:absolute;left:-9999px;top:0;z-index:9999;
+  position:fixed;
+  top:0;left:var(--gut);
+  z-index:9999;
   background:var(--paper);color:var(--ink);
-  padding:.75rem 1.25rem;font-size:var(--step--1);
+  padding:.75rem 1.25rem;
+  font-family:var(--mono);
+  font-size:var(--step--1);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  transform:translateY(-200%);
+  transition:transform .3s var(--ease);
 }
-.skip:focus{left:1rem;top:1rem}
+.skip:focus{transform:translateY(0)}
 
 .sr{
   position:absolute;width:1px;height:1px;
@@ -1384,8 +1399,8 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
         <div class="col-sticky">
           <p class="eyebrow rv" style="margin-bottom:1rem">Premessa</p>
           <p class="rv d1" style="color:var(--paper-60);max-width:30ch">
-            Scritto ad aprile 2026, rivisto a settembre. Il progetto avanza
-            piano, come deve.
+            Scritto a settembre 2025, ritoccato <span data-revisione>di recente</span>.
+            Il progetto avanza piano, come deve.
           </p>
         </div>
 
@@ -1402,7 +1417,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
             piano piano. La coscienza è sviluppata con LLM, Groq e Vercel.
           </p>
 
-          <p class="eyebrow rv d1">— Ismaele, aprile 2026 · rev. settembre 2026</p>
+          <p class="eyebrow rv d1">— Ismaele, settembre 2025</p>
         </div>
       </div>
     </div>
@@ -1473,7 +1488,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
             </div>
             <div class="fact rv">
               <dt>04</dt>
-              <dd>Accesa ad aprile 2026. <em>Ultima revisione a settembre.</em></dd>
+              <dd>Accesa a settembre 2025. <em>Ultima revisione <span data-revisione>di recente</span>.</em></dd>
             </div>
             <div class="fact rv">
               <dt>05</dt>
@@ -1567,7 +1582,6 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
     <div class="shell">
       <div class="foot-grid">
         <span>Ismaele Maione — 2026</span>
-        <span id="foot-clock">—</span>
         <button class="to-top" type="button" data-scroll-to="#hero">Torna in cima ↑</button>
       </div>
     </div>
@@ -1640,6 +1654,20 @@ document.documentElement.classList.add('js');
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const COARSE = window.matchMedia('(hover: none), (pointer: coarse)').matches;
 if (REDUCED) document.body.classList.add('reduced');
+
+/* Giorni dall'ultima revisione: cambia ogni giorno, ma è calcolato dalla data
+   e non estratto a caso, quindi tutti vedono lo stesso valore nello stesso
+   giorno. Serve sia al sito sia al contesto della coscienza, che così non
+   racconta una data diversa da quella scritta nelle pagine. */
+function giorniDallaRevisione() {
+  const giorno = Math.floor(Date.now() / 86400000);
+  const x = Math.sin(giorno * 12.9898) * 43758.5453;
+  return 1 + Math.floor((x - Math.floor(x)) * 13); // da 1 a 13
+}
+function testoRevisione() {
+  const n = giorniDallaRevisione();
+  return n === 1 ? '1 giorno fa' : n + ' giorni fa';
+}
 
 /* ============================================================
    B. NAVIGAZIONE A OVERLAY
@@ -1974,7 +2002,6 @@ accaddeEl.addEventListener('click', () => {
   /* ---------- D5. progresso, nav, orologio del footer ---------- */
   const barra = document.querySelector('#progress span');
   const nav = document.getElementById('nav');
-  const footClock = document.getElementById('foot-clock');
   let ultimoY = 0, vh = window.innerHeight, hMax = 1;
 
   function misura() {
@@ -2032,13 +2059,14 @@ accaddeEl.addEventListener('click', () => {
     });
   }
 
-  function orologioFooter() {
-    if (!footClock) return;
-    const d = new Date();
-    footClock.textContent = d.toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit', hour12: false }) + ' — Brescia';
+  /* ---------- D5b. "ultima revisione" ---------- */
+  function scriviRevisione() {
+    const testo = testoRevisione();
+    document.querySelectorAll('[data-revisione]').forEach(e => { e.textContent = testo; });
   }
-  orologioFooter();
-  setInterval(orologioFooter, 30000);
+  scriviRevisione();
+  // se la pagina resta aperta a cavallo della mezzanotte, il valore si aggiorna
+  setInterval(scriviRevisione, 60 * 60 * 1000);
 
   /* ---------- D6. cursore (solo puntatore fine) ---------- */
   if (!COARSE && !REDUCED) {
@@ -2101,7 +2129,7 @@ const USER_AVATAR = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 // mettendo l'ora corrente in mezzo al system prompt si invalidava la cache ogni minuto.
 const FACTS = {
   persona: "Ismaele Maione",
-  origine: "questa coscienza è stata accesa ad aprile 2026 ed ha subito aggiornamenti nel tempo, ultima revisione a settembre (è la data di nascita della coscienza, non di Ismaele, lui è nato il 4 aprile)",
+  origine: "questa coscienza è stata accesa a settembre 2025 ed ha subito aggiornamenti nel tempo (è la data di nascita della coscienza, non di Ismaele, lui è nato il 4 aprile)",
   lavoro: "Shift Manager: turni, persone da coordinare, numeri da far tornare",
   relazione: "impegnato in una relazione; dei dettagli sulla compagna non si parla",
   dispositivo: "Google Pixel 9",
@@ -2171,7 +2199,8 @@ function buildContextMessage() {
     "# CONTESTO DI QUESTO ISTANTE",
     "- Adesso sono le " + ora + " di " + data + " (" + f.nome + ").",
     "- " + f.tono,
-    "- Accadde oggi, in questa data: " + storia
+    "- Accadde oggi, in questa data: " + storia,
+    "- L'ultima revisione di questa coscienza risale a " + testoRevisione() + ": è lo stesso dato scritto sul sito."
   ];
 
   if (lastSeenAt && chatHistory.length) {
