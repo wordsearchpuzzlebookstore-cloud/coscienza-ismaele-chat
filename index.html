@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Coscienza di Ismaele Maione</title>
+<title>Ismaele Maione Project</title>
 <meta name="description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <!-- Favicon disegnata qui dentro: nessuna richiesta di rete, quindi nessun
      blocco possibile. L'immagine del profilo su pbs.twimg.com veniva filtrata
@@ -17,7 +17,7 @@
      in robots.txt e in sitemap.xml. -->
 <link rel="canonical" href="https://coscienza-ismaele-chat.vercel.app/" />
 
-<meta property="og:title" content="Coscienza di Ismaele Maione" />
+<meta property="og:title" content="Ismaele Maione Project" />
 <meta property="og:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <!-- Anteprima social: la foto ritagliata a 1200×630, il formato che
      WhatsApp, LinkedIn e X si aspettano. In JPEG perché non tutte le
@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="Coscienza di Ismaele" />
 <meta property="og:locale" content="it_IT" />
 <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="Coscienza di Ismaele Maione" />
+<meta name="twitter:title" content="Ismaele Maione Project" />
 <meta name="twitter:description" content="Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione." />
 <meta name="twitter:image" content="https://coscienza-ismaele-chat.vercel.app/og-deserto.jpg" />
 <meta name="twitter:creator" content="@ismaele_maione" />
@@ -67,7 +67,7 @@
       "knowsAbout": ["Intelligenza artificiale", "Storia", "Spazio", "Automazione del lavoro", "Formula 1"],
       "sameAs": [
         "https://www.instagram.com/ismaelemaione",
-        "https://www.linkedin.com/in/ismaele-maione",
+        "https://it.linkedin.com/in/ismaele-maione",
         "https://x.com/ismaele_maione"
       ]
     },
@@ -1613,7 +1613,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
         <a class="contact-row rv" href="https://www.instagram.com/ismaelemaione" target="_blank" rel="noopener noreferrer">
           <span class="lbl">Instagram</span><span class="hnd">@ismaelemaione</span>
         </a>
-        <a class="contact-row rv d1" href="https://www.linkedin.com/in/ismaele-maione?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank" rel="noopener noreferrer">
+        <a class="contact-row rv d1" href="https://it.linkedin.com/in/ismaele-maione" target="_blank" rel="noopener noreferrer">
           <span class="lbl">LinkedIn</span><span class="hnd">ismaele-maione</span>
         </a>
         <a class="contact-row rv d2" href="https://x.com/ismaele_maione" target="_blank" rel="noopener noreferrer">
@@ -1989,7 +1989,8 @@ accaddeEl.addEventListener('click', () => {
       if (i < parole.length - 1) p.appendChild(document.createTextNode(' '));
       nodi.push(w);
     });
-    lettori.push({ el: p, nodi, acceso: -1 });
+    // parte da 0: nessuna parola accesa, ed è un conteggio coerente col resto
+    lettori.push({ el: p, nodi, acceso: 0 });
   });
 
   function aggiornaLettori(vh) {
@@ -2001,8 +2002,14 @@ accaddeEl.addEventListener('click', () => {
       const q = p < 0 ? 0 : (p > 1 ? 1 : p);
       const quante = Math.round(q * L.nodi.length);
       if (quante === L.acceso) continue;
-      if (quante > L.acceso) for (let k = L.acceso + 1; k < quante; k++) { if (L.nodi[k]) L.nodi[k].classList.add('on'); }
-      else for (let k = L.acceso; k >= quante; k--) { if (L.nodi[k]) L.nodi[k].classList.remove('on'); }
+      // L.acceso è un CONTEGGIO, non l'indice dell'ultima parola: prima
+      // ripartivo da acceso+1 e a ogni scatto dello scorrimento saltavo
+      // la parola sul confine, lasciando buchi grigi in mezzo alla frase.
+      if (quante > L.acceso) {
+        for (let k = L.acceso; k < quante; k++) { if (L.nodi[k]) L.nodi[k].classList.add('on'); }
+      } else {
+        for (let k = L.acceso - 1; k >= quante; k--) { if (L.nodi[k]) L.nodi[k].classList.remove('on'); }
+      }
       L.acceso = quante;
     }
   }
