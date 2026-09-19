@@ -808,6 +808,11 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   scroll-behavior:smooth;
   overscroll-behavior-x:contain;
   -webkit-overflow-scrolling:touch;
+  /* Il browser, quando il contenuto cambia, sposta lo scorrimento per tenere
+     ferma la tavola che aveva sotto. Qui il contenuto cambia per forza,
+     perché all'avvio rimescoliamo l'ordine: senza questa riga si finiva a
+     guardare la seconda tavola invece della prima. */
+  overflow-anchor:none;
   /* la barra di scorrimento sparisce: la navigazione è nei controlli sotto */
   scrollbar-width:none;
   padding-block:.25rem;
@@ -1635,6 +1640,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
               <figure class="car-slide"><img src="memoria-05.webp" srcset="memoria-05-sm.webp 700w, memoria-05.webp 1100w" sizes="(min-width:900px) 52vw, 92vw" width="1100" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
               <figure class="car-slide"><img src="memoria-06.webp" srcset="memoria-06-sm.webp 700w, memoria-06.webp 1100w" sizes="(min-width:900px) 52vw, 92vw" width="1100" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
               <figure class="car-slide"><img src="memoria-07.webp" srcset="memoria-07-sm.webp 525w, memoria-07.webp 825w" sizes="(min-width:900px) 52vw, 92vw" width="825" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-08.webp" srcset="memoria-08-sm.webp 933w, memoria-08.webp 1448w" sizes="(min-width:900px) 52vw, 92vw" width="1448" height="1086" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
             </div>
 
             <div class="car-barra">
@@ -2246,6 +2252,15 @@ accaddeEl.addEventListener('click', () => {
       // appendChild su un nodo già presente lo sposta: riappendo nell'ordine nuovo
       mescolate.forEach(s => vista.appendChild(s));
       slide = mescolate;
+
+      /* E si riparte dall'inizio. Spostare i figli di un contenitore
+         scorrevole lascia lo scorrimento dov'era, quindi senza questa riga
+         la tavola sotto gli occhi non era quella in prima posizione mentre
+         gli indicatori segnavano la prima: due informazioni in disaccordo.
+         behavior 'auto' perché il CSS qui scorre morbido e vedresti il
+         ritorno a sinistra come un'animazione all'apertura della pagina. */
+      if (typeof vista.scrollTo === 'function') vista.scrollTo({ left: 0, behavior: 'auto' });
+      else vista.scrollLeft = 0;
     }
 
     /* Nel markup sono tutte differite. Ora che l'ordine è deciso, togliamo il
@@ -2333,12 +2348,15 @@ accaddeEl.addEventListener('click', () => {
     car.addEventListener('pointerup', rilascia, { passive: true });
     car.addEventListener('pointercancel', rilascia, { passive: true });
 
-    // niente giri a vuoto quando la sezione non si vede o la scheda è nascosta
+    /* Niente giri a vuoto quando la sezione non si vede o la scheda è nascosta.
+       La soglia è mezzo carosello, non un quarto: con un quarto l'avanzamento
+       partiva mentre stavi ancora scorrendo verso la sezione, e arrivavi a
+       guardarlo quando era già passato alla tavola dopo. */
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(es => {
         visibile = es[0].isIntersecting;
         visibile ? avvia() : ferma();
-      }, { threshold: 0.25 }).observe(car);
+      }, { threshold: 0.5 }).observe(car);
     } else {
       visibile = true; avvia();
     }
