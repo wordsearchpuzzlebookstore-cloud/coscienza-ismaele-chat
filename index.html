@@ -791,6 +791,103 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 .sp-md{margin-top:clamp(1.5rem,4vh,2.5rem)}
 .sp-xs-t{margin-top:clamp(.5rem,2vh,1.25rem)}
 
+/* ============================================================
+   CAROSELLO DELLE MEMORIE
+   Una tavola per volta. Nessun ritaglio: i disegni hanno forme
+   diverse e restano interi, la cornice segue la loro sagoma.
+   ============================================================ */
+.carosello{ --car-h:clamp(300px,52vh,560px); }
+
+.car-vista{
+  position:relative;
+  display:flex;
+  gap:clamp(1rem,3vw,2rem);
+  overflow-x:auto;
+  overflow-y:hidden;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  /* la barra di scorrimento sparisce: la navigazione è nei controlli sotto */
+  scrollbar-width:none;
+  padding-block:.25rem;
+}
+.car-vista::-webkit-scrollbar{display:none}
+.car-vista:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:2px}
+
+.car-slide{
+  flex:0 0 100%;
+  margin:0;
+  scroll-snap-align:center;
+  scroll-snap-stop:always;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-width:0;
+}
+/* La cornice avvolge l'immagine, non il contenitore: così una tavola
+   verticale e una orizzontale hanno entrambe il loro bordo, e lo spazio
+   che resta ai lati è semplicemente il fondo della pagina. */
+.car-slide img{
+  display:block;
+  /* limitata sia in altezza sia in larghezza: la tavola verticale è stretta
+     e alta, quella orizzontale larga e bassa, e nessuna viene ritagliata */
+  max-height:var(--car-h);
+  max-width:100%;
+  width:auto;height:auto;
+  background:var(--paper);
+  border:clamp(7px,1vw,12px) solid var(--paper);
+  box-shadow:0 26px 60px -24px rgba(0,0,0,.9), 0 2px 0 rgba(255,255,255,.04);
+}
+
+/* ---------- controlli ---------- */
+.car-barra{
+  display:flex;align-items:center;
+  gap:clamp(.6rem,2vw,1.1rem);
+  margin-top:clamp(1rem,3vh,1.6rem);
+}
+.car-freccia{
+  flex:0 0 auto;
+  width:38px;height:38px;
+  display:inline-grid;place-items:center;
+  background:none;border:1px solid var(--paper-14);border-radius:50%;
+  color:var(--paper-60);cursor:pointer;
+  transition:color .3s ease,border-color .3s ease,transform .18s var(--ease);
+}
+.car-freccia:hover{color:var(--paper);border-color:var(--paper-38)}
+.car-freccia:active{transform:scale(.94)}
+.car-freccia svg{width:.85rem;height:.85rem}
+
+.car-punti{
+  flex:1 1 auto;
+  display:flex;align-items:center;
+  gap:6px;
+}
+.car-punto{
+  flex:0 0 auto;
+  width:22px;height:2px;padding:0;
+  background:var(--paper-14);border:0;cursor:pointer;
+  transition:background-color .35s ease,transform .35s var(--ease);
+}
+.car-punto:hover{background:var(--paper-38)}
+.car-punto[aria-selected="true"]{background:var(--accent);transform:scaleY(2)}
+
+.car-pausa{
+  flex:0 0 auto;
+  background:none;border:1px solid var(--paper-08);border-radius:999px;
+  padding:.38rem .8rem;cursor:pointer;
+  font-family:var(--mono);font-size:.55rem;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--paper-38);
+  transition:color .3s ease,border-color .3s ease,background-color .3s ease,transform .18s var(--ease);
+}
+.car-pausa:hover{color:var(--paper);border-color:var(--paper-38)}
+.car-pausa:active{transform:scale(.96)}
+.car-pausa[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+/* larghezza minima fissa: l'etichetta passa da Pausa a Riprendi e il bottone
+   non deve allargarsi facendo saltare gli indicatori accanto */
+.car-pausa-t{display:inline-block;min-width:5.2em;text-align:center}
+
 /* ---------- marquee orizzontale ---------- */
 .marquee{
   position:relative;
@@ -1320,6 +1417,9 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   .mq-row{animation:none;width:auto;flex-wrap:wrap}
   /* la foto resta: è contenuto, non movimento. Si ferma solo il parallax. */
   #hero-img{transform:none !important}
+  /* il carosello resta sfogliabile, ma senza scorrimento animato e senza
+     avanzamento automatico (quello lo disattiva già il JavaScript) */
+  .car-vista{scroll-behavior:auto}
 }
 
 /* la classe .reduced è impostata da JS */
@@ -1358,7 +1458,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   <nav class="nav-links" aria-label="Capitoli">
     <a href="#manifesto" data-nav>Manifesto</a>
     <a href="#coscienza" data-nav>Coscienza<span class="nav-hint">la chat</span></a>
-    <a href="#anatomia" data-nav>Anatomia</a>
+    <a href="#memorie" data-nav>Memorie</a>
     <a href="#gioco" data-nav>Intermezzo</a>
     <a href="#contatti" data-nav>Contatti</a>
   </nav>
@@ -1375,7 +1475,7 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
     <ol class="mp-list">
       <li><a href="#manifesto" data-nav-m><span class="mp-n">01</span><span class="mp-t">Manifesto</span></a></li>
       <li><a href="#coscienza" data-nav-m><span class="mp-n">02</span><span class="mp-t">Coscienza<em>la chat</em></span></a></li>
-      <li><a href="#anatomia" data-nav-m><span class="mp-n">03</span><span class="mp-t">Anatomia</span></a></li>
+      <li><a href="#memorie" data-nav-m><span class="mp-n">03</span><span class="mp-t">Memorie<em>disegni</em></span></a></li>
       <li><a href="#gioco" data-nav-m><span class="mp-n">04</span><span class="mp-t">Intermezzo<em>Flappy Isma</em></span></a></li>
       <li><a href="#contatti" data-nav-m><span class="mp-n">05</span><span class="mp-t">Contatti</span></a></li>
     </ol>
@@ -1503,47 +1603,53 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
     </div>
   </section>
 
-  <!-- ============ 03 — ANATOMIA ============ -->
-  <section class="chapter" id="anatomia" aria-labelledby="h-anatomia">
+  <!-- ============ 03 — MEMORIE ============ -->
+  <section class="chapter" id="memorie" aria-labelledby="h-memorie">
     <div class="shell">
       <div class="ch-head">
-        <span class="eyebrow rv">Anatomia</span>
+        <span class="eyebrow rv">Memorie</span>
         <span class="ch-num rv">03</span>
       </div>
 
       <div class="split">
         <div class="col-sticky">
-          <h2 class="mid mask" id="h-anatomia"><span>Le coordinate<br>che la tengono<br><span class="it amber">ferma</span></span></h2>
+          <h2 class="mid mask" id="h-memorie"><span>Quello che resta<br><span class="it amber">impresso</span></span></h2>
           <p class="rv d2 sp-md" style="color:var(--paper-60);max-width:34ch">
-            I pilastri su cui poggia tutto il resto. Può ragionare su qualunque
+            I ricordi su cui poggia tutto il resto. Può ragionare su qualunque
             cosa e contraddirti su quasi tutto, ma questi non li piega e non li
             inventa: sono il punto fermo da cui parte ogni pensiero.
           </p>
         </div>
 
         <div class="col-flow">
-          <dl class="facts three">
-            <div class="fact rv">
-              <dt>01</dt>
-              <dd>Segue la Formula 1. <em>Il calcio lo trova insopportabile.</em></dd>
+          <!-- Carosello: lo scorrimento è quello nativo del browser, con
+               agganciamento a una tavola per volta. Il JavaScript aggiunge solo
+               l'avanzamento automatico, quindi senza JS resta sfogliabile. -->
+          <div class="carosello rv" data-carosello data-intervallo="2500" data-mescola>
+            <div class="car-vista" tabindex="0" role="group"
+                 aria-roledescription="carosello" aria-label="Memorie disegnate a mano">
+              <figure class="car-slide"><img src="memoria-01.webp" srcset="memoria-01-sm.webp 1058w, memoria-01.webp 1541w" sizes="(min-width:900px) 52vw, 92vw" width="1541" height="1020" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-02.webp" srcset="memoria-02-sm.webp 525w, memoria-02.webp 825w" sizes="(min-width:900px) 52vw, 92vw" width="825" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-03.webp" srcset="memoria-03-sm.webp 527w, memoria-03.webp 828w" sizes="(min-width:900px) 52vw, 92vw" width="828" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-04.webp" srcset="memoria-04-sm.webp 527w, memoria-04.webp 828w" sizes="(min-width:900px) 52vw, 92vw" width="828" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-05.webp" srcset="memoria-05-sm.webp 700w, memoria-05.webp 1100w" sizes="(min-width:900px) 52vw, 92vw" width="1100" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-06.webp" srcset="memoria-06-sm.webp 700w, memoria-06.webp 1100w" sizes="(min-width:900px) 52vw, 92vw" width="1100" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
+              <figure class="car-slide"><img src="memoria-07.webp" srcset="memoria-07-sm.webp 525w, memoria-07.webp 825w" sizes="(min-width:900px) 52vw, 92vw" width="825" height="1100" alt="Memoria disegnata a mano" loading="lazy" decoding="async" /></figure>
             </div>
-            <div class="fact rv">
-              <dt>02</dt>
-              <dd>Elettronica. <em>Ascoltata per pensare, non per ballare.</em></dd>
+
+            <div class="car-barra">
+              <button class="car-freccia" type="button" data-car-prec aria-label="Memoria precedente">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M14 8H2M7 3L2 8l5 5"/></svg>
+              </button>
+              <div class="car-punti" role="tablist" aria-label="Vai a una memoria"></div>
+              <button class="car-freccia" type="button" data-car-succ aria-label="Memoria successiva">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M2 8h12M9 3l5 5-5 5"/></svg>
+              </button>
+              <button class="car-pausa" type="button" data-car-pausa aria-pressed="false">
+                <span class="car-pausa-t">Pausa</span>
+              </button>
             </div>
-            <div class="fact rv">
-              <dt>03</dt>
-              <dd>Storia, spazio, tecnologia. <em>E l'automazione del lavoro.</em></dd>
-            </div>
-            <div class="fact rv">
-              <dt>04</dt>
-              <dd>Accesa a settembre 2025. <em>Ultima revisione <span data-revisione>di recente</span>.</em></dd>
-            </div>
-            <div class="fact rv">
-              <dt>05</dt>
-              <dd>Un'ossessione sola. <em>Essere ricordato.</em></dd>
-            </div>
-          </dl>
+          </div>
         </div>
       </div>
     </div>
@@ -2052,7 +2158,7 @@ accaddeEl.addEventListener('click', () => {
   });
 
   // Capitolo corrente evidenziato sia nella barra sia nell'indice.
-  const CAPITOLI = ['manifesto', 'coscienza', 'anatomia', 'gioco', 'contatti'];
+  const CAPITOLI = ['manifesto', 'coscienza', 'memorie', 'gioco', 'contatti'];
   if ('IntersectionObserver' in window) {
     const voci = document.querySelectorAll('.nav-links a[data-nav], .mp-list a[data-nav-m]');
     const perId = {};
@@ -2111,6 +2217,142 @@ accaddeEl.addEventListener('click', () => {
       if (e.target.closest(interattivi)) anello.classList.remove('grow');
     });
   }
+
+  /* ---------- D6b. carosello delle memorie ----------
+     L'avanzamento automatico si ferma appena l'utente si avvicina, quando la
+     sezione esce dallo schermo e quando la scheda va in secondo piano. Il
+     bottone Pausa esiste perché un movimento automatico che dura più di
+     cinque secondi deve poter essere fermato: è un requisito, non un extra. */
+  document.querySelectorAll('[data-carosello]').forEach(car => {
+    const vista = car.querySelector('.car-vista');
+    let slide = Array.from(car.querySelectorAll('.car-slide'));
+    const punti = car.querySelector('.car-punti');
+    const btnPausa = car.querySelector('[data-car-pausa]');
+    const etichetta = btnPausa ? btnPausa.querySelector('.car-pausa-t') : null;
+    const attesa = Number(car.getAttribute('data-intervallo')) || 2500;
+    if (!vista || slide.length < 2) return;
+
+    let indice = 0, timer = null, sospeso = false, inPausa = false, visibile = false;
+
+    /* Ordine diverso a ogni caricamento: anche la prima tavola che vedi cambia.
+       Nel markup l'ordine resta quello scritto, così Google legge sempre lo
+       stesso documento: il rimescolamento vive solo nel browser. */
+    if (car.hasAttribute('data-mescola') && slide.length > 2) {
+      const mescolate = slide.slice();
+      for (let i = mescolate.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        const t = mescolate[i]; mescolate[i] = mescolate[j]; mescolate[j] = t;
+      }
+      // appendChild su un nodo già presente lo sposta: riappendo nell'ordine nuovo
+      mescolate.forEach(s => vista.appendChild(s));
+      slide = mescolate;
+    }
+
+    /* Nel markup sono tutte differite. Ora che l'ordine è deciso, togliamo il
+       rinvio alle prime due: sarebbe assurdo aspettare per la tavola già a
+       schermo e per quella che arriva fra due secondi e mezzo. */
+    slide.forEach((s, i) => {
+      const im = s.querySelector('img');
+      if (!im) return;
+      if (i < 2) im.removeAttribute('loading');
+      else im.setAttribute('loading', 'lazy');
+    });
+
+    const bottoni = slide.map((_, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'car-punto';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Memoria ' + (i + 1) + ' di ' + slide.length);
+      b.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+      b.addEventListener('click', () => { vaiA(i); riparti(); });
+      if (punti) punti.appendChild(b);
+      return b;
+    });
+
+    function segna() {
+      bottoni.forEach((b, k) => b.setAttribute('aria-selected', k === indice ? 'true' : 'false'));
+    }
+    function vaiA(i) {
+      indice = (i + slide.length) % slide.length;
+      const target = slide[indice];
+      const dx = target.getBoundingClientRect().left - vista.getBoundingClientRect().left;
+      const meta = vista.scrollLeft + dx;
+      // scrollTo con animazione dove c'è, salto secco dove manca
+      if (typeof vista.scrollTo === 'function') {
+        vista.scrollTo({ left: meta, behavior: REDUCED ? 'auto' : 'smooth' });
+      } else {
+        vista.scrollLeft = meta;
+      }
+      segna();
+    }
+    function avvia() {
+      if (timer || inPausa || sospeso || REDUCED || !visibile) return;
+      timer = setInterval(() => vaiA(indice + 1), attesa);
+    }
+    function ferma() { if (timer) { clearInterval(timer); timer = null; } }
+    function riparti() { ferma(); avvia(); }
+
+    // l'indice segue anche lo scorrimento fatto a mano
+    let attesaScroll;
+    vista.addEventListener('scroll', () => {
+      clearTimeout(attesaScroll);
+      attesaScroll = setTimeout(() => {
+        const centro = vista.scrollLeft + vista.clientWidth / 2;
+        let vicina = 0, minima = Infinity;
+        slide.forEach((s, i) => {
+          const d = Math.abs((s.offsetLeft + s.offsetWidth / 2) - centro);
+          if (d < minima) { minima = d; vicina = i; }
+        });
+        if (vicina !== indice) { indice = vicina; segna(); }
+      }, 90);
+    }, { passive: true });
+
+    const frecciaPrec = car.querySelector('[data-car-prec]');
+    const frecciaSucc = car.querySelector('[data-car-succ]');
+    if (frecciaPrec) frecciaPrec.addEventListener('click', () => { vaiA(indice - 1); riparti(); });
+    if (frecciaSucc) frecciaSucc.addEventListener('click', () => { vaiA(indice + 1); riparti(); });
+
+    if (btnPausa) {
+      btnPausa.addEventListener('click', () => {
+        inPausa = !inPausa;
+        btnPausa.setAttribute('aria-pressed', inPausa ? 'true' : 'false');
+        if (etichetta) etichetta.textContent = inPausa ? 'Riprendi' : 'Pausa';
+        inPausa ? ferma() : avvia();
+      });
+    }
+
+    // sospensioni temporanee: mouse sopra, dito sopra, focus dentro
+    const sospendi = () => { sospeso = true; ferma(); };
+    const rilascia = () => { sospeso = false; avvia(); };
+    car.addEventListener('mouseenter', sospendi);
+    car.addEventListener('mouseleave', rilascia);
+    car.addEventListener('focusin', sospendi);
+    car.addEventListener('focusout', rilascia);
+    car.addEventListener('pointerdown', sospendi, { passive: true });
+    car.addEventListener('pointerup', rilascia, { passive: true });
+    car.addEventListener('pointercancel', rilascia, { passive: true });
+
+    // niente giri a vuoto quando la sezione non si vede o la scheda è nascosta
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(es => {
+        visibile = es[0].isIntersecting;
+        visibile ? avvia() : ferma();
+      }, { threshold: 0.25 }).observe(car);
+    } else {
+      visibile = true; avvia();
+    }
+    document.addEventListener('visibilitychange', () => {
+      document.hidden ? ferma() : avvia();
+    });
+
+    // le frecce della tastiera funzionano già sul contenitore scorrevole,
+    // ma tengo allineato l'indice e sospendo l'automatismo mentre si naviga
+    vista.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); vaiA(indice + 1); riparti(); }
+      else if (e.key === 'ArrowLeft') { e.preventDefault(); vaiA(indice - 1); riparti(); }
+    });
+  });
 
   /* ---------- D7. avvio, ora che tutto è dichiarato ---------- */
   misura();
