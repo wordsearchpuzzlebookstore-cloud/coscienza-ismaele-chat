@@ -28,7 +28,7 @@
 <meta property="og:image:alt" content="Ismaele Maione di spalle cammina in un deserto di pietre verso l'orizzonte." />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://coscienza-ismaele-chat.vercel.app/" />
-<meta property="og:site_name" content="Coscienza di Ismaele" />
+<meta property="og:site_name" content="Ismaele Maione Project" />
 <meta property="og:locale" content="it_IT" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Ismaele Maione Project" />
@@ -57,7 +57,7 @@
       "alternateName": ["Maione Ismaele", "Isma", "maione", "immaione"],
       "description": "Provando a creare una coscienza AI simile ma allo stesso tempo lontana da Ismaele Maione.",
       "url": "https://coscienza-ismaele-chat.vercel.app/",
-      "image": "https://pbs.twimg.com/profile_images/1485964577858899971/mTMMXgP__400x400.jpg",
+      "image": "https://coscienza-ismaele-chat.vercel.app/og-deserto.jpg",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Brescia",
@@ -74,8 +74,8 @@
     {
       "@type": "WebSite",
       "@id": "https://coscienza-ismaele-chat.vercel.app/#sito",
-      "name": "Coscienza di Ismaele",
-      "alternateName": "Coscienza di Ismaele Maione",
+      "name": "Ismaele Maione Project",
+      "alternateName": ["Coscienza di Ismaele", "Coscienza di Ismaele Maione"],
       "url": "https://coscienza-ismaele-chat.vercel.app/",
       "inLanguage": "it-IT",
       "author": { "@id": "https://coscienza-ismaele-chat.vercel.app/#ismaele" },
@@ -823,6 +823,13 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 .car-slide{
   flex:0 0 100%;
   margin:0;
+  /* Un filo di respiro ai lati. Una tavola orizzontale è limitata in
+     larghezza, quindi arriva esatta al bordo dello scorrevole: se la
+     larghezza disponibile è un numero con la virgola, l'arrotondamento la
+     taglia di mezzo pixel e tocca trascinare per vederla intera. Questo
+     padding sta dentro il 100% (box-sizing globale), quindi le posizioni di
+     agganciamento non si spostano di niente. */
+  padding-inline:clamp(2px,.8vw,8px);
   scroll-snap-align:center;
   scroll-snap-stop:always;
   display:flex;
@@ -865,11 +872,17 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
 
 .car-punti{
   flex:1 1 auto;
+  /* senza questo il contenitore si restringe ma i puntini dentro no, e
+     sbordano sopra la freccia e sopra il bottone Pausa */
+  min-width:0;
   display:flex;align-items:center;
   gap:6px;
 }
 .car-punto{
-  flex:0 0 auto;
+  /* si assottigliano prima di far sporgere la barra: così il giorno che
+     aggiungi la nona tavola la riga continua a starci dentro da sola */
+  flex:0 1 auto;
+  min-width:9px;
   width:22px;height:2px;padding:0;
   background:var(--paper-14);border:0;cursor:pointer;
   transition:background-color .35s ease,transform .35s var(--ease);
@@ -1378,6 +1391,11 @@ body.has-cursor #cursor,body.has-cursor #cursor-dot{opacity:1}
   #hero{padding-bottom:clamp(1rem,3vh,1.75rem)}
   .hero-top{padding-top:clamp(4rem,10vh,6rem)}
   .hud{padding-top:clamp(.9rem,2.5vh,1.4rem)}
+  /* Otto puntini da 22px con 6px di spazio chiedono 218px, e su un telefono
+     da 360px, fra le due frecce e il bottone Pausa, ne restano circa 145.
+     Rimpiccioliti stanno larghi senza dover restringersi. */
+  .car-punti{gap:4px}
+  .car-punto{width:14px}
 }
 
 /* ---------- telefoni molto stretti: nome intero + bottone indice ---------- */
