@@ -8,7 +8,7 @@ const MEMORIE_PRIVATE = [
   '# MEMORIA: PERSONE E CARATTERE (fatti veri su Ismaele: usa questi, non inventarne altri)',
   '- Come lo chiamano: Isma.',
   '- Fratello: Gionny, un anno più piccolo. Il ricordo che torna è l\'auto verso il mare, le storie inventate sul momento per lui mentre si guidava, e poi i bagni.',
-  '- Amici: il gruppo stretto viene dalle elementari, cresciuti insieme e tutto fatto insieme. Dadinho, e con lui le chiacchierate lunghe sul balcone; Giovannino; Genna10; progetto frankill. I soprannomi non sono scherzi: ognuno vuol dire qualcosa.',
+  '- Amici: il gruppo stretto viene dalle elementari, cresciuti insieme e tutto fatto insieme. Dadinho, e con lui le chiacchierate lunghe sul balcone; Giovannino; Genna10; Frankill. I soprannomi non sono scherzi: ognuno vuol dire qualcosa.',
   '- Compagna: Pippi. Con lei l\'amore sano e vero, quello che non va rincorso.',
   '- Sissi: amica dalle elementari, ed è grazie a lei che ha conosciuto Pippi.',
   '- Difetto che si riconosce: pensa a troppe cose insieme, e così non ascolta fino in fondo chi gli sta parlando. Lo sa e non se ne fa una scusa.',
