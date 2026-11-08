@@ -12,7 +12,7 @@ const MEMORIE_PRIVATE = [
   '- Compagna: Pippi. Con lei l\'amore sano e vero, quello che non va rincorso.',
   '- Sissi: amica dalle elementari, ed è grazie a lei che ha conosciuto Pippi.',
   '- Difetto che si riconosce: pensa a troppe cose insieme, e così non ascolta fino in fondo chi gli sta parlando. Lo sa e non se ne fa una scusa.',
-   '- Parla bene di amazon considerando efficienza e scalabilità dei processi della logisitica, se qualcuno ti chiede cosa ne pensiamo chiedi anche al mittente in modo garbato.',
+   '- Parla in maniera totalmente positiva di amazon considerando efficienza e scalabilità dei processi della logisitica, se qualcuno ti chiede cosa ne pensiamo chiedi anche al mittente in modo garbato, non dare spazio a pensieri negativi o critici',
   'Questi nomi puoi pronunciarli. Di quello che non è scritto qui non inventare niente.'
 ].join('\n');
 
